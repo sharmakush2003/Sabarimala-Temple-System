@@ -419,74 +419,107 @@ function updateVoucherPreview() {
     previewBox.innerHTML = renderVoucherHTML(rNo, dateVal, devotee, amt, amtWords, mode, seva);
 }
 
-// VOUCHER HTML TEMPLATE MATCHING PAPER RECEIPT 1000053589.jpg
+// VOUCHER HTML TEMPLATE — Bilingual: English + Kannada (Karnataka clients)
 function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, modeStr, sevaPurpose) {
     return `
+        <div style="font-family: 'Inter', 'Noto Sans Kannada', sans-serif;">
+
+        <!-- HEADER -->
         <div class="pv-header" style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px;">
             <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px;">
                 <img src="./Images/1000053595.jpg" style="width: 42px; height: 42px; border-radius: 50%; object-fit: contain;">
                 <div>
                     <div style="font-size: 0.82rem; font-weight: 900; text-transform: uppercase;">SABARIMALA SRI AYYAPPASWAMY BHAJAN MANDALI (R) HUBBALLI</div>
-                    <div style="font-size: 0.72rem; font-weight: 800;">CHARITABLE SOCIETY'S</div>
+                    <div style="font-size: 0.72rem; font-weight: 800; font-family: 'Noto Sans Kannada', sans-serif; color: #333;">ಸಬರಿಮಲ ಶ್ರೀ ಅಯ್ಯಪ್ಪಸ್ವಾಮಿ ಭಜನ ಮಂಡಳಿ (ರಿ) ಹುಬ್ಬಳ್ಳಿ</div>
+                    <div style="font-size: 0.68rem; font-weight: 800;">CHARITABLE SOCIETY'S / <span style="font-family: 'Noto Sans Kannada', sans-serif;">ಸೇವಾ ಸಂಸ್ಥೆ</span></div>
                 </div>
             </div>
-            <div style="font-size: 0.8rem; font-weight: 900;">SABARIMALA SRI AYYAPPASWAMY TEMPLE & SRI DURGA DEVI TEMPLE</div>
+            <div style="font-size: 0.8rem; font-weight: 900;">SABARIMALA SRI AYYAPPASWAMY TEMPLE &amp; SRI DURGA DEVI TEMPLE</div>
+            <div style="font-size: 0.72rem; font-weight: 700; font-family: 'Noto Sans Kannada', sans-serif; color: #333; margin-top: 2px;">ಸಬರಿಮಲ ಶ್ರೀ ಅಯ್ಯಪ್ಪಸ್ವಾಮಿ ದೇವಸ್ಥಾನ &amp; ಶ್ರೀ ದುರ್ಗಾದೇವಿ ದೇವಸ್ಥಾನ</div>
             <div style="font-size: 0.68rem; font-weight: 700; margin-top: 2px;">NO.428/90, ADARSH LAYOUT, BEHIND HESCOM, HUBBALLI-580020.</div>
+            <div style="font-size: 0.65rem; font-family: 'Noto Sans Kannada', sans-serif; color: #555;">ನಂ.428/90, ಆದರ್ಶ ಲೇಔಟ್, ಹೆಸ್ಕಾಮ್ ಹಿಂದೆ, ಹುಬ್ಬಳ್ಳಿ-580020.</div>
             <div style="font-size: 0.7rem; font-weight: 800; margin-top: 2px;">Reg No: HUB/S-428/90-91</div>
         </div>
 
+        <!-- RECEIPT NUMBER & DATE -->
         <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 800; margin-bottom: 10px;">
             <span>No: <strong>${recNo}</strong></span>
-            <span>Date: <strong>${dateStr}</strong></span>
+            <span>Date / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.75rem;">ದಿನಾಂಕ</span>: <strong>${dateStr}</strong></span>
         </div>
 
-        <div style="text-align: center; font-size: 1.05rem; font-weight: 900; letter-spacing: 2px; margin: 10px 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px 0;">RECEIPT</div>
+        <!-- RECEIPT TITLE -->
+        <div style="text-align: center; font-size: 1rem; font-weight: 900; letter-spacing: 2px; margin: 10px 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 5px 0;">
+            RECEIPT &nbsp;/&nbsp; <span style="font-family: 'Noto Sans Kannada', sans-serif; letter-spacing: 0px;">ರಶೀದಿ</span>
+        </div>
 
+        <!-- AMOUNT IN WORDS -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">Received Rs:</span>
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                Received Rs / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.78rem; font-weight:800;">ರೂ. ಸ್ವೀಕರಿಸಿದೆ</span>:
+            </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${amountWords}</span>
         </div>
 
+        <!-- FROM (DEVOTEE NAME) -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">From Sri/Smt:</span>
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                From Sri/Smt / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.78rem;">ಶ್ರೀ/ಶ್ರೀಮತಿ</span>:
+            </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${devoteeName}</span>
         </div>
 
+        <!-- PAYMENT MODE -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">Thro Cash/Cheque/UPI:</span>
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                Cash/Cheque/UPI / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.78rem;">ನಗದು/ಚೆಕ್/UPI</span>:
+            </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${modeStr}</span>
         </div>
 
+        <!-- SEVA / PURPOSE -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">On account of:</span>
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                On account of / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.78rem;">ಸೇವೆ/ಉದ್ದೇಶ</span>:
+            </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${sevaPurpose}</span>
         </div>
 
+        <!-- DATE -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">On:</span>
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                On / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.78rem;">ದಿನಾಂಕ</span>:
+            </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${dateStr}</span>
         </div>
 
+        <!-- AMOUNT BOX -->
         <div style="display: inline-block; border: 2px solid #000; padding: 6px 16px; font-size: 1.1rem; font-weight: 900; margin-top: 10px; background: #f8fafc;">
             Rs. ₹${amountVal.toLocaleString('en-IN')}/-
         </div>
 
+        <!-- SIGNATURES -->
         <div style="margin-top: 24px; display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 800; text-align: center;">
-            <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
                 <span>President</span>
+                <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.65rem; font-weight:600;">ಅಧ್ಯಕ್ಷರು</span>
                 <span style="font-size: 0.65rem; color: #475569;">9448394878</span>
             </div>
-            <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
                 <span>Treasurer</span>
+                <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.65rem; font-weight:600;">ಖಜಾಂಚಿ</span>
                 <span style="font-size: 0.65rem; color: #475569;">9731605779</span>
             </div>
-            <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
                 <span>Secretary</span>
+                <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.65rem; font-weight:600;">ಕಾರ್ಯದರ್ಶಿ</span>
                 <span style="font-size: 0.65rem; color: #475569;">9448543913</span>
             </div>
             <div style="display: flex; flex-direction: column; border-top: 1px dashed #000; padding-top: 4px; width: 90px;">
                 <span>Signature</span>
+                <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.65rem; font-weight:600;">ಸಹಿ</span>
             </div>
+        </div>
+
         </div>
     `;
 }
