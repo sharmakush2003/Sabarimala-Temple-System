@@ -1,0 +1,10 @@
+{
+  "name": "sabarimala-temple-hubballi-invoice-system",
+  "version": "1.0.0",
+  "description": "Invoice & Receipt Management System for Sabarimala Sri Ayyappaswamy Temple Hubballi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx -y serve -p 3001"
+  },
+  "dependencies": {}
+}

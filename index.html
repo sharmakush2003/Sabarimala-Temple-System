@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DHAM Admin | Sabarimala Sri Ayyappaswamy Temple</title>
+    <link rel="icon" type="image/jpg" href="./Images/1000053595.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css?v=dham_exact_v2">
+</head>
+
+<body>
+
+    <div id="protectedContent">
+        <!-- SIDEBAR (OBSIDIAN GLASS - EXACT DHAM ADMIN PORTAL) -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="./Images/1000053595.jpg" alt="Ayyappa Swamy Logo" style="width: 32px; height: 32px; border-radius: 50%; object-fit: contain; background: #ffffff; padding: 2px; border: 1px solid rgba(255,255,255,0.2);">
+                <div style="display: flex; flex-direction: column;">
+                    <span style="line-height: 1;">DHAM Admin</span>
+                    <span style="font-size: 0.6rem; color: #94a3af; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">Sabarimala Temple System</span>
+                </div>
+            </div>
+            
+            <nav style="flex: 1;">
+                <div class="nav-link active" id="navCustomBill" data-tab="custom-bill">
+                    <i data-lucide="plus-square"></i>
+                    <span>Create Invoice</span>
+                </div>
+                <div class="nav-link" id="navRegistry" data-tab="registry">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Donation Registry</span>
+                </div>
+                <div class="nav-link" id="navAboutTemple" data-tab="about-temple">
+                    <i data-lucide="landmark"></i>
+                    <span>About Temple</span>
+                </div>
+            </nav>
+
+            <!-- DEVELOPER CREDITS — PREMIUM CHITTORTECH STYLE (EXACT MATCH FOR DHAM PORTAL) -->
+            <div class="developer-credits">
+                <div class="dev-pill">
+                    <img src="logo.png" alt="ChittorTech Logo" class="dev-logo">
+                    <div class="dev-info">
+                        <p class="dev-label">A Product Of</p>
+                        <p class="dev-brand">ChittorTech</p>
+                    </div>
+                </div>
+                <div class="dev-badges">
+                    <p class="dev-badge-item">Recognized by iStart Rajasthan</p>
+                    <p class="dev-badge-item">Registered MSME | Startup India</p>
+                </div>
+                <div class="dev-contact">
+                    <a href="mailto:chittortech@gmail.com"><i data-lucide="mail"></i> chittortech@gmail.com</a>
+                </div>
+                <p class="dev-rights">
+                    © 2026 ChittorTech <br> All Rights Reserved
+                </p>
+            </div>
+        </aside>
+
+        <!-- MAIN WRAPPER -->
+        <main class="main-wrapper">
+            <header class="dashboard-header">
+                <div>
+                    <h1 id="pageTitle" style="font-size: 1.8rem; font-weight: 800;">Create Invoice</h1>
+                    <p id="pageSub" style="color: #64748b; font-size: 0.9rem;">Counter Billing &amp; Official Paper Receipt Generator</p>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <!-- LIVE SYSTEM STATUS BADGE — REFINED HUD STYLE -->
+                    <div id="systemStatus" class="status-badge-container" onclick="openSystemInfoModal()" style="margin-right: 12px; cursor: pointer;">
+                        <div style="display: flex; align-items: center; gap: 10px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.25); padding: 7px 16px; border-radius: 100px; backdrop-filter: blur(8px);">
+                            <div class="pulse-dot" style="width: 7px; height: 7px; border-radius: 50%; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);"></div>
+                            <span id="statusText" style="font-size: 0.62rem; font-weight: 800; color: #065f46; text-transform: uppercase; letter-spacing: 1.2px; display: flex; align-items: center; gap: 6px;">
+                                <i data-lucide="activity" style="width: 12px; height: 12px; opacity: 0.7;"></i>
+                                <span id="statusLabel">SYSTEM LIVE</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <button onclick="openSystemInfoModal()" style="background: none; border: none; padding: 8px; cursor: pointer; color: #94a3b8;" title="System Info"><i data-lucide="info"></i></button>
+                    <button onclick="location.reload()" style="background: none; border: none; padding: 8px; cursor: pointer; color: #64748b;" title="Refresh"><i data-lucide="rotate-ccw"></i></button>
+                </div>
+            </header>
+
+            <!-- TAB: DONATION REGISTRY -->
+            <div id="tab-registry" class="card-layer tab-pane" style="display: none;">
+                <div style="padding: 12px 20px; background: #f0fdf4; border-bottom: 1px solid #dcfce7; display: flex; align-items: center; gap: 10px;">
+                    <i data-lucide="info" style="width: 16px; height: 16px; color: #10b981; flex-shrink: 0;"></i>
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #166534; letter-spacing: 0.2px;">
+                        Registry shows only today's Seva bookings and temple donations, not the whole history. To see whole history, click on the button given on the right side - View Google Sheet.
+                    </span>
+                </div>
+                
+                <div class="table-controls" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <div class="filter-group">
+                            <button class="filter-btn active" data-filter="all">All Receipts</button>
+                            <button class="filter-btn" data-filter="today">Today's</button>
+                            <button class="filter-btn" data-filter="cash">Cash</button>
+                            <button class="filter-btn" data-filter="upi">UPI / Online</button>
+                        </div>
+                        <div class="search-input-container" style="position: relative;">
+                            <i data-lucide="search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #94a3b8;"></i>
+                            <input type="text" id="registrySearch" placeholder="Search name, receipt #, mobile..." 
+                                style="padding: 8px 12px 8px 36px; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.8rem; width: 260px; font-weight: 600; background: white; outline: none;">
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: right; display: flex; align-items: center; gap: 14px;">
+                        <a href="https://docs.google.com/spreadsheets" id="viewGoogleSheetBtn" target="_blank" class="btn-export btn-export-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; padding: 10px 16px; border-radius: 10px;">
+                            <i data-lucide="file-spreadsheet" style="width: 16px; height: 16px;"></i> View Google Sheet
+                        </a>
+                        <div id="showingCountText" style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+                            Showing All Donations
+                        </div>
+                    </div>
+                </div>
+
+                <table class="hms-table">
+                    <thead>
+                        <tr>
+                            <th>Guest Information</th>
+                            <th>Seva / Purpose</th>
+                            <th>Mobile / Date</th>
+                            <th>Amount & Mode</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registryTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB 1: CREATE INVOICE -->
+            <div id="tab-custom-bill" class="tab-pane active">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+                    <!-- Billing Form -->
+                    <div class="card-layer" style="padding: 24px 28px;">
+                        <form id="invoiceForm">
+                            <div style="margin-bottom: 14px;">
+                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">DEVOTEE NAME (SRI / SMT) *</label>
+                                <input type="text" id="devoteeName" placeholder="e.g. Priyanshu Sharma" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                            </div>
+
+                            <div style="margin-bottom: 14px;">
+                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">MOBILE NUMBER</label>
+                                <input type="tel" id="devoteeMobile" placeholder="e.g. 7014311772" style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                            </div>
+
+                            <div style="margin-bottom: 14px;">
+                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">SELECT SEVA / POOJA PURPOSE *</label>
+                                <select id="sevaSelect" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                    <option value="">-- Choose Seva (25 Predefined Options) --</option>
+                                </select>
+                            </div>
+
+                            <div id="customSevaRow" style="display: none; margin-bottom: 14px;">
+                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">CUSTOM PURPOSE DETAILS</label>
+                                <input type="text" id="customSevaName" placeholder="Enter custom purpose details..." style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+                                <div>
+                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">EVENT / SEVA DATE *</label>
+                                    <input type="date" id="sevaDate" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                </div>
+                                <div>
+                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">PAYMENT MODE *</label>
+                                    <select id="paymentMode" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                        <option value="Cash">Cash</option>
+                                        <option value="UPI">UPI / Online</option>
+                                        <option value="Cheque">Cheque</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="paymentRefRow" style="display: none; margin-bottom: 14px;">
+                                <label id="paymentRefLabel" style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">TRANSACTION ID / CHEQUE NO *</label>
+                                <input type="text" id="paymentRefInput" placeholder="e.g. 423981726354" style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
+                                <div>
+                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">AMOUNT (RS ₹) *</label>
+                                    <input type="number" id="amount" min="1" placeholder="0.00" required style="width: 100%; font-weight: 800; font-size: 1.15rem; color: #10b981; padding: 10px 14px; border-radius: 10px;">
+                                </div>
+                                <div>
+                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">RECEIPT NUMBER</label>
+                                    <input type="text" id="receiptNo" readonly style="width: 100%; background: #f1f5f9; font-weight: 700; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                </div>
+                            </div>
+
+                            <div style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 10px 16px; border-radius: 10px; margin-bottom: 20px;">
+                                <span style="font-size: 0.68rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Amount in Words:</span>
+                                <div id="amountInWords" style="font-size: 0.92rem; font-weight: 800; color: #d97706; margin-top: 2px;">Rupees Zero Only</div>
+                            </div>
+
+                            <button type="submit" class="btn-allot" style="width: 100%; padding: 13px; font-size: 0.95rem; font-weight: 800; gap: 8px; justify-content: center; border-radius: 12px;">
+                                <i data-lucide="printer"></i>
+                                Generate & Print Receipt Voucher
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Live Voucher Preview -->
+                    <div class="card-layer" style="padding: 24px 28px; background: #f8fafc;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                            <h3 style="font-weight: 800; font-size: 1rem; color: #0f172a; display: flex; align-items: center; gap: 8px; margin: 0;">
+                                <i data-lucide="eye" style="color: #4f46e5;"></i>
+                                Live Paper Voucher Preview
+                            </h3>
+                            <span style="font-size: 0.65rem; font-weight: 800; background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px;">LIVE PREVIEW</span>
+                        </div>
+                        <div id="voucherPreviewBox" style="background: #ffffff; border: 2px solid #000; padding: 20px; font-family: 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                            <!-- Live Voucher Rendered Here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: ABOUT TEMPLE -->
+            <div id="tab-about-temple" class="tab-pane" style="display: none;">
+                <div class="card-layer" style="padding: 32px; margin-bottom: 24px; display: flex; align-items: center; gap: 24px;">
+                    <img src="./Images/1000053595.jpg" alt="Swami Ayyappa" style="width: 110px; height: 110px; border-radius: 16px; border: 2px solid #d97706; padding: 4px; object-fit: contain; background: #fffbeb;">
+                    <div>
+                        <h2 style="font-size: 1.4rem; font-weight: 900; color: #111827;">SABARIMALA SRI AYYAPPASWAMY TEMPLE & SRI DURGA DEVI TEMPLE</h2>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #d97706; margin-top: 4px;">SABARIMALA SRI AYYAPPASWAMY BHAJAN MANDALI (R) HUBBALLI CHARITABLE SOCIETY</h4>
+                        <p style="font-size: 0.85rem; color: #64748b; margin-top: 8px;">NO.428/90, ADARSH LAYOUT, BEHIND HESCOM, HUBBALLI-580020.</p>
+                        <span class="status-tag tag-pending" style="margin-top: 8px; font-weight: 800;">REGISTRATION NO: HUB/S-428/90-91</span>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 24px;">
+                    <div class="card-layer" style="padding: 20px; display: flex; align-items: center; gap: 16px;">
+                        <div class="icon-box" style="background: #f1f5f9; color: #111827;"><i data-lucide="user"></i></div>
+                        <div>
+                            <span style="font-size: 0.65rem; font-weight: 800; color: #d97706; text-transform: uppercase;">President</span>
+                            <h4 style="font-size: 0.95rem; font-weight: 800;">Bhajan Mandali</h4>
+                            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b;">+91 9448394878</span>
+                        </div>
+                    </div>
+                    <div class="card-layer" style="padding: 20px; display: flex; align-items: center; gap: 16px;">
+                        <div class="icon-box" style="background: #f1f5f9; color: #111827;"><i data-lucide="vault"></i></div>
+                        <div>
+                            <span style="font-size: 0.65rem; font-weight: 800; color: #d97706; text-transform: uppercase;">Treasurer</span>
+                            <h4 style="font-size: 0.95rem; font-weight: 800;">Bhajan Mandali</h4>
+                            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b;">+91 9731605779</span>
+                        </div>
+                    </div>
+                    <div class="card-layer" style="padding: 20px; display: flex; align-items: center; gap: 16px;">
+                        <div class="icon-box" style="background: #f1f5f9; color: #111827;"><i data-lucide="file-signature"></i></div>
+                        <div>
+                            <span style="font-size: 0.65rem; font-weight: 800; color: #d97706; text-transform: uppercase;">Secretary</span>
+                            <h4 style="font-size: 0.95rem; font-weight: 800;">Bhajan Mandali</h4>
+                            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b;">+91 9448543913</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-layer" style="padding: 28px;">
+                    <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 16px;">Official List of 25 Predefined Temple Sevas</h3>
+                    <div id="aboutSevasList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px;">
+                        <!-- JS Items -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- SYSTEM INFO MODAL (EXACT MATCH FOR DHAM DHARAMSHALA PORTAL) -->
+    <div id="systemInfoModal" class="overlay" style="display: none;">
+        <div class="modal-pane">
+            <!-- Static Status Badge -->
+            <div id="sysStatusBadge" class="status-badge online">
+                <span class="dot"></span>
+                <span id="sysStatusLabel">System Live</span>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <div id="sysIconBox" class="is-online" style="width: 60px; height: 60px; background: #dcfce7; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; transition: 0.3s;">
+                    <i id="sysIcon" data-lucide="check-circle" style="width: 28px; height: 28px;"></i>
+                </div>
+                <h2 id="sysTitle" style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-bottom: 5px;">System Running Smoothly</h2>
+                <p id="sysSubtitle" style="font-size: 0.85rem; color: #64748b; margin-bottom: 25px;">Internet Connected. All services are operational.</p>
+                
+                <div class="dev-card-vip" style="padding: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px;">
+                    <p style="font-size: 0.7rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; text-align: center;">A Product Of</p>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 15px;">
+                        <img src="logo.png" alt="ChittorTech Logo" style="width: 40px; height: 40px; border-radius: 8px; object-fit: contain;">
+                        <h3 style="font-size: 1.4rem; font-weight: 900; color: #0f172a; margin: 0; letter-spacing: -0.5px;">ChittorTech</h3>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; align-items: center;">
+                        <p style="font-size: 0.75rem; font-weight: 700; color: #00ff88; background: #111827; padding: 4px 12px; border-radius: 50px; display: inline-flex; align-items: center; gap: 6px;">
+                            Recognized by iStart Rajasthan
+                        </p>
+                        <p style="font-size: 0.72rem; color: #334155; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="mail" style="width: 14px; height: 14px; opacity: 0.6;"></i> chittortech@gmail.com
+                        </p>
+                    </div>
+                    
+                    <p style="font-size: 0.65rem; color: #94a3b8; border-top: 1px dashed #e2e8f0; padding-top: 15px; text-align: center; font-weight: 700; margin-top: 10px; letter-spacing: 0.5px; text-transform: uppercase;">
+                        © 2026 ChittorTech • All Rights Reserved
+                    </p>
+                </div>
+            </div>
+            
+            <button onclick="document.getElementById('systemInfoModal').style.display='none'" style="width: 100%; padding: 14px; border-radius: 12px; background: #0f172a; color: white; border: none; font-weight: 800; font-size: 0.9rem; cursor: pointer;">Close Window</button>
+        </div>
+    </div>
+
+    <!-- PRINT VOUCHER MODAL -->
+    <div id="printVoucherModal" class="overlay" style="display: none;">
+        <div class="modal-pane" style="max-width: 600px; padding: 28px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0;">
+                <h3 style="font-weight: 800; font-size: 1.05rem;">Official Temple Voucher Print View</h3>
+                <button onclick="closeVoucherModal()" style="background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #64748b;">✕</button>
+            </div>
+            <div id="printableVoucherContent">
+                <!-- Rendered dynamically -->
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 12px; border-top: 1px solid #e2e8f0;">
+                <button onclick="closeVoucherModal()" class="btn-profile">Close</button>
+                <button onclick="window.print()" class="btn-export btn-export-green">
+                    <i data-lucide="printer" style="width: 16px; height: 16px;"></i> Print Receipt
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=dham_exact_v2"></script>
+    <script>
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
