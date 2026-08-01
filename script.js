@@ -182,7 +182,8 @@ function initNavigation() {
     const titlesMap = {
         "custom-bill": { title: "Create Invoice", sub: "Counter Billing & Official Paper Receipt Generator" },
         "registry": { title: "Donation Registry", sub: "Sabarimala Sri Ayyappaswamy Temple — Management Dashboard" },
-        "about-temple": { title: "About Sabarimala Temple", sub: "Hubballi Charitable Society & Official Seva Directory" }
+        "about-temple": { title: "About Sabarimala Temple", sub: "Hubballi Charitable Society & Official Seva Directory" },
+        "how-to-use": { title: "How To Use", sub: "Complete User Manual & System Operating Guide" }
     };
 
     navLinks.forEach(link => {
@@ -885,7 +886,30 @@ window.copyWebsiteLink = function() {
     });
 };
 
+// HOW TO USE GUIDE LANGUAGE SWITCHER
+window.switchGuideLang = function(lang) {
+    const btnEng = document.getElementById("btnGuideEng");
+    const btnKan = document.getElementById("btnGuideKan");
+    const guideEng = document.getElementById("guideContentEng");
+    const guideKan = document.getElementById("guideContentKan");
+
+    if (btnEng && btnKan && guideEng && guideKan) {
+        if (lang === 'kannada') {
+            btnEng.classList.remove("active");
+            btnKan.classList.add("active");
+            guideEng.style.display = "none";
+            guideKan.style.display = "block";
+        } else {
+            btnKan.classList.remove("active");
+            btnEng.classList.add("active");
+            guideKan.style.display = "none";
+            guideEng.style.display = "block";
+        }
+    }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     switchMobileNoticeLang('english');
 });
+
 

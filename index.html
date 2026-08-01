@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="style.css?v=dham_v3_clean">
+    <link rel="stylesheet" href="style.css?v=dham_v4_manual">
 </head>
 
 <body>
@@ -78,6 +78,10 @@
                 <div class="nav-link" id="navAboutTemple" data-tab="about-temple">
                     <i data-lucide="landmark"></i>
                     <span>About Temple</span>
+                </div>
+                <div class="nav-link" id="navHowToUse" data-tab="how-to-use">
+                    <i data-lucide="help-circle"></i>
+                    <span>How To Use</span>
                 </div>
             </nav>
 
@@ -318,6 +322,290 @@
                     </div>
                 </div>
             </div>
+
+            <!-- TAB: HOW TO USE -->
+            <div id="tab-how-to-use" class="tab-pane" style="display: none;">
+                
+                <!-- HEADER BAR WITH LANGUAGE SWITCHER -->
+                <div class="card-layer" style="padding: 24px 28px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff;">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+                            <i data-lucide="book-open" style="color: #818cf8; width: 24px; height: 24px;"></i>
+                            <h2 style="font-size: 1.25rem; font-weight: 900; margin: 0; color: #ffffff;">System Operating Manual &amp; User Guide</h2>
+                        </div>
+                        <p style="font-size: 0.82rem; color: #94a3b8; margin: 0;">Complete step-by-step instructions for temple administrative staff and counter operators.</p>
+                    </div>
+
+                    <div class="voucher-lang-group" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 4px; border-radius: 10px;">
+                        <button type="button" id="btnGuideEng" class="voucher-lang-btn active" onclick="switchGuideLang('english')" style="padding: 6px 16px; font-size: 0.8rem;">
+                            <i data-lucide="globe" style="width: 14px; height: 14px;"></i> English Guide
+                        </button>
+                        <button type="button" id="btnGuideKan" class="voucher-lang-btn" onclick="switchGuideLang('kannada')" style="padding: 6px 16px; font-size: 0.8rem;">
+                            <i data-lucide="languages" style="width: 14px; height: 14px;"></i> ಕನ್ನಡ ಮಾರ್ಗದರ್ಶಿ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ENGLISH GUIDE CONTENT -->
+                <div id="guideContentEng">
+                    <!-- 1. CREATE INVOICE SECTION -->
+                    <div class="card-layer" style="padding: 28px; margin-bottom: 24px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div style="background: #e0e7ff; color: #4f46e5; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="plus-square" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">1. How to Create &amp; Print Invoices (Counter Billing)</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">Generating official paper donation vouchers step-by-step</span>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">STEP 1</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">Enter Devotee Details</h4>
+                                <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    Type the Devotee's Name (Sri / Smt) and their 10-digit Mobile Number. The mobile number helps in searching donation history in the registry later.
+                                </p>
+                            </div>
+
+                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">STEP 2</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">Select Seva / Pooja Purpose</h4>
+                                <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    Select from 25 predefined official temple Sevas (e.g. Mahapooja, Annadana, Nitya Seva, Archana). Choose <em>"Custom Purpose"</em> if entering a special custom donation amount.
+                                </p>
+                            </div>
+
+                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">STEP 3</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">Select Date &amp; Payment Mode</h4>
+                                <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    Select payment mode: <strong>Cash</strong>, <strong>UPI</strong> (enter Transaction/Ref ID), or <strong>Cheque</strong> (enter Cheque No). Amount in Words is calculated automatically!
+                                </p>
+                            </div>
+
+                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">STEP 4</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">Language Toggle &amp; Print</h4>
+                                <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    Check the Live Voucher Preview. Use <strong>English Preview</strong> or <strong>Kannada Preview</strong> buttons to select voucher language, then click <em>"Generate &amp; Print Receipt Voucher"</em> to print.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. DONATION REGISTRY SECTION -->
+                    <div class="card-layer" style="padding: 28px; margin-bottom: 24px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div style="background: #dcfce7; color: #166534; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="layout-dashboard" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">2. Donation Registry &amp; Management Dashboard</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">Searching, filtering, re-printing, and exporting donation data</span>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                                    <i data-lucide="search" style="width: 18px; height: 18px;"></i>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Instant Live Search</h4>
+                                </div>
+                                <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    Type any Devotee Name, Receipt Number (e.g. STH-2026-0004), Mobile Number, or Seva Name in the search box to find matching records instantly.
+                                </p>
+                            </div>
+
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                                    <i data-lucide="filter" style="width: 18px; height: 18px;"></i>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Payment Mode Filters</h4>
+                                </div>
+                                <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    Click filter pills (All, Cash, UPI, Cheque) to isolate collection channels and view breakdown statistics for audit purposes.
+                                </p>
+                            </div>
+
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                                    <i data-lucide="download" style="width: 18px; height: 18px;"></i>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Export to Excel / CSV</h4>
+                                </div>
+                                <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    Click <em>"Export CSV"</em> to download complete donation registry files for Excel bookkeeping, auditing, or temple archives.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. ADVANCED FEATURES & TIPS -->
+                    <div class="card-layer" style="padding: 28px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div style="background: #fef3c7; color: #b45309; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="zap" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">3. Quick Reference Tips for Operators</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">Important features for smooth counter operation</span>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
+                                <i data-lucide="check-circle-2" style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                                <div>
+                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">Re-printing Old Vouchers</h5>
+                                    <p style="font-size: 0.8rem; color: #78350f; margin: 0; line-height: 1.4;">
+                                        Go to Donation Registry, locate the receipt, and click <em>"Print Voucher"</em>. You can switch language to English or Kannada inside the modal before printing.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
+                                <i data-lucide="check-circle-2" style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                                <div>
+                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">Safe Local Storage</h5>
+                                    <p style="font-size: 0.8rem; color: #78350f; margin: 0; line-height: 1.4;">
+                                        All billing data is automatically saved in browser local storage. Data stays safe even if you refresh the browser page or restart the computer.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KANNADA GUIDE CONTENT -->
+                <div id="guideContentKan" style="display: none;">
+                    <!-- 1. CREATE INVOICE SECTION (KANNADA) -->
+                    <div class="card-layer" style="padding: 28px; margin-bottom: 24px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div style="background: #e0e7ff; color: #4f46e5; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="plus-square" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">೧. ಇನ್‌ವಾಯ್ಸ್ ಮತ್ತು ರಶೀದಿ ರಚಿಸುವುದು ಹೇಗೆ (Counter Billing)</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">ಅಧಿಕೃತ ದೇವಸ್ಥಾನದ ರಶೀದಿ ರಚಿಸುವ ಹಂತ-ಹಂತದ ಮಾರ್ಗದರ್ಶಿ</span>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">ಹಂತ ೧</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">ಭಕ್ತರ ವಿವರಗಳನ್ನು ನಮೂದಿಸಿ</h4>
+                                <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    ಭಕ್ತರ ಹೆಸರು (ಶ್ರೀ / ಶ್ರೀಮತಿ) ಮತ್ತು ಅವರ ೧೦-ಅಂಕಿಗಳ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ. ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯು ನಂತರ ರಿಜಿಸ್ಟ್ರಿಯಲ್ಲಿ ಹುಡುಕಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
+                                </p>
+                            </div>
+
+                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">ಹಂತ ೨</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">ಸೇವೆ / ಪೂಜೆಯ ಉದ್ದೇಶ ಆಯ್ಕೆಮಾಡಿ</h4>
+                                <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    ೨೫ ಪೂರ್ವನಿರ್ಧರಿತ ದೇವಸ್ಥಾನದ ಸೇವೆಗಳಲ್ಲಿ (ಉದಾ: ಮಹಾಪೂಜೆ, ಅನ್ನದಾನ, ನಿತ್ಯ ಸೇವೆ, ಅರ್ಚನೆ) ಒಂದನ್ನು ಆಯ್ಕೆಮಾಡಿ. ವಿಶೇಷ ಮೊತ್ತವಿದ್ದರೆ <em>"Custom Purpose"</em> ಆಯ್ಕೆಮಾಡಿ.
+                                </p>
+                            </div>
+
+                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">ಹಂತ ೩</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">ದಿನಾಂಕ ಮತ್ತು ಪಾವತಿ ವಿಧಾನ ಆಯ್ಕೆಮಾಡಿ</h4>
+                                <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    ಪಾವತಿ ವಿಧಾನ ಆಯ್ಕೆಮಾಡಿ: <strong>ನಗದು (Cash)</strong>, <strong>UPI</strong> (ರೆಫರೆನ್ಸ್ ಐಡಿ ಹಾಕಿ), ಅಥವಾ <strong>ಚೆಕ್ (Cheque)</strong>. ಅಕ್ಷರಗಳಲ್ಲಿ ಮೊತ್ತವು ತಾನಾಗಿಯೇ ಲೆಕ್ಕಾಚಾರವಾಗುತ್ತದೆ!
+                                </p>
+                            </div>
+
+                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">ಹಂತ ೪</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">ಭಾಷಾ ಆಯ್ಕೆ ಮತ್ತು ಮುದ್ರಣ (Print)</h4>
+                                <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    ಲೈವ್ ರಶೀದಿ ಪೂರ್ವವೀಕ್ಷಣೆ ನೋಡಿ. <strong>English Preview</strong> ಅಥವಾ <strong>Kannada Preview</strong> ಬಟನ್ ಬಳಸಿ ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ, ನಂತರ <em>"Generate &amp; Print Receipt Voucher"</em> ಕ್ಲಿಕ್ ಮಾಡಿ.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. DONATION REGISTRY SECTION (KANNADA) -->
+                    <div class="card-layer" style="padding: 28px; margin-bottom: 24px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div style="background: #dcfce7; color: #166534; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="layout-dashboard" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">೨. ದೇಣಿಗೆ ದಾಖಲೆ ಮತ್ತು ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ನಿರ್ವಹಣೆ</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">ದೇಣಿಗೆ ದಾಖಲೆಗಳನ್ನು ಹುಡುಕುವುದು, ಫಿಲ್ಟರ್ ಮಾಡುವುದು ಮತ್ತು ಡೌನ್‌ಲೋಡ್ ಮಾಡುವುದು</span>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                                    <i data-lucide="search" style="width: 18px; height: 18px;"></i>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">ತ್ವರಿತ ಶೋಧನೆ (Search)</h4>
+                                </div>
+                                <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    ಯಾವುದೇ ಭಕ್ತರ ಹೆಸರು, ರಶೀದಿ ಸಂಖ್ಯೆ (ಉದಾ: STH-2026-0004), ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಅಥವಾ ಸೇವೆಯ ಹೆಸರನ್ನು ಸರ್ಚ್ ಬಾಕ್ಸ್‌ನಲ್ಲಿ ಟೈಪ್ ಮಾಡುವ ಮೂಲಕ ತಕ್ಷಣ ಹುಡುಕಿ.
+                                </p>
+                            </div>
+
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                                    <i data-lucide="filter" style="width: 18px; height: 18px;"></i>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">ಪಾವತಿ ವಿಧಾನ ಫಿಲ್ಟರ್‌ಗಳು</h4>
+                                </div>
+                                <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    ಲೆಕ್ಕಪರಿಶೋಧನೆಗಾಗಿ ನಗದು (Cash), UPI, ಅಥವಾ ಚೆಕ್ (Cheque) ಪಾವತಿಗಳನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ವೀಕ್ಷಿಸಲು ಫಿಲ್ಟರ್ ಬಟನ್‌ಗಳನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ.
+                                </p>
+                            </div>
+
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                                    <i data-lucide="download" style="width: 18px; height: 18px;"></i>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Excel / CSV ಗೆ ಎಕ್ಸ್‌ಪೋರ್ಟ್ ಮಾಡಿ</h4>
+                                </div>
+                                <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
+                                    ದೇವಸ್ಥಾನದ ಲೆಕ್ಕಪತ್ರ ದಾಖಲೆಗಳಿಗಾಗಿ ಸಂಪೂರ್ಣ ದೇಣಿಗೆ ರಿಜಿಸ್ಟ್ರಿಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು <em>"Export CSV"</em> ಕ್ಲಿಕ್ ಮಾಡಿ.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. ADVANCED FEATURES & TIPS (KANNADA) -->
+                    <div class="card-layer" style="padding: 28px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div style="background: #fef3c7; color: #b45309; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="zap" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">೩. ಸಿಬ್ಬಂದಿಗಾಗಿ ಪ್ರಮುಖ ಸಲಹೆಗಳು</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">ಸುಲಭ ಮತ್ತು ಸುರಕ್ಷಿತ ಕಾರ್ಯಾಚರಣೆಗಾಗಿ</span>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
+                                <i data-lucide="check-circle-2" style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                                <div>
+                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">ಹಳೆಯ ರಶೀದಿಗಳನ್ನು ಮರು-ಮುದ್ರಿಸುವುದು</h5>
+                                    <p style="font-size: 0.8rem; color: #78350f; margin: 0; line-height: 1.4;">
+                                        Donation Registry ಗೆ ಹೋಗಿ, ರಶೀದಿಯನ್ನು ಹುಡುಕಿ ಮತ್ತು <em>"Print Voucher"</em> ಕ್ಲಿಕ್ ಮಾಡಿ. ಮುದ್ರಿಸುವ ಮುನ್ನ ಇಂಗ್ಲಿಷ್ ಅಥವಾ ಕನ್ನಡ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಬಹುದು.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
+                                <i data-lucide="check-circle-2" style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                                <div>
+                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">ಸುರಕ್ಷಿತ ಡೇಟಾ ಸಂಗ್ರಹಣೆ</h5>
+                                    <p style="font-size: 0.8rem; color: #78350f; margin: 0; line-height: 1.4;">
+                                        ಎಲ್ಲಾ ಬಿಲ್ಲಿಂಗ್ ಡೇಟಾವನ್ನು ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸುರಕ್ಷಿತವಾಗಿ ಉಳಿಸಲಾಗುತ್ತದೆ. ಕಂಪ್ಯೂಟರ್ ರಿಸ್ಟಾರ್ಟ್ ಮಾಡಿದರೂ ಡೇಟಾ ಸುರಕ್ಷಿತವಾಗಿರುತ್ತದೆ.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
@@ -390,7 +678,7 @@
         </div>
     </div>
 
-    <script src="script.js?v=dham_v3_clean"></script>
+    <script src="script.js?v=dham_v4_manual"></script>
     <script>
         if (window.lucide) {
             lucide.createIcons();
