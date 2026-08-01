@@ -834,7 +834,6 @@ window.switchMobileNoticeLang = function(lang) {
     const btnKan = document.getElementById("mobileLangKan");
     const content = document.getElementById("mobileNoticeContent");
     const copyText = document.getElementById("btnCopyText");
-    const dismissText = document.getElementById("btnDismissText");
 
     if (btnEng && btnKan) {
         if (lang === 'english') {
@@ -850,44 +849,37 @@ window.switchMobileNoticeLang = function(lang) {
 
     if (lang === 'kannada') {
         content.innerHTML = `
-            <h2 style="font-size: 1.2rem; font-weight: 900; color: #ffffff; margin-bottom: 8px;">
-                🖥️ ಡೆಸ್ಕ್‌ಟಾಪ್ / ಲ್ಯಾಪ್‌ಟಾಪ್ ಅಗತ್ಯವಿದೆ
+            <h2 style="font-size: 1.2rem; font-weight: 900; color: #f87171; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                🚫 ಡೆಸ್ಕ್‌ಟಾಪ್‌ನಲ್ಲಿ ಮಾತ್ರ ಲಭ್ಯವಿದೆ
             </h2>
             <p style="font-size: 0.86rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 14px;">
-                ಈ ಅಡ್ಮಿನ್ ಮತ್ತು ರಶೀದಿ ನಿರ್ವಹಣಾ ವ್ಯವಸ್ಥೆಯನ್ನು <strong>ಡೆಸ್ಕ್‌ಟಾಪ್, ಲ್ಯಾಪ್‌ಟಾಪ್ ಮತ್ತು ಟ್ಯಾಬ್ಲೆಟ್ (Tablet)</strong> ಪರದೆಗಳಿಗಾಗಿ ವಿಶೇಷವಾಗಿ ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ.
+                ಈ ದೇವಸ್ಥಾನದ ಅಡ್ಮಿನ್ ಮತ್ತು ರಶೀದಿ ನಿರ್ವಹಣಾ ವ್ಯವಸ್ಥೆಯನ್ನು <strong>ಡೆಸ್ಕ್‌ಟಾಪ್, ಲ್ಯಾಪ್‌ಟಾಪ್ ಮತ್ತು ಟ್ಯಾಬ್ಲೆಟ್ (Tablet)</strong> ಪರದೆಗಳಿಗಾಗಿ ಮಾತ್ರ ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ.
             </p>
-            <div style="background: rgba(217, 119, 6, 0.18); border: 1px solid rgba(217, 119, 6, 0.35); border-radius: 12px; padding: 12px; font-size: 0.78rem; color: #fef3c7; text-align: left; line-height: 1.4;">
-                💡 <strong>ಸಲಹೆ:</strong> ಉತ್ತಮ ರಶೀದಿ ಮುದ್ರಣ (Printing) ಅನುಭವಕ್ಕಾಗಿ ಕಂಪ್ಯೂಟರ್‌ನಲ್ಲಿ ಈ ಲಿಂಕ್ ತೆರೆಯಿರಿ ಅಥವಾ ಮೊಬೈಲ್ ಬ್ರೌಸರ್ ಮೆನುವಿನಲ್ಲಿ <strong>"Desktop site"</strong> ಆನ್ ಮಾಡಿ.
+            <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 12px; padding: 12px; font-size: 0.78rem; color: #fecaca; text-align: center; line-height: 1.4; font-weight: 600;">
+                🔒 ಮೊಬೈಲ್ ಸಾಧನಗಳಲ್ಲಿ ಬಳಕೆಯನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ. ದಯವಿಟ್ಟು ಈ ಲಿಂಕ್ ಅನ್ನು ಕಂಪ್ಯೂಟರ್ ಅಥವಾ ಲ್ಯಾಪ್‌ಟಾಪ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ.
             </div>
         `;
         if (copyText) copyText.textContent = "ಪೋರ್ಟಲ್ ಲಿಂಕ್ ಕಾಪಿ ಮಾಡಿ";
-        if (dismissText) dismissText.textContent = "ಮೊಬೈಲ್‌ನಲ್ಲಿ ಮುಂದುವರೆಯಿರಿ";
     } else {
         content.innerHTML = `
-            <h2 style="font-size: 1.2rem; font-weight: 900; color: #ffffff; margin-bottom: 8px;">
-                🖥️ Desktop / Laptop Required
+            <h2 style="font-size: 1.2rem; font-weight: 900; color: #f87171; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                🚫 Desktop / Laptop Required
             </h2>
             <p style="font-size: 0.86rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 14px;">
-                This Admin & Invoice Management System is engineered for <strong>Desktop, Laptop, and Tablet</strong> screens for precise receipt printing.
+                This Admin & Invoice Management System is strictly engineered for <strong>Desktop, Laptop, and Tablet</strong> screens.
             </p>
-            <div style="background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 12px; padding: 12px; font-size: 0.78rem; color: #e0e7ff; text-align: left; line-height: 1.4;">
-                💡 <strong>Tip:</strong> For best experience, please open this link on your Computer/Laptop or enable <strong>"Desktop site"</strong> mode in your mobile browser.
+            <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 12px; padding: 12px; font-size: 0.78rem; color: #fecaca; text-align: center; line-height: 1.4; font-weight: 600;">
+                🔒 Mobile access is restricted. Please open this website link on a Desktop, Laptop, or Tablet computer.
             </div>
         `;
         if (copyText) copyText.textContent = "Copy Portal Link";
-        if (dismissText) dismissText.textContent = "Continue on Mobile Anyway";
     }
-};
-
-window.dismissMobileNotice = function() {
-    const overlay = document.getElementById("mobileNoticeOverlay");
-    if (overlay) overlay.classList.add("dismissed");
 };
 
 window.copyWebsiteLink = function() {
     const link = "https://sabarimala-temple-system.web.app";
     navigator.clipboard.writeText(link).then(() => {
-        alert("Portal Link copied! Open this on your Laptop or Desktop.");
+        alert("Portal Link copied! Open this link on your Laptop or Desktop.");
     }).catch(() => {
         prompt("Copy this link to open on Desktop/Laptop:", link);
     });

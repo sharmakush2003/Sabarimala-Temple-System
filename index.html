@@ -24,11 +24,11 @@
                     <span style="font-weight: 800; font-size: 0.85rem; color: #ffffff;">DHAM Admin</span>
                 </div>
                 <div class="voucher-lang-group" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
-                    <button type="button" id="mobileLangEng" class="voucher-lang-btn active" onclick="switchMobileNoticeLang('english')" style="color: #fff; padding: 4px 10px; font-size: 0.72rem;">
-                        View in English
+                    <button type="button" id="mobileLangEng" class="voucher-lang-btn active" onclick="switchMobileNoticeLang('english')">
+                        English
                     </button>
-                    <button type="button" id="mobileLangKan" class="voucher-lang-btn" onclick="switchMobileNoticeLang('kannada')" style="color: #fff; padding: 4px 10px; font-size: 0.72rem;">
-                        ಕನ್ನಡದಲ್ಲಿ ವೀಕ್ಷಿಸಿ
+                    <button type="button" id="mobileLangKan" class="voucher-lang-btn" onclick="switchMobileNoticeLang('kannada')">
+                        ಕನ್ನಡ
                     </button>
                 </div>
             </div>
@@ -47,12 +47,9 @@
 
             <!-- Action Buttons -->
             <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 24px;">
-                <button type="button" onclick="copyWebsiteLink()" class="btn-primary" style="justify-content: center; width: 100%; padding: 12px; background: linear-gradient(135deg, #4f46e5, #6366f1); font-weight: 800; border-radius: 12px; border: none; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                    <i data-lucide="copy" style="width: 16px; height: 16px;"></i>
+                <button type="button" onclick="copyWebsiteLink()" class="btn-primary" style="justify-content: center; width: 100%; padding: 14px; background: linear-gradient(135deg, #4f46e5, #6366f1); font-weight: 800; border-radius: 12px; border: none; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+                    <i data-lucide="copy" style="width: 18px; height: 18px;"></i>
                     <span id="btnCopyText">Copy Portal Link</span>
-                </button>
-                <button type="button" onclick="dismissMobileNotice()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #94a3b8; padding: 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; cursor: pointer; width: 100%;">
-                    <span id="btnDismissText">Continue on Mobile Anyway</span>
                 </button>
             </div>
         </div>
