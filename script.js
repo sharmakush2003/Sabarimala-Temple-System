@@ -377,6 +377,45 @@ function initFormHandling() {
     updateVoucherPreview();
 }
 
+let currentVoucherLang = 'english';
+let activeModalReceipt = null;
+
+window.setVoucherLanguage = function(lang) {
+    currentVoucherLang = lang;
+    
+    // Update active button styling in Live Preview
+    const btnEng = document.getElementById("btnLangEnglish");
+    const btnKan = document.getElementById("btnLangKannada");
+    if (btnEng && btnKan) {
+        if (lang === 'english') {
+            btnEng.classList.add("active");
+            btnKan.classList.remove("active");
+        } else {
+            btnKan.classList.add("active");
+            btnEng.classList.remove("active");
+        }
+    }
+
+    // Update active button styling in Modal Preview
+    const mEng = document.getElementById("modalBtnLangEnglish");
+    const mKan = document.getElementById("modalBtnLangKannada");
+    if (mEng && mKan) {
+        if (lang === 'english') {
+            mEng.classList.add("active");
+            mKan.classList.remove("active");
+        } else {
+            mKan.classList.add("active");
+            mEng.classList.remove("active");
+        }
+    }
+    
+    updateVoucherPreview();
+
+    if (activeModalReceipt) {
+        renderModalVoucherContent(activeModalReceipt);
+    }
+};
+
 function updateVoucherPreview() {
     const previewBox = document.getElementById("voucherPreviewBox");
     if (!previewBox) return;
@@ -416,46 +455,44 @@ function updateVoucherPreview() {
     const dInput = document.getElementById("sevaDate");
     const dateVal = dInput && dInput.value ? dInput.value : new Date().toISOString().split('T')[0];
 
-    previewBox.innerHTML = renderVoucherHTML(rNo, dateVal, devotee, amt, amtWords, mode, seva);
+    previewBox.innerHTML = renderVoucherHTML(rNo, dateVal, devotee, amt, amtWords, mode, seva, currentVoucherLang);
 }
 
-// VOUCHER HTML TEMPLATE — Bilingual: English + Kannada (Karnataka clients)
-function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, modeStr, sevaPurpose) {
-    return `
-        <div style="font-family: 'Inter', 'Noto Sans Kannada', sans-serif;">
+// VOUCHER HTML TEMPLATE — Single Language Render: English OR Kannada
+function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, modeStr, sevaPurpose, lang = currentVoucherLang) {
+    if (lang === 'kannada') {
+        return `
+        <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif;">
 
-        <!-- HEADER -->
+        <!-- HEADER (KANNADA ONLY) -->
         <div class="pv-header" style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px;">
             <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px;">
                 <img src="./Images/1000053595.jpg" style="width: 42px; height: 42px; border-radius: 50%; object-fit: contain;">
                 <div>
-                    <div style="font-size: 0.82rem; font-weight: 900; text-transform: uppercase;">SABARIMALA SRI AYYAPPASWAMY BHAJAN MANDALI (R) HUBBALLI</div>
-                    <div style="font-size: 0.72rem; font-weight: 800; font-family: 'Noto Sans Kannada', sans-serif; color: #333;">ಸಬರಿಮಲ ಶ್ರೀ ಅಯ್ಯಪ್ಪಸ್ವಾಮಿ ಭಜನ ಮಂಡಳಿ (ರಿ) ಹುಬ್ಬಳ್ಳಿ</div>
-                    <div style="font-size: 0.68rem; font-weight: 800;">CHARITABLE SOCIETY'S / <span style="font-family: 'Noto Sans Kannada', sans-serif;">ಸೇವಾ ಸಂಸ್ಥೆ</span></div>
+                    <div style="font-size: 0.85rem; font-weight: 900; color: #111;">ಸಬರಿಮಲ ಶ್ರೀ ಅಯ್ಯಪ್ಪಸ್ವಾಮಿ ಭಜನ ಮಂಡಳಿ (ರಿ) ಹುಬ್ಬಳ್ಳಿ</div>
+                    <div style="font-size: 0.72rem; font-weight: 800; color: #333;">ಸೇವಾ ಸಂಸ್ಥೆ</div>
                 </div>
             </div>
-            <div style="font-size: 0.8rem; font-weight: 900;">SABARIMALA SRI AYYAPPASWAMY TEMPLE &amp; SRI DURGA DEVI TEMPLE</div>
-            <div style="font-size: 0.72rem; font-weight: 700; font-family: 'Noto Sans Kannada', sans-serif; color: #333; margin-top: 2px;">ಸಬರಿಮಲ ಶ್ರೀ ಅಯ್ಯಪ್ಪಸ್ವಾಮಿ ದೇವಸ್ಥಾನ &amp; ಶ್ರೀ ದುರ್ಗಾದೇವಿ ದೇವಸ್ಥಾನ</div>
-            <div style="font-size: 0.68rem; font-weight: 700; margin-top: 2px;">NO.428/90, ADARSH LAYOUT, BEHIND HESCOM, HUBBALLI-580020.</div>
-            <div style="font-size: 0.65rem; font-family: 'Noto Sans Kannada', sans-serif; color: #555;">ನಂ.428/90, ಆದರ್ಶ ಲೇಔಟ್, ಹೆಸ್ಕಾಮ್ ಹಿಂದೆ, ಹುಬ್ಬಳ್ಳಿ-580020.</div>
-            <div style="font-size: 0.7rem; font-weight: 800; margin-top: 2px;">Reg No: HUB/S-428/90-91</div>
+            <div style="font-size: 0.82rem; font-weight: 900; color: #111; margin-top: 2px;">ಸಬರಿಮಲ ಶ್ರೀ ಅಯ್ಯಪ್ಪಸ್ವಾಮಿ ದೇವಸ್ಥಾನ &amp; ಶ್ರೀ ದುರ್ಗಾದೇವಿ ದೇವಸ್ಥಾನ</div>
+            <div style="font-size: 0.7rem; font-weight: 700; color: #444; margin-top: 2px;">ನಂ.೪೨೮/೯೦, ಆದರ್ಶ ಲೇಔಟ್, ಹೆಸ್ಕಾಮ್ ಹಿಂದೆ, ಹುಬ್ಬಳ್ಳಿ-೫೮೦೦೨೦.</div>
+            <div style="font-size: 0.7rem; font-weight: 800; margin-top: 2px;">ನೋಂದಣಿ ಸಂಖ್ಯೆ: HUB/S-428/90-91</div>
         </div>
 
         <!-- RECEIPT NUMBER & DATE -->
-        <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 800; margin-bottom: 10px;">
-            <span>No: <strong>${recNo}</strong></span>
-            <span>Date / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.75rem;">ದಿನಾಂಕ</span>: <strong>${dateStr}</strong></span>
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 800; margin-bottom: 10px;">
+            <span>ಸಂಖ್ಯೆ: <strong>${recNo}</strong></span>
+            <span>ದಿನಾಂಕ: <strong>${dateStr}</strong></span>
         </div>
 
         <!-- RECEIPT TITLE -->
-        <div style="text-align: center; font-size: 1rem; font-weight: 900; letter-spacing: 2px; margin: 10px 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 5px 0;">
-            RECEIPT &nbsp;/&nbsp; <span style="font-family: 'Noto Sans Kannada', sans-serif; letter-spacing: 0px;">ರಶೀದಿ</span>
+        <div style="text-align: center; font-size: 1.05rem; font-weight: 900; letter-spacing: 1px; margin: 10px 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 5px 0;">
+            ರಶೀದಿ
         </div>
 
         <!-- AMOUNT IN WORDS -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
             <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                Received Rs / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.78rem; font-weight:800;">ರೂ. ಸ್ವೀಕರಿಸಿದೆ</span>:
+                ಸ್ವೀಕರಿಸಿದ ಮೊತ್ತ:
             </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${amountWords}</span>
         </div>
@@ -463,7 +500,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- FROM (DEVOTEE NAME) -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
             <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                From Sri/Smt / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.78rem;">ಶ್ರೀ/ಶ್ರೀಮತಿ</span>:
+                ಶ್ರೀ/ಶ್ರೀಮತಿ:
             </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${devoteeName}</span>
         </div>
@@ -471,7 +508,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- PAYMENT MODE -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
             <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                Cash/Cheque/UPI / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.78rem;">ನಗದು/ಚೆಕ್/UPI</span>:
+                ಪಾವತಿ ವಿಧಾನ:
             </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${modeStr}</span>
         </div>
@@ -479,7 +516,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- SEVA / PURPOSE -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
             <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                On account of / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.78rem;">ಸೇವೆ/ಉದ್ದೇಶ</span>:
+                ಸೇವೆ/ಉದ್ದೇಶ:
             </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${sevaPurpose}</span>
         </div>
@@ -487,7 +524,104 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- DATE -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
             <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                On / <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.78rem;">ದಿನಾಂಕ</span>:
+                ದಿನಾಂಕ:
+            </span>
+            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${dateStr}</span>
+        </div>
+
+        <!-- AMOUNT BOX -->
+        <div style="display: inline-block; border: 2px solid #000; padding: 6px 16px; font-size: 1.1rem; font-weight: 900; margin-top: 10px; background: #f8fafc;">
+            ರೂ. ₹${amountVal.toLocaleString('en-IN')}/-
+        </div>
+
+        <!-- SIGNATURES (KANNADA ONLY) -->
+        <div style="margin-top: 24px; display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; text-align: center;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+                <span>ಅಧ್ಯಕ್ಷರು</span>
+                <span style="font-size: 0.65rem; color: #475569;">9448394878</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+                <span>ಖಜಾಂಚಿ</span>
+                <span style="font-size: 0.65rem; color: #475569;">9731605779</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+                <span>ಕಾರ್ಯದರ್ಶಿ</span>
+                <span style="font-size: 0.65rem; color: #475569;">9448543913</span>
+            </div>
+            <div style="display: flex; flex-direction: column; border-top: 1px dashed #000; padding-top: 4px; width: 90px;">
+                <span>ಸಹಿ</span>
+            </div>
+        </div>
+
+        </div>
+        `;
+    }
+
+    // DEFAULT: ENGLISH ONLY
+    return `
+        <div style="font-family: 'Inter', sans-serif;">
+
+        <!-- HEADER (ENGLISH ONLY) -->
+        <div class="pv-header" style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px;">
+                <img src="./Images/1000053595.jpg" style="width: 42px; height: 42px; border-radius: 50%; object-fit: contain;">
+                <div>
+                    <div style="font-size: 0.82rem; font-weight: 900; text-transform: uppercase;">SABARIMALA SRI AYYAPPASWAMY BHAJAN MANDALI (R) HUBBALLI</div>
+                    <div style="font-size: 0.68rem; font-weight: 800; color: #333;">CHARITABLE SOCIETY</div>
+                </div>
+            </div>
+            <div style="font-size: 0.8rem; font-weight: 900;">SABARIMALA SRI AYYAPPASWAMY TEMPLE &amp; SRI DURGA DEVI TEMPLE</div>
+            <div style="font-size: 0.68rem; font-weight: 700; margin-top: 2px;">NO.428/90, ADARSH LAYOUT, BEHIND HESCOM, HUBBALLI-580020.</div>
+            <div style="font-size: 0.7rem; font-weight: 800; margin-top: 2px;">Reg No: HUB/S-428/90-91</div>
+        </div>
+
+        <!-- RECEIPT NUMBER & DATE -->
+        <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 800; margin-bottom: 10px;">
+            <span>No: <strong>${recNo}</strong></span>
+            <span>Date: <strong>${dateStr}</strong></span>
+        </div>
+
+        <!-- RECEIPT TITLE -->
+        <div style="text-align: center; font-size: 1rem; font-weight: 900; letter-spacing: 2px; margin: 10px 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 5px 0;">
+            RECEIPT
+        </div>
+
+        <!-- AMOUNT IN WORDS -->
+        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                Received Rs:
+            </span>
+            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${amountWords}</span>
+        </div>
+
+        <!-- FROM (DEVOTEE NAME) -->
+        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                From Sri/Smt:
+            </span>
+            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${devoteeName}</span>
+        </div>
+
+        <!-- PAYMENT MODE -->
+        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                Cash/Cheque/UPI:
+            </span>
+            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${modeStr}</span>
+        </div>
+
+        <!-- SEVA / PURPOSE -->
+        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                On account of:
+            </span>
+            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${sevaPurpose}</span>
+        </div>
+
+        <!-- DATE -->
+        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                On:
             </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${dateStr}</span>
         </div>
@@ -497,26 +631,22 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             Rs. ₹${amountVal.toLocaleString('en-IN')}/-
         </div>
 
-        <!-- SIGNATURES -->
+        <!-- SIGNATURES (ENGLISH ONLY) -->
         <div style="margin-top: 24px; display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 800; text-align: center;">
             <div style="display: flex; flex-direction: column; gap: 2px;">
                 <span>President</span>
-                <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.65rem; font-weight:600;">ಅಧ್ಯಕ್ಷರು</span>
                 <span style="font-size: 0.65rem; color: #475569;">9448394878</span>
             </div>
             <div style="display: flex; flex-direction: column; gap: 2px;">
                 <span>Treasurer</span>
-                <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.65rem; font-weight:600;">ಖಜಾಂಚಿ</span>
                 <span style="font-size: 0.65rem; color: #475569;">9731605779</span>
             </div>
             <div style="display: flex; flex-direction: column; gap: 2px;">
                 <span>Secretary</span>
-                <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.65rem; font-weight:600;">ಕಾರ್ಯದರ್ಶಿ</span>
                 <span style="font-size: 0.65rem; color: #475569;">9448543913</span>
             </div>
             <div style="display: flex; flex-direction: column; border-top: 1px dashed #000; padding-top: 4px; width: 90px;">
                 <span>Signature</span>
-                <span style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.65rem; font-weight:600;">ಸಹಿ</span>
             </div>
         </div>
 
@@ -668,23 +798,29 @@ window.printVoucherById = function(id) {
     }
 };
 
-function openVoucherPrintModal(rec) {
-    const modal = document.getElementById("printVoucherModal");
+function renderModalVoucherContent(rec) {
     const container = document.getElementById("printableVoucherContent");
-    
-    if (modal && container) {
-        const amtWords = numberToWords(rec.amount);
-        container.innerHTML = `
-            <div style="margin: 0 auto; border: 2px solid #000; padding: 20px; background: white;">
-                ${renderVoucherHTML(rec.id, rec.date, rec.devoteeName, rec.amount, amtWords, rec.paymentMode, rec.sevaName)}
-            </div>
-        `;
+    if (!container) return;
+    const amtWords = numberToWords(rec.amount);
+    container.innerHTML = `
+        <div style="margin: 0 auto; border: 2px solid #000; padding: 20px; background: white;">
+            ${renderVoucherHTML(rec.id, rec.date, rec.devoteeName, rec.amount, amtWords, rec.paymentMode, rec.sevaName, currentVoucherLang)}
+        </div>
+    `;
+}
+
+function openVoucherPrintModal(rec) {
+    activeModalReceipt = rec;
+    const modal = document.getElementById("printVoucherModal");
+    if (modal) {
+        renderModalVoucherContent(rec);
         modal.style.display = 'flex';
         if (window.lucide) lucide.createIcons();
     }
 }
 
 window.closeVoucherModal = function() {
+    activeModalReceipt = null;
     const modal = document.getElementById("printVoucherModal");
     if (modal) modal.style.display = 'none';
 };

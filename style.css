@@ -1329,3 +1329,37 @@ select[multiple] option:checked {
     opacity: 0; /* Start hidden before animation */
     animation: slideInUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* VOUCHER LANGUAGE TOGGLE BUTTONS */
+.voucher-lang-group {
+    display: inline-flex;
+    background: #e2e8f0;
+    padding: 3px;
+    border-radius: 8px;
+    gap: 3px;
+}
+.voucher-lang-btn {
+    border: none;
+    background: transparent;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #475569;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+}
+.voucher-lang-btn:hover {
+    color: #0f172a;
+    background: rgba(255, 255, 255, 0.5);
+}
+.voucher-lang-btn.active {
+    background: #ffffff;
+    color: #4f46e5;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    font-weight: 800;
+}
