@@ -888,24 +888,56 @@ select[multiple] option:checked {
 .print-only { display: none; }
 
 @media print {
-    @page { size: portrait; margin: 0; } /* Force portrait orientation */
+    @page { size: portrait; margin: 8mm; }
     body > * { display: none !important; }
-    
-    /* Force show ONLY the receipt template */
+
+    /* Show legacy receipt template */
     #receiptTemplate {
         display: block !important;
         visibility: visible !important;
-        position: absolute;
+        position: fixed;
         inset: 0;
         width: 100%;
         height: auto;
-        min-height: 100%;
         background: white;
-        padding: 15px; /* Reduced from 40px */
+        padding: 15px;
         color: #000;
         font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+        z-index: 99999;
     }
     #receiptTemplate * { visibility: visible !important; }
+
+    /* Show print-voucher modal content when printing */
+    #printVoucherModal {
+        display: block !important;
+        visibility: visible !important;
+        position: fixed !important;
+        inset: 0 !important;
+        background: white !important;
+        z-index: 99999 !important;
+        overflow: visible !important;
+    }
+    #printVoucherModal * { visibility: visible !important; }
+
+    /* Hide modal chrome (header, close btn, action buttons) — only show the voucher */
+    #printVoucherModal .modal-pane > div:first-child,
+    #printVoucherModal .modal-pane > div:last-child {
+        display: none !important;
+    }
+
+    /* Remove modal box styling so it fills the page cleanly */
+    #printVoucherModal .modal-pane {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        background: white !important;
+    }
+    #printableVoucherContent {
+        width: 100% !important;
+        display: block !important;
+    }
 }
 
 /* DUAL RECEIPT STACKING */
