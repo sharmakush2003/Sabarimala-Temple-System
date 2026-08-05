@@ -2,6 +2,10 @@
 // SABARIMALA TEMPLE HUBBALLI HMS — SCRIPT (EXACT DHAM ADMIN)
 // ========================================================
 
+// --- GOOGLE SPREADSHEET CONFIGURATION ---
+// Set your Google Apps Script Web App URL here after deploying the script.
+const API_URL = "https://script.google.com/macros/s/AKfycbzyN_0OvhdzPi0wtYTqUy46GhWGZRl8y4gWx-KOjIt5xAulOaE-v_FahTi3cz3o2hT59g/exec";
+
 // Official 25 Seva List (From Reference Image 1000053592.jpg)
 const PREDEFINED_SEVAS = [
     { id: 1, name: "Daily Pooja", defaultPrice: 101 },
@@ -101,8 +105,23 @@ function numberToWords(num) {
 
 function generateReceiptNo() {
     const year = new Date().getFullYear();
-    const count = receiptsData.length + 1;
-    return `STH-${year}-${String(count).padStart(4, '0')}`;
+    const prefix = `STH-${year}-`;
+    
+    let maxCount = 0;
+    receiptsData.forEach(r => {
+        if (r.id && r.id.startsWith(prefix)) {
+            const parts = r.id.split('-');
+            if (parts.length === 3) {
+                const countNum = parseInt(parts[2], 10);
+                if (!isNaN(countNum) && countNum > maxCount) {
+                    maxCount = countNum;
+                }
+            }
+        }
+    });
+    
+    const nextCount = maxCount + 1;
+    return `${prefix}${String(nextCount).padStart(4, '0')}`;
 }
 
 // INITIALIZE DOM
@@ -112,6 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
     initFormHandling();
     initFiltersAndSearch();
     renderAllViews();
+    
+    // Sync with Google Sheets on load
+    syncWithGoogleSheets();
 
     if (window.lucide) {
         lucide.createIcons();
@@ -170,7 +192,10 @@ function openSystemInfoModal() {
 }
 
 window.addEventListener('offline', openSystemInfoModal);
-window.addEventListener('online', openSystemInfoModal);
+window.addEventListener('online', () => {
+    openSystemInfoModal();
+    syncWithGoogleSheets();
+});
 
 // NAVIGATION
 function initNavigation() {
@@ -364,6 +389,9 @@ function initFormHandling() {
 
             receiptsData.unshift(newRec);
             saveReceipts();
+
+            // Sync with Google Sheets
+            postReceiptToGoogleSheets(newRec);
 
             openVoucherPrintModal(newRec);
 
@@ -691,6 +719,8 @@ function initFiltersAndSearch() {
 // RENDER ALL VIEWS
 function renderAllViews() {
     renderRegistryTable();
+    renderTotalDonationsTable();
+    renderStats();
     if (window.lucide) lucide.createIcons();
 }
 
@@ -911,5 +941,137 @@ window.switchGuideLang = function(lang) {
 document.addEventListener("DOMContentLoaded", () => {
     switchMobileNoticeLang('english');
 });
+
+// --- GOOGLE SHEETS SYNC IMPLEMENTATION ---
+
+async function syncWithGoogleSheets() {
+    if (!API_URL) return;
+
+    const statusLabel = document.getElementById("statusLabel");
+    const statusContainer = statusLabel ? statusLabel.closest('.status-badge-container') : null;
+
+    if (statusLabel) {
+        statusLabel.innerText = "SYNCING...";
+        if (statusContainer) {
+            statusContainer.style.borderColor = "rgba(79, 70, 229, 0.4)";
+            statusContainer.style.background = "rgba(79, 70, 229, 0.05)";
+        }
+    }
+
+    try {
+        console.log("[SYNC DEBUG] Fetching spreadsheet data from URL:", API_URL);
+        const res = await fetch(`${API_URL}?t=${Date.now()}`);
+        if (!res.ok) throw new Error(`HTTP network error! status: ${res.status}`);
+        const data = await res.json();
+        
+        if (Array.isArray(data)) {
+            const formattedData = data.map(row => ({
+                id: row.id || row.Id || row.ID || "",
+                date: row.date || row.Date || "",
+                time: row.time || row.Time || "",
+                devoteeName: row.devoteeName || row["Devotee Name"] || row.name || "",
+                mobile: row.mobile || row.Mobile || row["Mobile Number"] || "",
+                sevaName: row.sevaName || row["Seva Name"] || "",
+                amount: parseFloat(row.amount || row.Amount || 0),
+                paymentMode: row.paymentMode || row["Payment Mode"] || "",
+                status: row.status || row.Status || "COMPLETED",
+                createdAt: parseInt(row.createdAt || row.CreatedAt || Date.now())
+            }));
+
+            const validData = formattedData.filter(r => r.id);
+            validData.sort((a, b) => b.createdAt - a.createdAt);
+            
+            receiptsData = validData;
+            saveReceipts();
+            renderAllViews();
+
+            // Refresh the form receipt number to match the newly synced data
+            const receiptNoInput = document.getElementById("receiptNo");
+            if (receiptNoInput) receiptNoInput.value = generateReceiptNo();
+        }
+
+        if (statusLabel) {
+            statusLabel.innerText = "SYSTEM LIVE";
+            if (statusContainer) {
+                statusContainer.style.borderColor = "rgba(16, 185, 129, 0.25)";
+                statusContainer.style.background = "rgba(16, 185, 129, 0.05)";
+            }
+        }
+    } catch (err) {
+        console.error("====================================================");
+        console.error("[SYNC ERROR] Failed to sync from Google Sheets!");
+        console.error("Target URL:", API_URL);
+        console.error("Error Name:", err.name);
+        console.error("Error Message:", err.message);
+        console.error("Full Error Stack Trace:", err.stack);
+        console.error("====================================================");
+
+        if (statusLabel) {
+            statusLabel.innerText = "SYNC FAILED";
+            if (statusContainer) {
+                statusContainer.style.borderColor = "rgba(220, 38, 38, 0.25)";
+                statusContainer.style.background = "rgba(220, 38, 38, 0.05)";
+            }
+        }
+    }
+}
+
+async function postReceiptToGoogleSheets(rec) {
+    if (!API_URL) return;
+
+    const statusLabel = document.getElementById("statusLabel");
+    const statusContainer = statusLabel ? statusLabel.closest('.status-badge-container') : null;
+
+    if (statusLabel) {
+        statusLabel.innerText = "SYNCING...";
+        if (statusContainer) {
+            statusContainer.style.borderColor = "rgba(79, 70, 229, 0.4)";
+            statusContainer.style.background = "rgba(79, 70, 229, 0.05)";
+        }
+    }
+
+    try {
+        const payload = {
+            action: "addReceipt",
+            id: rec.id,
+            date: rec.date,
+            time: rec.time,
+            devoteeName: rec.devoteeName,
+            mobile: rec.mobile,
+            sevaName: rec.sevaName,
+            amount: rec.amount,
+            paymentMode: rec.paymentMode,
+            status: rec.status,
+            createdAt: rec.createdAt
+        };
+
+        await fetch(API_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: new URLSearchParams(payload)
+        });
+
+        if (statusLabel) {
+            statusLabel.innerText = "SYSTEM LIVE";
+            if (statusContainer) {
+                statusContainer.style.borderColor = "rgba(16, 185, 129, 0.25)";
+                statusContainer.style.background = "rgba(16, 185, 129, 0.05)";
+            }
+        }
+        
+        setTimeout(syncWithGoogleSheets, 1500);
+
+    } catch (err) {
+        console.error("Failed to post receipt to Google Sheets:", err);
+        if (statusLabel) {
+            statusLabel.innerText = "SYNC FAILED";
+            if (statusContainer) {
+                statusContainer.style.borderColor = "rgba(220, 38, 38, 0.25)";
+                statusContainer.style.background = "rgba(220, 38, 38, 0.05)";
+            }
+        }
+    }
+}
+
 
 
