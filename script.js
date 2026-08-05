@@ -4,7 +4,7 @@
 
 // --- GOOGLE SPREADSHEET CONFIGURATION ---
 // Set your Google Apps Script Web App URL here after deploying the script.
-const API_URL = "https://script.google.com/macros/s/AKfycbxWpzGjDkM2CdQc4dBPBMCF4MlkI0b84rxxnD_Wy3Ke3dpRw8-3EjKNbyUGvBWUwZzlMQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwrxqufBYldX0D_evvfynkZLNs2sqUScyD2i9zCQS9tJE7A_a5_cb0KNkTD_U_2JUj7Bg/exec";
 
 // Official 25 Seva List (From Reference Image 1000053592.jpg)
 const PREDEFINED_SEVAS = [
