@@ -965,7 +965,7 @@ async function syncWithGoogleSheets() {
         const data = await res.json();
         
         if (Array.isArray(data)) {
-            const formattedData = data.map(row => ({
+            const formattedData = data.map((row, idx) => ({
                 id: row.id || row.Id || row.ID || "",
                 date: row.date || row.Date || "",
                 time: row.time || row.Time || "",
@@ -975,7 +975,7 @@ async function syncWithGoogleSheets() {
                 amount: parseFloat(row.amount || row.Amount || 0),
                 paymentMode: row.paymentMode || row["Payment Mode"] || "",
                 status: row.status || row.Status || "COMPLETED",
-                createdAt: parseInt(row.createdAt || row.CreatedAt || Date.now())
+                createdAt: idx
             }));
 
             const validData = formattedData.filter(r => r.id);
@@ -1041,8 +1041,7 @@ async function postReceiptToGoogleSheets(rec) {
             sevaName: rec.sevaName,
             amount: rec.amount,
             paymentMode: rec.paymentMode,
-            status: rec.status,
-            createdAt: rec.createdAt
+            status: rec.status
         };
 
         await fetch(API_URL, {
