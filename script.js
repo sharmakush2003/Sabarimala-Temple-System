@@ -942,6 +942,63 @@ document.addEventListener("DOMContentLoaded", () => {
     switchMobileNoticeLang('english');
 });
 
+// --- DATE & TIME PARSING HELPERS (IST Timezone) ---
+function parseAndFormatDate(dateVal) {
+    if (!dateVal) return "";
+    
+    // If it's already in YYYY-MM-DD format (without T), return it as is
+    if (typeof dateVal === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateVal.trim())) {
+        return dateVal.trim();
+    }
+    
+    try {
+        const d = new Date(dateVal);
+        if (isNaN(d.getTime())) return dateVal;
+        
+        // Extract components in Asia/Kolkata timezone
+        const formatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'Asia/Kolkata',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
+        const parts = formatter.formatToParts(d);
+        const year = parts.find(p => p.type === 'year').value;
+        const month = parts.find(p => p.type === 'month').value;
+        const day = parts.find(p => p.type === 'day').value;
+        
+        return `${year}-${month}-${day}`;
+    } catch (e) {
+        console.error("Error parsing date:", e);
+        return dateVal;
+    }
+}
+
+function parseAndFormatTime(timeVal) {
+    if (!timeVal) return "";
+    
+    // If it's already in hh:mm AM/PM format, return it as is
+    if (typeof timeVal === 'string' && /^(0?[1-9]|1[0-2]):[0-5]\d\s*(AM|PM|am|pm)$/i.test(timeVal.trim())) {
+        return timeVal.trim().toUpperCase();
+    }
+    
+    try {
+        const d = new Date(timeVal);
+        if (isNaN(d.getTime())) return timeVal;
+        
+        // Format to hh:mm AM/PM in Asia/Kolkata timezone
+        return d.toLocaleTimeString('en-US', {
+            timeZone: 'Asia/Kolkata',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        });
+    } catch (e) {
+        console.error("Error parsing time:", e);
+        return timeVal;
+    }
+}
+
 // --- GOOGLE SHEETS SYNC IMPLEMENTATION ---
 
 async function syncWithGoogleSheets() {
@@ -967,8 +1024,8 @@ async function syncWithGoogleSheets() {
         if (Array.isArray(data)) {
             const formattedData = data.map((row, idx) => ({
                 id: row.id || row.Id || row.ID || "",
-                date: row.date || row.Date || "",
-                time: row.time || row.Time || "",
+                date: parseAndFormatDate(row.date || row.Date || ""),
+                time: parseAndFormatTime(row.time || row.Time || ""),
                 devoteeName: row.devoteeName || row["Devotee Name"] || row.name || "",
                 mobile: row.mobile || row.Mobile || row["Mobile Number"] || "",
                 sevaName: row.sevaName || row["Seva Name"] || "",
