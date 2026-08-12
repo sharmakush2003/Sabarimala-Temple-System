@@ -131,8 +131,54 @@ function generateReceiptNo() {
     return String(nextCount).padStart(3, '0');
 }
 
+// AUTHENTICATION SECURITY LOCK
+function checkAuth() {
+    const isLoggedIn = localStorage.getItem("sabari_logged_in") === "true";
+    const loginScreen = document.getElementById("loginScreen");
+    const protectedContent = document.getElementById("protectedContent");
+
+    if (isLoggedIn) {
+        if (loginScreen) loginScreen.style.display = "none";
+        if (protectedContent) protectedContent.style.display = "flex";
+    } else {
+        if (loginScreen) loginScreen.style.display = "flex";
+        if (protectedContent) protectedContent.style.display = "none";
+    }
+}
+
+window.lockSession = function() {
+    localStorage.removeItem("sabari_logged_in");
+    checkAuth();
+};
+
 // INITIALIZE DOM
 document.addEventListener("DOMContentLoaded", () => {
+    // Check authentication status first
+    checkAuth();
+    
+    const authForm = document.getElementById("authForm");
+    if (authForm) {
+        authForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = document.getElementById("authEmail").value.trim();
+            const password = document.getElementById("authPassword").value.trim();
+            const errMsg = document.getElementById("authErrorMessage");
+
+            // Credentials check: admin@dharamshala.com / admin
+            if (email === "admin@dharamshala.com" && password === "admin") {
+                localStorage.setItem("sabari_logged_in", "true");
+                if (errMsg) errMsg.style.display = "none";
+                checkAuth();
+                
+                // Refresh views and fetch from sheets when unlocking
+                renderAllViews();
+                syncWithGoogleSheets();
+            } else {
+                if (errMsg) errMsg.style.display = "block";
+            }
+        });
+    }
+
     initNavigation();
     initSevaSelectOptions();
     initFormHandling();
@@ -212,38 +258,52 @@ function initNavigation() {
     const pageSub = document.getElementById("pageSub");
 
     const titlesMap = {
-        "custom-bill": { title: "Create Invoice", sub: "ChittorTech HMS — Enterprise Edition" },
+        "custom-bill": { title: "Create Inward Invoice", sub: "ChittorTech HMS — Inward Receipts & Billing" },
+        "outward-bill": { title: "Create Outward Invoice", sub: "ChittorTech HMS — Outward Expense & Vouchers" },
         "registry": { title: "Donation Registry", sub: "Sabarimala Sri Ayyappaswamy Temple — Management Dashboard" },
         "about-temple": { title: "About Sabarimala Temple", sub: "Hubballi Charitable Society & Official Seva Directory" },
         "how-to-use": { title: "How To Use", sub: "Complete User Manual & System Operating Guide" }
     };
 
+    function switchTab(targetTab) {
+        navLinks.forEach(nl => {
+            if (nl.getAttribute("data-tab") === targetTab) {
+                nl.classList.add("active");
+            } else {
+                nl.classList.remove("active");
+            }
+        });
+
+        tabPanes.forEach(tp => {
+            if (tp.id === `tab-${targetTab}`) {
+                tp.style.display = "block";
+                tp.classList.add("active");
+            } else {
+                tp.style.display = "none";
+                tp.classList.remove("active");
+            }
+        });
+
+        if (titlesMap[targetTab]) {
+            if (pageTitle) pageTitle.textContent = titlesMap[targetTab].title;
+            if (pageSub) pageSub.textContent = titlesMap[targetTab].sub;
+        }
+
+        localStorage.setItem("sabari_active_tab", targetTab);
+        renderAllViews();
+        if (window.lucide) lucide.createIcons();
+    }
+
     navLinks.forEach(link => {
         link.addEventListener("click", () => {
             const targetTab = link.getAttribute("data-tab");
-            
-            navLinks.forEach(nl => nl.classList.remove("active"));
-            tabPanes.forEach(tp => {
-                tp.style.display = "none";
-                tp.classList.remove("active");
-            });
-
-            link.classList.add("active");
-            const activePane = document.getElementById(`tab-${targetTab}`);
-            if (activePane) {
-                activePane.style.display = "block";
-                activePane.classList.add("active");
-            }
-
-            if (titlesMap[targetTab]) {
-                pageTitle.textContent = titlesMap[targetTab].title;
-                pageSub.textContent = titlesMap[targetTab].sub;
-            }
-
-            renderAllViews();
-            if (window.lucide) lucide.createIcons();
+            switchTab(targetTab);
         });
     });
+
+    // Restore persisted tab or default to custom-bill
+    const savedTab = localStorage.getItem("sabari_active_tab") || "custom-bill";
+    switchTab(savedTab);
 }
 
 // POPULATE SEVA OPTIONS
@@ -263,9 +323,9 @@ function initSevaSelectOptions() {
 
     if (aboutSevasList) {
         aboutSevasList.innerHTML = PREDEFINED_SEVAS.filter(s => s.id < 99).map(s => `
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center;">
+            <div style="background: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.2); padding: 6px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; color: #7c2d12; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;" class="seva-pill">
                 <span>${s.name}</span>
-                <span style="font-size: 0.72rem; color: #d97706; font-weight: 800;">#${s.id}</span>
+                <span style="font-size: 0.62rem; background: #ea580c; color: #ffffff; padding: 1px 6px; border-radius: 100px; font-weight: 900;">#${s.id}</span>
             </div>
         `).join('');
     }
