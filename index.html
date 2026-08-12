@@ -282,109 +282,55 @@
                 </div>
             </div>
 
-            <!-- TAB 1B: CREATE OUTWARD INVOICE -->
+            <!-- TAB 1B: CREATE OUTWARD INVOICE (COMING SOON) -->
             <div id="tab-outward-bill" class="tab-pane" style="display: none;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
-                    <!-- Billing Form -->
-                    <div class="card-layer" style="padding: 24px 28px;">
-                        <form id="outwardForm">
-                            <div style="margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">PAYEE / VENDOR NAME (SRI / SMT / M/S) *</label>
-                                <input type="text" id="payeeName" placeholder="e.g. Balaji Pooja Store" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
-                            </div>
+                <div class="card-layer" style="max-width: 700px; margin: 40px auto; padding: 50px 40px; text-align: center; background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95)); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+                    <!-- Decorative Mesh Glow Rings -->
+                    <div style="position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(244, 63, 94, 0.15) 0%, rgba(244, 63, 94, 0) 70%); top: -100px; right: -100px; pointer-events: none; filter: blur(40px);"></div>
+                    <div style="position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(168, 85, 247, 0) 70%); bottom: -100px; left: -100px; pointer-events: none; filter: blur(40px);"></div>
 
-                            <div style="margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">MOBILE NUMBER</label>
-                                <input type="tel" id="payeeMobile" placeholder="e.g. 9845012345" style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
-                            </div>
-
-                            <div style="margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">SELECT EXPENSE PURPOSE *</label>
-                                <select id="expenseSelect" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
-                                    <option value="">-- Choose Expense Purpose --</option>
-                                    <option value="1">1. Temple Maintenance / Repair</option>
-                                    <option value="2">2. Pooja Materials / Samagri</option>
-                                    <option value="3">3. Prasada / Annadanam Ingredients</option>
-                                    <option value="4">4. Electricity / Utility Bills</option>
-                                    <option value="5">5. Staff Salary / Dakshina</option>
-                                    <option value="6">6. Event / Festival Expenses</option>
-                                    <option value="7">7. Printing & Stationery</option>
-                                    <option value="8">8. Office / Miscellaneous Expenses</option>
-                                    <option value="99">99. Custom / Other Expense</option>
-                                </select>
-                            </div>
-
-                            <div id="customExpenseRow" style="display: none; margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">CUSTOM EXPENSE DETAILS</label>
-                                <input type="text" id="customExpenseName" placeholder="Enter custom expense details..." style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
-                            </div>
-
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
-                                <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">PAYMENT DATE *</label>
-                                    <input type="date" id="expenseDate" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
-                                </div>
-                                <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">PAYMENT MODE *</label>
-                                    <select id="paymentModeOutward" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
-                                        <option value="Cash">Cash</option>
-                                        <option value="UPI">UPI / Online</option>
-                                        <option value="Cheque">Cheque</option>
-                                        <option value="Bank Transfer">Bank Transfer</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div id="paymentRefRowOutward" style="display: none; margin-bottom: 14px;">
-                                <label id="paymentRefLabelOutward" style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">TRANSACTION ID / REF NO *</label>
-                                <input type="text" id="paymentRefInputOutward" placeholder="e.g. TXN998273" style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
-                            </div>
-
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
-                                <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">AMOUNT (RS ₹) *</label>
-                                    <input type="number" id="amountOutward" min="1" placeholder="0.00" required style="width: 100%; font-weight: 800; font-size: 1.15rem; color: #f43f5e; padding: 10px 14px; border-radius: 10px;">
-                                </div>
-                                <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">VOUCHER NUMBER</label>
-                                    <input type="text" id="voucherNo" readonly style="width: 100%; background: #f1f5f9; font-weight: 700; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
-                                </div>
-                            </div>
-
-                            <div style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 10px 16px; border-radius: 10px; margin-bottom: 20px;">
-                                <span style="font-size: 0.68rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Amount in Words:</span>
-                                <div id="amountInWordsOutward" style="font-size: 0.92rem; font-weight: 800; color: #d97706; margin-top: 2px;">Rupees Zero Only</div>
-                            </div>
-
-                            <button type="submit" class="btn-allot" style="width: 100%; padding: 13px; font-size: 0.95rem; font-weight: 800; gap: 8px; justify-content: center; border-radius: 12px; background: linear-gradient(135deg, #e11d48, #f43f5e);">
-                                <i data-lucide="printer"></i>
-                                Generate & Print Payment Voucher
-                            </button>
-                        </form>
+                    <!-- Glowing Icon -->
+                    <div style="display: inline-flex; align-items: center; justify-content: center; width: 90px; height: 90px; background: rgba(244, 63, 94, 0.08); border: 2px solid rgba(244, 63, 94, 0.3); border-radius: 50%; color: #f43f5e; margin-bottom: 28px; box-shadow: 0 0 30px rgba(244, 63, 94, 0.2); animation: pulse-glowing 2s infinite ease-in-out;">
+                        <i data-lucide="sparkles" style="width: 42px; height: 42px;"></i>
                     </div>
 
-                    <!-- Live Voucher Preview -->
-                    <div class="card-layer" style="padding: 24px 28px; background: #f8fafc;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
-                            <h3 style="font-weight: 800; font-size: 1rem; color: #0f172a; display: flex; align-items: center; gap: 8px; margin: 0;">
-                                <i data-lucide="eye" style="color: #f43f5e;"></i>
-                                Live Paper Voucher Preview
-                            </h3>
-                            <div class="voucher-lang-group">
-                                <button type="button" id="btnLangEnglishOutward" class="voucher-lang-btn active" onclick="setVoucherLanguage('english')">
-                                    <i data-lucide="globe" style="width: 14px; height: 14px;"></i> English Preview
-                                </button>
-                                <button type="button" id="btnLangKannadaOutward" class="voucher-lang-btn" onclick="setVoucherLanguage('kannada')">
-                                    <i data-lucide="languages" style="width: 14px; height: 14px;"></i> Kannada Preview
-                                </button>
-                            </div>
+                    <!-- Main Titles -->
+                    <span class="status-tag" style="background: rgba(244, 63, 94, 0.15); color: #fb7185; font-weight: 800; font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 16px; display: inline-block; border: 1px solid rgba(244, 63, 94, 0.2);">
+                        Module Under Development
+                    </span>
+                    <h2 style="font-size: 2.2rem; font-weight: 900; color: #ffffff; margin-bottom: 12px; letter-spacing: -0.5px; line-height: 1.2;">
+                        Outward Expenses &amp; Vouchers
+                    </h2>
+                    <h3 style="font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, #fb7185, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px;">
+                        COMING SOON
+                    </h3>
+                    
+                    <p style="font-size: 0.95rem; color: #94a3b8; line-height: 1.6; max-width: 500px; margin: 0 auto 36px; font-weight: 500;">
+                        We are engineering an advanced Expense Ledger &amp; Cash Outflow management panel. You will soon be able to record temple expenditures, generate official payment vouchers, and track vendor payments.
+                    </p>
+
+                    <!-- Progress Indicator -->
+                    <div style="max-width: 350px; margin: 0 auto 36px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; color: #fb7185; margin-bottom: 8px;">
+                            <span>Development Progress</span>
+                            <span>78% Completed</span>
                         </div>
-                        <div id="voucherPreviewBoxOutward" style="background: #ffffff; border: 2px solid #000; padding: 20px; font-family: 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                            <!-- Live Voucher Rendered Here -->
+                        <div style="height: 8px; width: 100%; background: rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);">
+                            <div style="height: 100%; width: 78%; background: linear-gradient(90deg, #f43f5e, #a855f7); border-radius: 10px; box-shadow: 0 0 10px rgba(244, 63, 94, 0.5);"></div>
+                        </div>
+                    </div>
+
+                    <!-- Developer Tag -->
+                    <div style="border-top: 1px dashed rgba(255, 255, 255, 0.1); padding-top: 24px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <img src="logo.png" alt="ChittorTech Logo" style="width: 32px; height: 32px; border-radius: 6px; object-fit: contain;">
+                        <div style="text-align: left;">
+                            <p style="font-size: 0.65rem; color: #64748b; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">A Product Of</p>
+                            <p style="font-size: 0.88rem; color: #ffffff; font-weight: 900; margin: 0;">ChittorTech</p>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <!-- TAB 4: ABOUT TEMPLE -->
             <div id="tab-about-temple" class="tab-pane" style="display: none;">
