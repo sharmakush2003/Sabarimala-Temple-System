@@ -205,7 +205,7 @@ function initNavigation() {
     const pageSub = document.getElementById("pageSub");
 
     const titlesMap = {
-        "custom-bill": { title: "Create Invoice", sub: "Counter Billing & Official Paper Receipt Generator" },
+        "custom-bill": { title: "Create Invoice", sub: "ChittorTech HMS — Enterprise Edition" },
         "registry": { title: "Donation Registry", sub: "Sabarimala Sri Ayyappaswamy Temple — Management Dashboard" },
         "about-temple": { title: "About Sabarimala Temple", sub: "Hubballi Charitable Society & Official Seva Directory" },
         "how-to-use": { title: "How To Use", sub: "Complete User Manual & System Operating Guide" }
