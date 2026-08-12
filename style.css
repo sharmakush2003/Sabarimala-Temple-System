@@ -714,6 +714,8 @@ select[multiple] option:checked {
 .table-controls {
     padding: 16px 20px;
     display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
     justify-content: space-between;
     align-items: center;
     background: #ffffff;
@@ -722,6 +724,7 @@ select[multiple] option:checked {
 
 .filter-group {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
 }
 
