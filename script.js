@@ -36,6 +36,17 @@ const PREDEFINED_SEVAS = [
     { id: 99, name: "Custom Seva / Other Purpose", defaultPrice: 0 }
 ];
 
+const EXPENSE_NAMES = {
+    "1": "Temple Maintenance / Repair",
+    "2": "Pooja Materials / Samagri",
+    "3": "Prasada / Annadanam Ingredients",
+    "4": "Electricity / Utility Bills",
+    "5": "Staff Salary / Dakshina",
+    "6": "Event / Festival Expenses",
+    "7": "Printing & Stationery",
+    "8": "Office / Miscellaneous Expenses"
+};
+
 // Initial Sample Receipts
 const INITIAL_RECEIPTS = [
     {
@@ -129,6 +140,10 @@ function generateReceiptNo() {
     
     const nextCount = maxCount + 1;
     return String(nextCount).padStart(3, '0');
+}
+
+function generateVoucherNo() {
+    return generateReceiptNo();
 }
 
 // AUTHENTICATION SECURITY LOCK
@@ -471,10 +486,167 @@ function initFormHandling() {
     }
 
     updateVoucherPreview();
+
+    // Outward Form elements
+    const outwardForm = document.getElementById("outwardForm");
+    const payeeName = document.getElementById("payeeName");
+    const payeeMobile = document.getElementById("payeeMobile");
+    const expenseSelect = document.getElementById("expenseSelect");
+    const customExpenseRow = document.getElementById("customExpenseRow");
+    const customExpenseName = document.getElementById("customExpenseName");
+    const expenseDate = document.getElementById("expenseDate");
+    const paymentModeOutward = document.getElementById("paymentModeOutward");
+    const paymentRefRowOutward = document.getElementById("paymentRefRowOutward");
+    const paymentRefLabelOutward = document.getElementById("paymentRefLabelOutward");
+    const paymentRefInputOutward = document.getElementById("paymentRefInputOutward");
+    const amountOutward = document.getElementById("amountOutward");
+    const voucherNo = document.getElementById("voucherNo");
+    const amountInWordsOutward = document.getElementById("amountInWordsOutward");
+
+    if (voucherNo) voucherNo.value = generateReceiptNo();
+    if (expenseDate) expenseDate.value = new Date().toISOString().split('T')[0];
+
+    function handlePaymentModeOutwardChange() {
+        if (!paymentModeOutward) return;
+        const val = paymentModeOutward.value;
+        if (val === "UPI") {
+            if (paymentRefRowOutward) paymentRefRowOutward.style.display = "block";
+            if (paymentRefLabelOutward) paymentRefLabelOutward.textContent = "TRANSACTION / UPI ID *";
+            if (paymentRefInputOutward) {
+                paymentRefInputOutward.placeholder = "e.g. TXN998273";
+                paymentRefInputOutward.required = true;
+            }
+        } else if (val === "Cheque") {
+            if (paymentRefRowOutward) paymentRefRowOutward.style.display = "block";
+            if (paymentRefLabelOutward) paymentRefLabelOutward.textContent = "CHEQUE NUMBER *";
+            if (paymentRefInputOutward) {
+                paymentRefInputOutward.placeholder = "e.g. CHQ-882910";
+                paymentRefInputOutward.required = true;
+            }
+        } else if (val === "Bank Transfer") {
+            if (paymentRefRowOutward) paymentRefRowOutward.style.display = "block";
+            if (paymentRefLabelOutward) paymentRefLabelOutward.textContent = "TRANSACTION ID / REF NO *";
+            if (paymentRefInputOutward) {
+                paymentRefInputOutward.placeholder = "e.g. REF-1092837";
+                paymentRefInputOutward.required = true;
+            }
+        } else {
+            if (paymentRefRowOutward) paymentRefRowOutward.style.display = "none";
+            if (paymentRefInputOutward) {
+                paymentRefInputOutward.value = "";
+                paymentRefInputOutward.required = false;
+            }
+        }
+        updateVoucherPreview();
+    }
+
+    if (paymentModeOutward) {
+        paymentModeOutward.addEventListener("change", handlePaymentModeOutwardChange);
+    }
+
+    if (expenseSelect) {
+        expenseSelect.addEventListener("change", () => {
+            const val = parseInt(expenseSelect.value);
+            if (val === 99) {
+                if (customExpenseRow) customExpenseRow.style.display = "block";
+                if (customExpenseName) {
+                    customExpenseName.required = true;
+                    customExpenseName.value = "";
+                }
+            } else {
+                if (customExpenseRow) customExpenseRow.style.display = "none";
+                if (customExpenseName) {
+                    customExpenseName.required = false;
+                    customExpenseName.value = "";
+                }
+            }
+            updateAmountInWordsOutward();
+            updateVoucherPreview();
+        });
+    }
+
+    [amountOutward, payeeName, payeeMobile, expenseDate, customExpenseName, paymentModeOutward, paymentRefInputOutward].forEach(input => {
+        if (input) {
+            input.addEventListener("input", () => {
+                updateAmountInWordsOutward();
+                updateVoucherPreview();
+            });
+            input.addEventListener("change", () => {
+                updateAmountInWordsOutward();
+                updateVoucherPreview();
+            });
+        }
+    });
+
+    function updateAmountInWordsOutward() {
+        if (!amountOutward) return;
+        const amt = parseFloat(amountOutward.value) || 0;
+        if (amountInWordsOutward) amountInWordsOutward.textContent = numberToWords(amt);
+    }
+
+    if (outwardForm) {
+        outwardForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            
+            const amt = parseFloat(amountOutward.value);
+            if (!amt || amt <= 0) {
+                alert("Please enter a valid amount!");
+                return;
+            }
+
+            let expenseText = "";
+            const selectedVal = parseInt(expenseSelect.value);
+            if (selectedVal === 99) {
+                expenseText = customExpenseName.value.trim() || "Custom Expense";
+            } else {
+                expenseText = EXPENSE_NAMES[selectedVal] || "Temple Expense";
+            }
+
+            let modeVal = paymentModeOutward.value;
+            const refVal = paymentRefInputOutward ? paymentRefInputOutward.value.trim() : "";
+            if (modeVal !== "Cash" && refVal) {
+                modeVal = `${modeVal} (${refVal})`;
+            }
+
+            const newRec = {
+                id: generateReceiptNo(),
+                date: expenseDate.value || new Date().toISOString().split('T')[0],
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                devoteeName: payeeName.value.trim(),
+                mobile: payeeMobile.value.trim() || "N/A",
+                sevaName: expenseText,
+                amount: amt,
+                paymentMode: modeVal,
+                status: "COMPLETED",
+                type: "OUTWARD",
+                createdAt: Date.now()
+            };
+
+            receiptsData.unshift(newRec);
+            saveReceipts();
+
+            // Sync with Google Sheets
+            postReceiptToGoogleSheets(newRec);
+
+            openVoucherPrintModal(newRec);
+
+            outwardForm.reset();
+            handlePaymentModeOutwardChange();
+            if (voucherNo) voucherNo.value = generateReceiptNo();
+            if (expenseDate) expenseDate.value = new Date().toISOString().split('T')[0];
+            updateAmountInWordsOutward();
+            renderAllViews();
+            
+            // Also refresh inward form receipt number if it exists
+            const inwardReceiptNo = document.getElementById("receiptNo");
+            if (inwardReceiptNo) inwardReceiptNo.value = generateReceiptNo();
+        });
+    }
 }
 
 let currentVoucherLang = 'english';
-let activeModalReceipt = nwindow.setVoucherLanguage = function(lang) {
+let activeModalReceipt = null;
+window.setVoucherLanguage = function(lang) {
     currentVoucherLang = lang;
     
     // Update active button styling in Inward Live Preview
