@@ -39,7 +39,7 @@ const PREDEFINED_SEVAS = [
 // Initial Sample Receipts
 const INITIAL_RECEIPTS = [
     {
-        id: "STH-2026-0001",
+        id: "001",
         date: "2026-08-01",
         time: "10:15 AM",
         devoteeName: "Priyanshu Sharma",
@@ -51,7 +51,7 @@ const INITIAL_RECEIPTS = [
         createdAt: new Date("2026-08-01T10:15:00").getTime()
     },
     {
-        id: "STH-2026-0002",
+        id: "002",
         date: "2026-08-01",
         time: "09:30 AM",
         devoteeName: "Manoj Kumar Sharma",
@@ -63,7 +63,7 @@ const INITIAL_RECEIPTS = [
         createdAt: new Date("2026-08-01T09:30:00").getTime()
     },
     {
-        id: "STH-2026-0003",
+        id: "003",
         date: "2026-08-01",
         time: "08:45 AM",
         devoteeName: "Suresh Patel",
@@ -81,6 +81,16 @@ let receiptsData = JSON.parse(localStorage.getItem("sabari_receipts")) || INITIA
 
 function saveReceipts() {
     localStorage.setItem("sabari_receipts", JSON.stringify(receiptsData));
+}
+
+// DATE FORMATTER: YYYY-MM-DD to DD-MM-YYYY
+function formatDateToDDMMYYYY(dateStr) {
+    if (!dateStr) return "";
+    const parts = dateStr.split('-');
+    if (parts.length === 3 && parts[0].length === 4) {
+        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
+    return dateStr;
 }
 
 // NUMBER TO WORDS (Indian System)
@@ -104,15 +114,12 @@ function numberToWords(num) {
 }
 
 function generateReceiptNo() {
-    const year = new Date().getFullYear();
-    const prefix = `STH-${year}-`;
-    
     let maxCount = 0;
     receiptsData.forEach(r => {
-        if (r.id && r.id.startsWith(prefix)) {
-            const parts = r.id.split('-');
-            if (parts.length === 3) {
-                const countNum = parseInt(parts[2], 10);
+        if (r.id) {
+            const match = r.id.match(/\d+$/);
+            if (match) {
+                const countNum = parseInt(match[0], 10);
                 if (!isNaN(countNum) && countNum > maxCount) {
                     maxCount = countNum;
                 }
@@ -121,7 +128,7 @@ function generateReceiptNo() {
     });
     
     const nextCount = maxCount + 1;
-    return `${prefix}${String(nextCount).padStart(4, '0')}`;
+    return String(nextCount).padStart(3, '0');
 }
 
 // INITIALIZE DOM
@@ -249,7 +256,7 @@ function initSevaSelectOptions() {
         PREDEFINED_SEVAS.forEach(seva => {
             const opt = document.createElement("option");
             opt.value = seva.id;
-            opt.textContent = `${seva.id < 99 ? seva.id + '. ' : ''}${seva.name} ${seva.defaultPrice > 0 ? '(₹' + seva.defaultPrice + ')' : ''}`;
+            opt.textContent = `${seva.id < 99 ? seva.id + '. ' : ''}${seva.name}`;
             sevaSelect.appendChild(opt);
         });
     }
@@ -407,12 +414,10 @@ function initFormHandling() {
 }
 
 let currentVoucherLang = 'english';
-let activeModalReceipt = null;
-
-window.setVoucherLanguage = function(lang) {
+let activeModalReceipt = nwindow.setVoucherLanguage = function(lang) {
     currentVoucherLang = lang;
     
-    // Update active button styling in Live Preview
+    // Update active button styling in Inward Live Preview
     const btnEng = document.getElementById("btnLangEnglish");
     const btnKan = document.getElementById("btnLangKannada");
     if (btnEng && btnKan) {
@@ -422,6 +427,19 @@ window.setVoucherLanguage = function(lang) {
         } else {
             btnKan.classList.add("active");
             btnEng.classList.remove("active");
+        }
+    }
+
+    // Update active button styling in Outward Live Preview
+    const btnEngOut = document.getElementById("btnLangEnglishOutward");
+    const btnKanOut = document.getElementById("btnLangKannadaOutward");
+    if (btnEngOut && btnKanOut) {
+        if (lang === 'english') {
+            btnEngOut.classList.add("active");
+            btnKanOut.classList.remove("active");
+        } else {
+            btnKanOut.classList.add("active");
+            btnEngOut.classList.remove("active");
         }
     }
 
@@ -447,48 +465,90 @@ window.setVoucherLanguage = function(lang) {
 
 function updateVoucherPreview() {
     const previewBox = document.getElementById("voucherPreviewBox");
-    if (!previewBox) return;
+    const previewBoxOutward = document.getElementById("voucherPreviewBoxOutward");
 
-    const devoteeInput = document.getElementById("devoteeName");
-    const devotee = devoteeInput && devoteeInput.value.trim() ? devoteeInput.value.trim() : "_______________________";
-    
-    const amtInput = document.getElementById("amount");
-    const amt = amtInput ? parseFloat(amtInput.value) || 0 : 0;
-    const amtWords = numberToWords(amt);
-    
-    const modeInput = document.getElementById("paymentMode");
-    const refInput = document.getElementById("paymentRefInput");
-    let mode = modeInput ? modeInput.value : "Cash";
-    if (modeInput && modeInput.value !== "Cash" && refInput && refInput.value.trim()) {
-        const ref = refInput.value.trim();
-        if (modeInput.value === "UPI") mode = `UPI (${ref})`;
-        else if (modeInput.value === "Cheque") mode = `Cheque (${ref})`;
-    }
-
-    let seva = "_______________________";
-    const sevaSel = document.getElementById("sevaSelect");
-    if (sevaSel && sevaSel.value) {
-        const selectedVal = parseInt(sevaSel.value);
-        if (selectedVal === 99) {
-            const cInput = document.getElementById("customSevaName");
-            seva = cInput && cInput.value.trim() ? cInput.value.trim() : "Custom Purpose";
-        } else {
-            const found = PREDEFINED_SEVAS.find(s => s.id === selectedVal);
-            if (found) seva = found.name;
+    // Inward Preview
+    if (previewBox) {
+        const devoteeInput = document.getElementById("devoteeName");
+        const devotee = devoteeInput && devoteeInput.value.trim() ? devoteeInput.value.trim() : "_______________________";
+        
+        const amtInput = document.getElementById("amount");
+        const amt = amtInput ? parseFloat(amtInput.value) || 0 : 0;
+        const amtWords = numberToWords(amt);
+        
+        const modeInput = document.getElementById("paymentMode");
+        const refInput = document.getElementById("paymentRefInput");
+        let mode = modeInput ? modeInput.value : "Cash";
+        if (modeInput && modeInput.value !== "Cash" && refInput && refInput.value.trim()) {
+            const ref = refInput.value.trim();
+            if (modeInput.value === "UPI") mode = `UPI (${ref})`;
+            else if (modeInput.value === "Cheque") mode = `Cheque (${ref})`;
         }
+
+        let seva = "_______________________";
+        const sevaSel = document.getElementById("sevaSelect");
+        if (sevaSel && sevaSel.value) {
+            const selectedVal = parseInt(sevaSel.value);
+            if (selectedVal === 99) {
+                const cInput = document.getElementById("customSevaName");
+                seva = cInput && cInput.value.trim() ? cInput.value.trim() : "Custom Purpose";
+            } else {
+                const found = PREDEFINED_SEVAS.find(s => s.id === selectedVal);
+                if (found) seva = found.name;
+            }
+        }
+
+        const rNoInput = document.getElementById("receiptNo");
+        const rNo = rNoInput ? rNoInput.value || generateReceiptNo() : generateReceiptNo();
+        
+        const dInput = document.getElementById("sevaDate");
+        const dateVal = dInput && dInput.value ? dInput.value : new Date().toISOString().split('T')[0];
+
+        previewBox.innerHTML = renderVoucherHTML(rNo, dateVal, devotee, amt, amtWords, mode, seva, currentVoucherLang, "INWARD");
     }
 
-    const rNoInput = document.getElementById("receiptNo");
-    const rNo = rNoInput ? rNoInput.value || generateReceiptNo() : generateReceiptNo();
-    
-    const dInput = document.getElementById("sevaDate");
-    const dateVal = dInput && dInput.value ? dInput.value : new Date().toISOString().split('T')[0];
+    // Outward Preview
+    if (previewBoxOutward) {
+        const payeeInput = document.getElementById("payeeName");
+        const payee = payeeInput && payeeInput.value.trim() ? payeeInput.value.trim() : "_______________________";
+        
+        const amtInput = document.getElementById("amountOutward");
+        const amt = amtInput ? parseFloat(amtInput.value) || 0 : 0;
+        const amtWords = numberToWords(amt);
+        
+        const modeInput = document.getElementById("paymentModeOutward");
+        const refInput = document.getElementById("paymentRefInputOutward");
+        let mode = modeInput ? modeInput.value : "Cash";
+        if (modeInput && modeInput.value !== "Cash" && refInput && refInput.value.trim()) {
+            const ref = refInput.value.trim();
+            mode = `${modeInput.value} (${ref})`;
+        }
 
-    previewBox.innerHTML = renderVoucherHTML(rNo, dateVal, devotee, amt, amtWords, mode, seva, currentVoucherLang);
+        let expense = "_______________________";
+        const expenseSel = document.getElementById("expenseSelect");
+        if (expenseSel && expenseSel.value) {
+            const selectedVal = parseInt(expenseSel.value);
+            if (selectedVal === 99) {
+                const cInput = document.getElementById("customExpenseName");
+                expense = cInput && cInput.value.trim() ? cInput.value.trim() : "Custom Expense";
+            } else {
+                expense = EXPENSE_NAMES[expenseSel.value] || "Temple Expense";
+            }
+        }
+
+        const vNoInput = document.getElementById("voucherNo");
+        const vNo = vNoInput ? vNoInput.value || generateVoucherNo() : generateVoucherNo();
+        
+        const dInput = document.getElementById("expenseDate");
+        const dateVal = dInput && dInput.value ? dInput.value : new Date().toISOString().split('T')[0];
+
+        previewBoxOutward.innerHTML = renderVoucherHTML(vNo, dateVal, payee, amt, amtWords, mode, expense, currentVoucherLang, "OUTWARD");
+    }
 }
 
 // VOUCHER HTML TEMPLATE — Single Language Render: English OR Kannada
-function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, modeStr, sevaPurpose, lang = currentVoucherLang) {
+function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, modeStr, sevaPurpose, lang = currentVoucherLang, type = "INWARD") {
+    const displayDate = formatDateToDDMMYYYY(dateStr);
     if (lang === 'kannada') {
         return `
         <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif;">
@@ -510,28 +570,28 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- RECEIPT NUMBER & DATE -->
         <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 800; margin-bottom: 10px;">
             <span>ಸಂಖ್ಯೆ: <strong>${recNo}</strong></span>
-            <span>ದಿನಾಂಕ: <strong>${dateStr}</strong></span>
+            <span>ದಿನಾಂಕ: <strong>${displayDate}</strong></span>
         </div>
 
         <!-- RECEIPT TITLE -->
         <div style="text-align: center; font-size: 1.05rem; font-weight: 900; letter-spacing: 1px; margin: 10px 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 5px 0;">
-            ರಶೀದಿ
-        </div>
-
-        <!-- AMOUNT IN WORDS -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                ಸ್ವೀಕರಿಸಿದ ಮೊತ್ತ:
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${amountWords}</span>
+            ${type === "OUTWARD" ? "ಪಾವತಿ ಚೀಟಿ" : "ರಶೀದಿ"}
         </div>
 
         <!-- FROM (DEVOTEE NAME) -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
             <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                ಶ್ರೀ/ಶ್ರೀಮತಿ:
+                ${type === "OUTWARD" ? "ಪಾವತಿಸಿದ್ದು ಇವರಿಗೆ:" : "ಶ್ರೀ/ಶ್ರೀಮತಿ:"}
             </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${devoteeName}</span>
+        </div>
+
+        <!-- AMOUNT IN WORDS -->
+        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                ${type === "OUTWARD" ? "ಪಾವತಿಸಿದ ಮೊತ್ತ:" : "ಸ್ವೀಕರಿಸಿದ ಮೊತ್ತ:"}
+            </span>
+            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${amountWords}</span>
         </div>
 
         <!-- PAYMENT MODE -->
@@ -545,7 +605,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- SEVA / PURPOSE -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
             <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                ಸೇವೆ/ಉದ್ದೇಶ:
+                ${type === "OUTWARD" ? "ಉದ್ದೇಶ:" : "ಸೇವೆ/ಉದ್ದೇಶ:"}
             </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${sevaPurpose}</span>
         </div>
@@ -555,7 +615,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
                 ದಿನಾಂಕ:
             </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${dateStr}</span>
+            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${displayDate}</span>
         </div>
 
         <!-- AMOUNT BOX -->
@@ -578,7 +638,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 <span style="font-size: 0.65rem; color: #475569;">9448543913</span>
             </div>
             <div style="display: flex; flex-direction: column; border-top: 1px dashed #000; padding-top: 4px; width: 90px;">
-                <span>ಸಹಿ</span>
+                <span>${type === "OUTWARD" ? "ಸ್ವೀಕೃತದಾರರ ಸಹಿ" : "ಸಹಿ"}</span>
             </div>
         </div>
 
@@ -607,28 +667,28 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- RECEIPT NUMBER & DATE -->
         <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 800; margin-bottom: 10px;">
             <span>No: <strong>${recNo}</strong></span>
-            <span>Date: <strong>${dateStr}</strong></span>
+            <span>Date: <strong>${displayDate}</strong></span>
         </div>
 
         <!-- RECEIPT TITLE -->
         <div style="text-align: center; font-size: 1rem; font-weight: 900; letter-spacing: 2px; margin: 10px 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 5px 0;">
-            RECEIPT
-        </div>
-
-        <!-- AMOUNT IN WORDS -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                Received Rs:
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${amountWords}</span>
+            ${type === "OUTWARD" ? "PAYMENT VOUCHER" : "RECEIPT"}
         </div>
 
         <!-- FROM (DEVOTEE NAME) -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
             <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                From Sri/Smt:
+                ${type === "OUTWARD" ? "Paid To (Sri/Smt/M/s):" : "From Sri/Smt:"}
             </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${devoteeName}</span>
+        </div>
+
+        <!-- AMOUNT IN WORDS -->
+        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
+            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
+                ${type === "OUTWARD" ? "Paid Rs:" : "Received Rs:"}
+            </span>
+            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${amountWords}</span>
         </div>
 
         <!-- PAYMENT MODE -->
@@ -642,7 +702,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- SEVA / PURPOSE -->
         <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
             <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                On account of:
+                ${type === "OUTWARD" ? "Towards:" : "On account of:"}
             </span>
             <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${sevaPurpose}</span>
         </div>
@@ -652,7 +712,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
                 On:
             </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${dateStr}</span>
+            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${displayDate}</span>
         </div>
 
         <!-- AMOUNT BOX -->
@@ -675,12 +735,12 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 <span style="font-size: 0.65rem; color: #475569;">9448543913</span>
             </div>
             <div style="display: flex; flex-direction: column; border-top: 1px dashed #000; padding-top: 4px; width: 90px;">
-                <span>Signature</span>
+                <span>${type === "OUTWARD" ? "Receiver's Signature" : "Signature"}</span>
             </div>
         </div>
 
         </div>
-    `;
+        `;
 }
 
 // FILTERS & SEARCH
@@ -742,15 +802,27 @@ function renderRegistryTable() {
         if (!matchesSearch) return false;
 
         if (filterType === "today") return r.date === todayStr;
-        if (filterType === "cash") return r.paymentMode === "Cash";
-        if (filterType === "upi") return r.paymentMode === "UPI";
+        if (filterType === "cash") return r.paymentMode.includes("Cash");
+        if (filterType === "upi") return r.paymentMode.includes("UPI") || r.paymentMode.includes("Online") || r.paymentMode.includes("Transfer");
+        if (filterType === "inward") return (!r.type || r.type === "INWARD");
+        if (filterType === "outward") return r.type === "OUTWARD";
         return true;
     });
 
-    tbody.innerHTML = filtered.map(r => `
+    tbody.innerHTML = filtered.map(r => {
+        const isOutward = r.type === "OUTWARD";
+        const badge = isOutward 
+            ? '<span style="font-size:0.6rem; padding: 2px 6px; background:#fee2e2; color:#ef4444; border-radius:4px; margin-left:8px; font-weight:800; vertical-align:middle; display:inline-block;">OUTWARD</span>'
+            : '<span style="font-size:0.6rem; padding: 2px 6px; background:#dcfce7; color:#15803d; border-radius:4px; margin-left:8px; font-weight:800; vertical-align:middle; display:inline-block;">INWARD</span>';
+        
+        const amtColor = isOutward ? '#ef4444' : '#10b981';
+        
+        return `
         <tr>
             <td>
-                <div style="font-weight: 800; color: #0f172a;">${r.devoteeName}</div>
+                <div style="font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 4px;">
+                    ${r.devoteeName} ${badge}
+                </div>
                 <div style="font-size: 0.72rem; color: #64748b;">Ref: ${r.id}</div>
             </td>
             <td>
@@ -758,11 +830,11 @@ function renderRegistryTable() {
             </td>
             <td>
                 <div style="font-size: 0.85rem; font-weight: 600;">${r.mobile}</div>
-                <div style="font-size: 0.72rem; color: #64748b;">${r.date} ${r.time}</div>
+                <div style="font-size: 0.72rem; color: #64748b;">${formatDateToDDMMYYYY(r.date)} ${r.time}</div>
             </td>
             <td>
-                <div style="font-weight: 900; color: #10b981;">₹${r.amount.toLocaleString('en-IN')}</div>
-                <span class="status-tag ${r.paymentMode === 'Cash' ? 'tag-booked' : 'tag-pending'}">${r.paymentMode}</span>
+                <div style="font-weight: 900; color: ${amtColor};">₹${r.amount.toLocaleString('en-IN')}</div>
+                <span class="status-tag ${r.paymentMode.startsWith('Cash') ? 'tag-booked' : 'tag-pending'}">${r.paymentMode}</span>
             </td>
             <td>
                 <span class="status-tag tag-booked" style="background: #dcfce7; color: #15803d;">
@@ -775,10 +847,11 @@ function renderRegistryTable() {
                 </button>
             </td>
         </tr>
-    `).join('');
+        `;
+    }).join('');
 
     const showingText = document.getElementById("showingCountText");
-    if (showingText) showingText.textContent = `SHOWING ${filtered.length} OF ${receiptsData.length} DONATION RECORDS`;
+    if (showingText) showingText.textContent = `SHOWING ${filtered.length} OF ${receiptsData.length} INVOICES`;
 
     if (window.lucide) lucide.createIcons();
 }
@@ -787,21 +860,26 @@ function renderTotalDonationsTable() {
     const tbody = document.getElementById("totalDonationBody");
     if (!tbody) return;
 
-    tbody.innerHTML = receiptsData.map(r => `
+    tbody.innerHTML = receiptsData.map(r => {
+        const isOutward = r.type === "OUTWARD";
+        const amtColor = isOutward ? '#ef4444' : '#d97706';
+        const typeLabel = isOutward ? ' (Outward)' : ' (Inward)';
+        return `
         <tr>
             <td style="font-weight: 800;">${r.id}</td>
-            <td style="font-size: 0.82rem; color: #64748b;">${r.date} ${r.time}</td>
-            <td style="font-weight: 700;">${r.devoteeName}</td>
+            <td style="font-size: 0.82rem; color: #64748b;">${formatDateToDDMMYYYY(r.date)} ${r.time}</td>
+            <td style="font-weight: 700;">${r.devoteeName}${typeLabel}</td>
             <td>${r.sevaName}</td>
             <td><span class="status-tag tag-pending">${r.paymentMode}</span></td>
-            <td style="font-weight: 900; color: #d97706;">₹${r.amount.toLocaleString('en-IN')}</td>
+            <td style="font-weight: 900; color: ${amtColor};">₹${r.amount.toLocaleString('en-IN')}</td>
             <td>
                 <button class="btn-allot" style="padding: 6px 12px; font-size: 0.72rem;" onclick="printVoucherById('${r.id}')">
-                    <i data-lucide="printer" style="width: 14px; height: 14px; margin-right: 4px;"></i> Receipt
+                    <i data-lucide="printer" style="width: 14px; height: 14px; margin-right: 4px;"></i> Print
                 </button>
             </td>
         </tr>
-    `).join('');
+        `;
+    }).join('');
 
     if (window.lucide) lucide.createIcons();
 }
@@ -813,8 +891,10 @@ function renderStats() {
     let cashTotal = 0;
 
     receiptsData.forEach(r => {
-        if (r.date === todayStr) todayTotal += r.amount;
-        if (r.paymentMode === "Cash") cashTotal += r.amount;
+        if (!r.type || r.type === "INWARD") {
+            if (r.date === todayStr) todayTotal += r.amount;
+            if (r.paymentMode.startsWith("Cash")) cashTotal += r.amount;
+        }
     });
 
     if (document.getElementById("statTodayTotal")) document.getElementById("statTodayTotal").textContent = `₹${todayTotal.toLocaleString('en-IN')}`;
@@ -1022,18 +1102,22 @@ async function syncWithGoogleSheets() {
         const data = await res.json();
         
         if (Array.isArray(data)) {
-            const formattedData = data.map((row, idx) => ({
-                id: row.id || row.Id || row.ID || "",
-                date: parseAndFormatDate(row.date || row.Date || ""),
-                time: parseAndFormatTime(row.time || row.Time || ""),
-                devoteeName: row.devoteeName || row["Devotee Name"] || row.name || "",
-                mobile: row.mobile || row.Mobile || row["Mobile Number"] || "",
-                sevaName: row.sevaName || row["Seva Name"] || "",
-                amount: parseFloat(row.amount || row.Amount || 0),
-                paymentMode: row.paymentMode || row["Payment Mode"] || "",
-                status: row.status || row.Status || "COMPLETED",
-                createdAt: idx
-            }));
+            const formattedData = data.map((row, idx) => {
+                const idVal = row.id || row.Id || row.ID || "";
+                return {
+                    id: idVal,
+                    date: parseAndFormatDate(row.date || row.Date || ""),
+                    time: parseAndFormatTime(row.time || row.Time || ""),
+                    devoteeName: row.devoteeName || row["Devotee Name"] || row.name || "",
+                    mobile: row.mobile || row.Mobile || row["Mobile Number"] || "",
+                    sevaName: row.sevaName || row["Seva Name"] || "",
+                    amount: parseFloat(row.amount || row.Amount || 0),
+                    paymentMode: row.paymentMode || row["Payment Mode"] || "",
+                    status: row.status || row.Status || "COMPLETED",
+                    type: row.type || row.Type || (idVal && idVal.endsWith("-OUT") ? "OUTWARD" : "INWARD"),
+                    createdAt: idx
+                };
+            });
 
             const validData = formattedData.filter(r => r.id);
             validData.sort((a, b) => b.createdAt - a.createdAt);
@@ -1098,7 +1182,8 @@ async function postReceiptToGoogleSheets(rec) {
             sevaName: rec.sevaName,
             amount: rec.amount,
             paymentMode: rec.paymentMode,
-            status: rec.status
+            status: rec.status,
+            type: rec.type || "INWARD"
         };
 
         await fetch(API_URL, {

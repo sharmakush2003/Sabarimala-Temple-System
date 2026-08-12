@@ -90,7 +90,7 @@ body {
    SIDEBAR (OBSIDIAN GLASS)
    ============================================ */
 .sidebar {
-    width: 260px;
+    width: 290px;
     background: rgba(17, 24, 39, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -150,7 +150,21 @@ body {
     font-weight: 900; 
     box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
 }
-.nav-link.active i { color: #4f46e5; }
+/* Custom Sidebar Icon Styling */
+.nav-link i, .nav-link svg {
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+}
+.nav-link:hover i, .nav-link:hover svg, .nav-link.active i, .nav-link.active svg {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.nav-link .icon-inward { color: #22c55e !important; stroke: #22c55e !important; }
+.nav-link .icon-outward { color: #ef4444 !important; stroke: #ef4444 !important; }
+.nav-link .icon-registry { color: #3b82f6 !important; stroke: #3b82f6 !important; }
+.nav-link .icon-temple { color: #f59e0b !important; stroke: #f59e0b !important; }
+.nav-link .icon-help { color: #a855f7 !important; stroke: #a855f7 !important; }
 
 .sidebar-footer {
     margin-top: 15px;
