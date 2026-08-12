@@ -43,7 +43,7 @@ const EXPENSE_NAMES = {
     "4": "Pooja Expense",
     "5": "Mahaannadhanam Expense",
     "6": "Maha Prasadam",
-    "7": "Deputy Registrar Expense",
+    "7": "Deputy Register Expense",
     "8": "Labour",
     "9": "Electricity Charges",
     "10": "Temple Property Tax",
