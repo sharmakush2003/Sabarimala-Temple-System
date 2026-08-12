@@ -37,14 +37,20 @@ const PREDEFINED_SEVAS = [
 ];
 
 const EXPENSE_NAMES = {
-    "1": "Temple Maintenance / Repair",
-    "2": "Pooja Materials / Samagri",
-    "3": "Prasada / Annadanam Ingredients",
-    "4": "Electricity / Utility Bills",
-    "5": "Staff Salary / Dakshina",
-    "6": "Event / Festival Expenses",
-    "7": "Printing & Stationery",
-    "8": "Office / Miscellaneous Expenses"
+    "1": "Printing, Stationery & Xerox",
+    "2": "CA Fees",
+    "3": "AGB/EGB Expense",
+    "4": "Pooja Expense",
+    "5": "Mahaannadhanam Expense",
+    "6": "Maha Prasadam",
+    "7": "Deputy Registrar Expense",
+    "8": "Labour",
+    "9": "Electricity Charges",
+    "10": "Temple Property Tax",
+    "11": "Temple Construction Charges",
+    "12": "Staff Salary (Priest)",
+    "13": "Staff Salary (Cleaning Labour)",
+    "14": "Miscellaneous"
 };
 
 // Initial Sample Receipts
