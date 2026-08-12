@@ -50,7 +50,8 @@ const EXPENSE_NAMES = {
     "11": "Temple Construction Charges",
     "12": "Staff Salary (Priest)",
     "13": "Staff Salary (Cleaning Labour)",
-    "14": "Miscellaneous"
+    "14": "Miscellaneous",
+    "15": "Internet Charges"
 };
 
 // Initial Sample Receipts
