@@ -338,27 +338,52 @@
                             </div>
 
                             <div style="margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">SELECT REASON FOR PAYMENT GIVEN *</label>
-                                <select id="expenseSelect" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
-                                    <option value="">-- Choose Reason for Payment --</option>
-                                    <option value="1">1. Printing, Stationery & Xerox</option>
-                                    <option value="2">2. CA Fees</option>
-                                    <option value="3">3. AGB/EGB Expense</option>
-                                    <option value="4">4. Pooja Expense</option>
-                                    <option value="5">5. Mahaannadhanam Expense</option>
-                                    <option value="6">6. Maha Prasadam</option>
-                                    <option value="7">7. Deputy Register Expense</option>
-                                    <option value="8">8. Labour</option>
-                                    <option value="9">9. Electricity Charges</option>
-                                    <option value="10">10. Temple Property Tax</option>
-                                    <option value="11">11. Temple Construction Charges</option>
-                                    <option value="12">12. Staff Salary (Priest)</option>
-                                    <option value="13">13. Staff Salary (Cleaning Labour)</option>
-                                    <option value="14">14. Miscellaneous</option>
-                                    <option value="15">15. Internet Charges</option>
-                                    <option value="99">99. Custom / Other Expense</option>
-                                </select>
-                            </div>
+                                 <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">SELECT REASON FOR PAYMENT GIVEN *</label>
+                                 <div class="custom-select-container" id="customExpenseContainer">
+                                     <div class="custom-select-trigger" id="customExpenseTrigger">
+                                         <span id="customExpenseVal">-- Choose Reason for Payment --</span>
+                                         <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #64748b; transition: transform 0.2s;"><path d="m6 9 6 6 6-6"/></svg>
+                                     </div>
+                                     <div class="custom-select-options" id="customExpenseOptions">
+                                         <div class="custom-select-option selected" data-value="">-- Choose Reason for Payment --</div>
+                                         <div class="custom-select-option" data-value="1">1. Printing, Stationery & Xerox</div>
+                                         <div class="custom-select-option" data-value="2">2. CA Fees</div>
+                                         <div class="custom-select-option" data-value="3">3. AGB/EGB Expense</div>
+                                         <div class="custom-select-option" data-value="4">4. Pooja Expense</div>
+                                         <div class="custom-select-option" data-value="5">5. Mahaannadhanam Expense</div>
+                                         <div class="custom-select-option" data-value="6">6. Maha Prasadam</div>
+                                         <div class="custom-select-option" data-value="7">7. Deputy Register Expense</div>
+                                         <div class="custom-select-option" data-value="8">8. Labour</div>
+                                         <div class="custom-select-option" data-value="9">9. Electricity Charges</div>
+                                         <div class="custom-select-option" data-value="10">10. Temple Property Tax</div>
+                                         <div class="custom-select-option" data-value="11">11. Temple Construction Charges</div>
+                                         <div class="custom-select-option" data-value="12">12. Staff Salary (Priest)</div>
+                                         <div class="custom-select-option" data-value="13">13. Staff Salary (Cleaning Labour)</div>
+                                         <div class="custom-select-option" data-value="14">14. Miscellaneous</div>
+                                         <div class="custom-select-option" data-value="15">15. Internet Charges</div>
+                                         <div class="custom-select-option" data-value="99">99. Custom / Other Expense</div>
+                                     </div>
+                                 </div>
+                                 <select id="expenseSelect" required style="display: none;">
+                                     <option value="">-- Choose Reason for Payment --</option>
+                                     <option value="1">1. Printing, Stationery & Xerox</option>
+                                     <option value="2">2. CA Fees</option>
+                                     <option value="3">3. AGB/EGB Expense</option>
+                                     <option value="4">4. Pooja Expense</option>
+                                     <option value="5">5. Mahaannadhanam Expense</option>
+                                     <option value="6">6. Maha Prasadam</option>
+                                     <option value="7">7. Deputy Register Expense</option>
+                                     <option value="8">8. Labour</option>
+                                     <option value="9">9. Electricity Charges</option>
+                                     <option value="10">10. Temple Property Tax</option>
+                                     <option value="11">11. Temple Construction Charges</option>
+                                     <option value="12">12. Staff Salary (Priest)</option>
+                                     <option value="13">13. Staff Salary (Cleaning Labour)</option>
+                                     <option value="14">14. Miscellaneous</option>
+                                     <option value="15">15. Internet Charges</option>
+                                     <option value="99">99. Custom / Other Expense</option>
+                                 </select>
+                             </div>
 
                             <div id="customExpenseRow" style="display: none; margin-bottom: 14px;">
                                 <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">CUSTOM PAYMENT DETAILS</label>

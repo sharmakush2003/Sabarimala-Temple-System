@@ -513,6 +513,62 @@ function initFormHandling() {
     if (voucherNo) voucherNo.value = generateReceiptNo();
     if (expenseDate) expenseDate.value = new Date().toISOString().split('T')[0];
 
+    // Custom select initialization
+    const customContainer = document.getElementById("customExpenseContainer");
+    const customTrigger = document.getElementById("customExpenseTrigger");
+    const customVal = document.getElementById("customExpenseVal");
+    const customOptionsContainer = document.getElementById("customExpenseOptions");
+    const customOptions = customOptionsContainer ? customOptionsContainer.querySelectorAll(".custom-select-option") : [];
+
+    if (customTrigger && customOptionsContainer) {
+        customTrigger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            customTrigger.classList.toggle("active");
+            customOptionsContainer.classList.toggle("show");
+        });
+
+        // Close when clicking outside
+        document.addEventListener("click", () => {
+            customTrigger.classList.remove("active");
+            customOptionsContainer.classList.remove("show");
+        });
+
+        customOptions.forEach(opt => {
+            opt.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const val = opt.getAttribute("data-value");
+                const text = opt.textContent;
+
+                // Update hidden select value
+                if (expenseSelect) {
+                    expenseSelect.value = val;
+                    // Trigger the native change event so other listeners (e.g. showing custom details row) run
+                    expenseSelect.dispatchEvent(new Event("change"));
+                }
+
+                // Update UI of custom select
+                customVal.textContent = text;
+                customOptions.forEach(o => o.classList.remove("selected"));
+                opt.classList.add("selected");
+
+                customTrigger.classList.remove("active");
+                customOptionsContainer.classList.remove("show");
+            });
+        });
+    }
+
+    // Helper to reset custom select when form resets
+    function resetCustomSelect() {
+        if (customVal) customVal.textContent = "-- Choose Reason for Payment --";
+        customOptions.forEach(o => {
+            if (o.getAttribute("data-value") === "") {
+                o.classList.add("selected");
+            } else {
+                o.classList.remove("selected");
+            }
+        });
+    }
+
     function handlePaymentModeOutwardChange() {
         if (!paymentModeOutward) return;
         const val = paymentModeOutward.value;
@@ -638,6 +694,7 @@ function initFormHandling() {
             openVoucherPrintModal(newRec);
 
             outwardForm.reset();
+            resetCustomSelect();
             handlePaymentModeOutwardChange();
             if (voucherNo) voucherNo.value = generateReceiptNo();
             if (expenseDate) expenseDate.value = new Date().toISOString().split('T')[0];
