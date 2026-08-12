@@ -164,8 +164,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("authPassword").value.trim();
             const errMsg = document.getElementById("authErrorMessage");
 
-            // Credentials check: admin@dharamshala.com / admin
-            if (email === "admin@dharamshala.com" && password === "admin") {
+            // Credentials check: kushsharma.cor@gmail.com / 123456
+            if (email === "kushsharma.cor@gmail.com" && password === "123456") {
                 localStorage.setItem("sabari_logged_in", "true");
                 if (errMsg) errMsg.style.display = "none";
                 checkAuth();
