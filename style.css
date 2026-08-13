@@ -1211,38 +1211,45 @@ select[multiple] option:checked {
    DEVELOPER CREDITS — PREMIUM CHITTORTECH STYLE
    ============================================ */
 .developer-credits {
-    padding: 24px 16px;
-    margin: 20px 8px 10px 8px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
+    padding: 14px 16px;
+    margin: 16px 8px 8px 8px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.developer-credits::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.6), transparent);
 }
 
 .developer-credits:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateY(-1px);
 }
 
 .dev-pill {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 10px 14px;
-    border-radius: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 10px;
 }
 
 .dev-logo {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
     object-fit: contain;
+    opacity: 0.9;
 }
 
 .dev-info {
@@ -1251,18 +1258,18 @@ select[multiple] option:checked {
 }
 
 .dev-label {
-    font-size: 0.6rem;
-    font-weight: 800;
-    color: #94a3b8;
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: #64748b;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 1px;
     margin: 0;
 }
 
 .dev-brand {
-    font-size: 0.95rem;
+    font-size: 0.82rem;
     font-weight: 900;
-    color: #ffffff;
+    color: #e2e8f0;
     letter-spacing: -0.3px;
     margin: 0;
 }
@@ -1292,20 +1299,21 @@ select[multiple] option:checked {
 .dev-contact {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding-top: 8px;
-    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    gap: 4px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .dev-contact a {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #94a3b8;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #6366f1;
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     transition: all 0.2s ease;
+    opacity: 0.85;
 }
 
 .dev-contact a i {
