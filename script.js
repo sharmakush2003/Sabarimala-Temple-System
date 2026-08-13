@@ -950,15 +950,15 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
 
             <!-- SIGNATURES (KANNADA OUTWARD VOUCHER) -->
             <div style="margin-top: 40px; display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800; text-align: center;">
-                <div style="display: flex; flex-direction: column; align-items: center; width: 180px;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 35%;">
                     <div style="height: 35px;"></div>
                     <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">ಅಧ್ಯಕ್ಷರು / ಕಾರ್ಯದರ್ಶಿ</div>
                 </div>
-                <div style="display: flex; flex-direction: column; align-items: center; width: 120px;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 25%;">
                     <div style="height: 35px;"></div>
                     <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">ಖಜಾಂಚಿ</div>
                 </div>
-                <div style="display: flex; flex-direction: column; align-items: center; width: 150px;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 30%;">
                     <div style="height: 35px;"></div>
                     <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">ಸ್ವೀಕೃತದಾರರ ಸಹಿ</div>
                 </div>
@@ -1040,15 +1040,15 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
 
             <!-- SIGNATURES (ENGLISH OUTWARD VOUCHER) -->
             <div style="margin-top: 40px; display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800; text-align: center; font-family: 'Georgia', serif;">
-                <div style="display: flex; flex-direction: column; align-items: center; width: 180px;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 35%;">
                     <div style="height: 35px;"></div>
                     <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">President / Secretary</div>
                 </div>
-                <div style="display: flex; flex-direction: column; align-items: center; width: 120px;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 25%;">
                     <div style="height: 35px;"></div>
                     <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">Treasurer</div>
                 </div>
-                <div style="display: flex; flex-direction: column; align-items: center; width: 150px;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 30%;">
                     <div style="height: 35px;"></div>
                     <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">Receiver's Signature</div>
                 </div>
@@ -1137,7 +1137,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- BOTTOM SECTION -->
         <div style="margin-top: 35px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.85rem; font-weight: 800; text-align: center;">
             <!-- Amount Box Container -->
-            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 45%;">
+            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 35%;">
                 <div style="border: 2px solid #000; padding: 6px 16px; font-size: 1.15rem; font-weight: 900; background: #f8fafc; font-family: 'Courier New', Courier, monospace; text-align: center;">
                     ರೂ. ₹ ${amountVal.toLocaleString('en-IN')}/-
                 </div>
@@ -1149,13 +1149,13 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             </div>
             
             <!-- President Signature -->
-            <div style="display: flex; flex-direction: column; align-items: center; width: 30%;">
+            <div style="display: flex; flex-direction: column; align-items: center; width: 25%;">
                 <div style="height: 35px;"></div>
                 <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">ಅಧ್ಯಕ್ಷರು</div>
             </div>
             
             <!-- Treasurer Signature -->
-            <div style="display: flex; flex-direction: column; align-items: center; width: 30%;">
+            <div style="display: flex; flex-direction: column; align-items: center; width: 25%;">
                 <div style="height: 35px;"></div>
                 <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">ಖಜಾಂಚಿ</div>
             </div>
@@ -1243,7 +1243,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- BOTTOM SECTION -->
         <div style="margin-top: 35px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.85rem; font-weight: 800; text-align: center; font-family: 'Georgia', serif;">
             <!-- Amount Box Container -->
-            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 45%;">
+            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 35%;">
                 <div style="border: 2px solid #000; padding: 6px 16px; font-size: 1.15rem; font-weight: 900; background: #f8fafc; font-family: 'Courier New', Courier, monospace; text-align: center;">
                     ₹ ${amountVal.toLocaleString('en-IN')}/-
                 </div>
@@ -1255,13 +1255,13 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             </div>
             
             <!-- President Signature -->
-            <div style="display: flex; flex-direction: column; align-items: center; width: 30%;">
+            <div style="display: flex; flex-direction: column; align-items: center; width: 25%;">
                 <div style="height: 35px;"></div>
                 <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">President</div>
             </div>
             
             <!-- Treasurer Signature -->
-            <div style="display: flex; flex-direction: column; align-items: center; width: 30%;">
+            <div style="display: flex; flex-direction: column; align-items: center; width: 25%;">
                 <div style="height: 35px;"></div>
                 <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">Treasurer</div>
             </div>
