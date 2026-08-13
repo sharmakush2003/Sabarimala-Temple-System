@@ -853,11 +853,40 @@ function splitAmountWords(words, maxLength = 35) {
     };
 }
 
-// VOUCHER HTML TEMPLATE — Single Language Render: English OR Kannada
 function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, modeStr, sevaPurpose, lang = currentVoucherLang, type = "INWARD") {
     const displayDate = formatDateToDDMMYYYY(dateStr);
-    
-    const { part1, part2 } = splitAmountWords(amountWords, 35);
+    let finalAmountWords = amountWords;
+    if (type !== "OUTWARD") {
+        let suffix = "";
+        if (lang === 'kannada') {
+            if (modeStr) {
+                if (modeStr.startsWith("Cash")) {
+                    suffix = " (ನಗದು ಮೂಲಕ)";
+                } else if (modeStr.startsWith("UPI")) {
+                    const refMatches = modeStr.match(/\((.*?)\)/);
+                    const ref = refMatches ? refMatches[1] : "";
+                    suffix = ` (ಯುಪಿಐ ಮೂಲಕ${ref ? " - " + ref : ""})`;
+                } else if (modeStr.startsWith("Cheque")) {
+                    const refMatches = modeStr.match(/\((.*?)\)/);
+                    const ref = refMatches ? refMatches[1] : "";
+                    suffix = ` (ಚೆಕ್ ಮೂಲಕ${ref ? " - " + ref : ""})`;
+                }
+            }
+        } else {
+            if (modeStr) {
+                if (modeStr.startsWith("Cash")) {
+                    suffix = " through Cash";
+                } else if (modeStr.startsWith("UPI")) {
+                    suffix = ` through ${modeStr}`;
+                } else if (modeStr.startsWith("Cheque")) {
+                    suffix = ` through ${modeStr}`;
+                }
+            }
+        }
+        finalAmountWords = amountWords + suffix;
+    }
+
+    const { part1, part2 } = splitAmountWords(finalAmountWords, 35);
 
     let nameFontSize = "1.05rem";
     if (devoteeName && devoteeName.length > 0) {
