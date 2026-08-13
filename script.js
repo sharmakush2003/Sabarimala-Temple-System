@@ -845,6 +845,14 @@ function updateVoucherPreview() {
 function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, modeStr, sevaPurpose, lang = currentVoucherLang, type = "INWARD") {
     const displayDate = formatDateToDDMMYYYY(dateStr);
     
+    let nameFontSize = "1.05rem";
+    if (devoteeName && devoteeName.length > 25) {
+        const len = devoteeName.length;
+        if (len <= 35) nameFontSize = "0.9rem";
+        else if (len <= 45) nameFontSize = "0.8rem";
+        else nameFontSize = "0.7rem";
+    }
+    
     if (type === "OUTWARD") {
         if (lang === 'kannada') {
             return `
@@ -884,7 +892,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 <!-- Paid To -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
                     <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; min-width: 120px;">ಪಾವತಿಸಿದ್ದು ಇವರಿಗೆ:</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1.05rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
                         ${devoteeName || "&nbsp;"}
                     </span>
                 </div>
@@ -970,7 +978,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 <!-- Paid To -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
                     <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; min-width: 65px;">Paid To</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 1.05rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
                         ${devoteeName || "&nbsp;"}
                     </span>
                 </div>
@@ -1064,7 +1072,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             <!-- Received with thanks from Smt./Sri -->
             <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
                 <span style="font-weight: 800; white-space: nowrap; margin-right: 10px;">ಶ್ರೀ/ಶ್ರೀಮತಿ ಇವರಿಂದ ಸ್ವೀಕರಿಸಲಾಗಿದೆ:</span>
-                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1.05rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
                     ${devoteeName || "&nbsp;"}
                 </span>
             </div>
@@ -1159,7 +1167,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             <!-- Received with thanks from Smt./Sri -->
             <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
                 <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif;">Received with thanks from Smt./Sri</span>
-                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 1.05rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
                     ${devoteeName || "&nbsp;"}
                 </span>
             </div>
