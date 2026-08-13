@@ -855,38 +855,29 @@ function splitAmountWords(words, maxLength = 35) {
 
 function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, modeStr, sevaPurpose, lang = currentVoucherLang, type = "INWARD") {
     const displayDate = formatDateToDDMMYYYY(dateStr);
-    let finalAmountWords = amountWords;
-    if (type !== "OUTWARD") {
-        let suffix = "";
+    let modeText = "";
+    let throughLabel = "";
+    if (type !== "OUTWARD" && modeStr) {
         if (lang === 'kannada') {
-            if (modeStr) {
-                if (modeStr.startsWith("Cash")) {
-                    suffix = " (ನಗದು ಮೂಲಕ)";
-                } else if (modeStr.startsWith("UPI")) {
-                    const refMatches = modeStr.match(/\((.*?)\)/);
-                    const ref = refMatches ? refMatches[1] : "";
-                    suffix = ` (ಯುಪಿಐ ಮೂಲಕ${ref ? " - " + ref : ""})`;
-                } else if (modeStr.startsWith("Cheque")) {
-                    const refMatches = modeStr.match(/\((.*?)\)/);
-                    const ref = refMatches ? refMatches[1] : "";
-                    suffix = ` (ಚೆಕ್ ಮೂಲಕ${ref ? " - " + ref : ""})`;
-                }
+            throughLabel = "ಮೂಲಕ:";
+            if (modeStr.startsWith("Cash")) {
+                modeText = "ನಗದು";
+            } else if (modeStr.startsWith("UPI")) {
+                const refMatches = modeStr.match(/\((.*?)\)/);
+                const ref = refMatches ? refMatches[1] : "";
+                modeText = `ಯುಪಿಐ${ref ? " (" + ref + ")" : ""}`;
+            } else if (modeStr.startsWith("Cheque")) {
+                const refMatches = modeStr.match(/\((.*?)\)/);
+                const ref = refMatches ? refMatches[1] : "";
+                modeText = `ಚೆಕ್${ref ? " (" + ref + ")" : ""}`;
             }
         } else {
-            if (modeStr) {
-                if (modeStr.startsWith("Cash")) {
-                    suffix = " through Cash";
-                } else if (modeStr.startsWith("UPI")) {
-                    suffix = ` through ${modeStr}`;
-                } else if (modeStr.startsWith("Cheque")) {
-                    suffix = ` through ${modeStr}`;
-                }
-            }
+            throughLabel = "through";
+            modeText = modeStr;
         }
-        finalAmountWords = amountWords + suffix;
     }
 
-    const { part1, part2 } = splitAmountWords(finalAmountWords, 35);
+    const { part1, part2 } = splitAmountWords(amountWords, 35);
 
     let nameFontSize = "1.05rem";
     if (devoteeName && devoteeName.length > 0) {
@@ -1139,12 +1130,21 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             </div>
 
             <!-- Third Blank Line -->
-            <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+            <div style="display: flex; align-items: baseline; margin-bottom: 8px; width: 100%;">
                 ${part2 ? `
                 <span style="border-bottom: 1px solid #000; padding: 0 4px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
                     ${part2}
                 </span>
-                ` : '&nbsp;'}
+                ` : ''}
+                
+                ${modeText ? `
+                <span style="font-weight: 800; white-space: nowrap; margin-left: ${part2 ? '20px' : '0px'}; margin-right: 10px; font-size: 0.82rem; color: #444;">
+                    ${throughLabel}
+                </span>
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 4px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
+                    ${modeText}
+                </span>
+                ` : (part2 ? '' : '&nbsp;')}
             </div>
 
             <!-- On account of -->
@@ -1244,12 +1244,21 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             </div>
 
             <!-- Third Blank Line -->
-            <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+            <div style="display: flex; align-items: baseline; margin-bottom: 8px; width: 100%;">
                 ${part2 ? `
                 <span style="border-bottom: 1px solid #000; padding: 0 4px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
                     ${part2}
                 </span>
-                ` : '&nbsp;'}
+                ` : ''}
+                
+                ${modeText ? `
+                <span style="font-weight: 700; white-space: nowrap; margin-left: ${part2 ? '20px' : '0px'}; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.82rem; color: #444;">
+                    ${throughLabel}
+                </span>
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 4px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
+                    ${modeText}
+                </span>
+                ` : (part2 ? '' : '&nbsp;')}
             </div>
 
             <!-- On account of -->
