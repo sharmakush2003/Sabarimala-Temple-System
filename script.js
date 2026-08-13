@@ -406,11 +406,8 @@ function initFormHandling() {
             const val = parseInt(sevaSelect.value);
             if (val === 99) {
                 customSevaRow.style.display = "block";
-                amountInput.value = "";
             } else {
                 customSevaRow.style.display = "none";
-                const found = PREDEFINED_SEVAS.find(s => s.id === val);
-                if (found) amountInput.value = found.defaultPrice;
             }
             updateAmountInWords();
             updateVoucherPreview();
