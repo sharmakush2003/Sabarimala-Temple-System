@@ -861,18 +861,18 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
 
     let nameFontSize = "1.05rem";
     if (devoteeName && devoteeName.length > 0) {
-        nameFontSize = Math.max(0.4, Math.min(1.05, 14.5 / devoteeName.length)) + "rem";
+        nameFontSize = Math.max(0.68, Math.min(1.05, 23 / devoteeName.length)) + "rem";
     }
     
     let wordsFontSize = "0.92rem";
     if (part1 && part1.length > 0) {
-        wordsFontSize = Math.max(0.4, Math.min(0.92, 21 / part1.length)) + "rem";
+        wordsFontSize = Math.max(0.72, Math.min(0.92, 28 / part1.length)) + "rem";
     }
     
     if (type === "OUTWARD") {
         if (lang === 'kannada') {
             return `
-            <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif; max-width: 500px; width: 100%; box-sizing: border-box; margin: 0 auto;">
+            <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif; max-width: 540px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
             <!-- HEADER (KANNADA OUTWARD VOUCHER) -->
             <div style="display: flex; border-bottom: 2px solid #000; margin-bottom: 12px; padding-bottom: 8px;">
@@ -962,7 +962,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             `;
         } else {
             return `
-            <div style="font-family: 'Inter', sans-serif; max-width: 500px; width: 100%; box-sizing: border-box; margin: 0 auto;">
+            <div style="font-family: 'Inter', sans-serif; max-width: 540px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
             <!-- HEADER (ENGLISH OUTWARD VOUCHER) -->
             <div style="display: flex; border-bottom: 2px solid #000; margin-bottom: 12px; padding-bottom: 8px;">
@@ -1055,7 +1055,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
 
     if (lang === 'kannada') {
         return `
-        <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif; max-width: 500px; width: 100%; box-sizing: border-box; margin: 0 auto;">
+        <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif; max-width: 540px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
         <!-- HEADER (KANNADA ONLY) -->
         <div style="display: flex; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; align-items: center;">
@@ -1161,7 +1161,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
 
     // DEFAULT: ENGLISH ONLY
     return `
-        <div style="font-family: 'Inter', sans-serif; max-width: 500px; width: 100%; box-sizing: border-box; margin: 0 auto;">
+        <div style="font-family: 'Inter', sans-serif; max-width: 540px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
         <!-- HEADER (ENGLISH ONLY) -->
         <div style="display: flex; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; align-items: center;">
@@ -1443,7 +1443,7 @@ function renderModalVoucherContent(rec) {
     const htmlSingle = renderVoucherHTML(rec.id, rec.date, rec.devoteeName, rec.amount, amtWords, rec.paymentMode, rec.sevaName, currentVoucherLang, rec.type || "INWARD");
     
     container.innerHTML = `
-        <div class="dual-print-container" style="max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; background: white;">
+        <div class="dual-print-container" style="max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; background: white;">
             
             <!-- First Copy -->
             <div style="border: 2px solid #000; padding: 12px 20px 20px 20px; box-sizing: border-box; background: white;">
