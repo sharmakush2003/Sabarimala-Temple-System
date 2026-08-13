@@ -894,11 +894,15 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                     </span>
                 </div>
 
-                <!-- Rs. -->
+                <!-- Rs. & In Words (Kannada) -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
                     <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; min-width: 120px;">ಮೊತ್ತ:</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1.15rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                    <span style="width: 25%; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1.15rem; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
                         ₹${amountVal.toLocaleString('en-IN')}/-
+                    </span>
+                    <span style="font-weight: 800; white-space: nowrap; margin-left: 10px; margin-right: 10px; font-size: 0.85rem; color: #444;">(ಅಕ್ಷರಗಳಲ್ಲಿ)</span>
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 0.92rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                        ${amountWords}
                     </span>
                 </div>
 
@@ -980,11 +984,15 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                     </span>
                 </div>
 
-                <!-- Rs. -->
+                <!-- Rs. & In Words -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
                     <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; min-width: 65px;">Rs.</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 800; font-size: 1.15rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                    <span style="width: 25%; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 800; font-size: 1.15rem; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
                         ₹${amountVal.toLocaleString('en-IN')}/-
+                    </span>
+                    <span style="font-weight: 700; white-space: nowrap; margin-left: 10px; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.85rem; color: #444;">(in words)</span>
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 0.92rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                        ${amountWords}
                     </span>
                 </div>
 
@@ -1078,7 +1086,9 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
                 <span style="width: 30%; border-bottom: 1px solid #000;">&nbsp;</span>
                 <span style="font-weight: 800; white-space: nowrap; margin-left: 10px; margin-right: 10px; font-size: 0.85rem; color: #444;">ಮೊತ್ತ ಅಕ್ಷರಗಳಲ್ಲಿ (ರೂಪಾಯಿಗಳು)</span>
-                <span style="flex-grow: 1; border-bottom: 1px solid #000;">&nbsp;</span>
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 0.92rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                    ${amountWords}
+                </span>
             </div>
 
             <!-- Third Blank Line -->
@@ -1173,7 +1183,9 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
                 <span style="width: 30%; border-bottom: 1px solid #000;">&nbsp;</span>
                 <span style="font-weight: 700; white-space: nowrap; margin-left: 10px; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.85rem; color: #444;">the sum of Rupees (in words)</span>
-                <span style="flex-grow: 1; border-bottom: 1px solid #000;">&nbsp;</span>
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 0.92rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                    ${amountWords}
+                </span>
             </div>
 
             <!-- Third Blank Line -->
