@@ -860,19 +860,13 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
     const { part1, part2 } = splitAmountWords(amountWords, 35);
 
     let nameFontSize = "1.05rem";
-    if (devoteeName) {
-        const len = devoteeName.length;
-        if (len > 15 && len <= 20) nameFontSize = "0.92rem";
-        else if (len > 20 && len <= 28) nameFontSize = "0.76rem";
-        else if (len > 28 && len <= 38) nameFontSize = "0.65rem";
-        else if (len > 38) nameFontSize = "0.52rem";
+    if (devoteeName && devoteeName.length > 0) {
+        nameFontSize = Math.max(0.4, Math.min(1.05, 14.5 / devoteeName.length)) + "rem";
     }
     
     let wordsFontSize = "0.92rem";
-    if (part1) {
-        const len = part1.length;
-        if (len > 20 && len <= 28) wordsFontSize = "0.78rem";
-        else if (len > 28) wordsFontSize = "0.68rem";
+    if (part1 && part1.length > 0) {
+        wordsFontSize = Math.max(0.4, Math.min(0.92, 21 / part1.length)) + "rem";
     }
     
     if (type === "OUTWARD") {
