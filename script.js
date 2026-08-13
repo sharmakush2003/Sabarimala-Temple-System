@@ -914,19 +914,19 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 <!-- Paid To -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                     <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; min-width: 120px;">ಪಾವತಿಸಿದ್ದು ಇವರಿಗೆ:</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
-                        ${devoteeName || "&nbsp;"}
+                    <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 900; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
+                        ${devoteeName || ""}
                     </span>
                 </div>
 
                 <!-- Rs. & In Words (Kannada) -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                     <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; min-width: 120px;">ಮೊತ್ತ:</span>
-                    <span style="width: 25%; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1.15rem; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
+                    <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 900; font-size: 1.15rem; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; margin-right: 15px;">
                         ₹${amountVal.toLocaleString('en-IN')}/-
                     </span>
-                    <span style="font-weight: 800; white-space: nowrap; margin-left: 10px; margin-right: 10px; font-size: 0.82rem; color: #444;">(ಅಕ್ಷರಗಳಲ್ಲಿ)</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000;">
+                    <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; font-size: 0.82rem; color: #444;">(ಅಕ್ಷರಗಳಲ್ಲಿ)</span>
+                    <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
                         ${amountWords}
                     </span>
                 </div>
@@ -934,16 +934,16 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 <!-- Towards -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                     <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; min-width: 120px;">ಉದ್ದೇಶ:</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
-                        ${sevaPurpose || "&nbsp;"}
+                    <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 900; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
+                        ${sevaPurpose || ""}
                     </span>
                 </div>
                 
                 <!-- Extra details / mode line -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                     <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; min-width: 120px;">ಪಾವತಿ ವಿಧಾನ:</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 0.95rem; font-family: 'Courier New', Courier, monospace;">
-                        ${modeStr || "&nbsp;"}
+                    <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 900; font-size: 0.95rem; font-family: 'Courier New', Courier, monospace;">
+                        ${modeStr || ""}
                     </span>
                 </div>
             </div>
@@ -1004,19 +1004,19 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 <!-- Paid To -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                     <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; min-width: 65px;">Paid To</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
-                        ${devoteeName || "&nbsp;"}
+                    <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 700; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
+                        ${devoteeName || ""}
                     </span>
                 </div>
 
                 <!-- Rs. & In Words -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                     <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; min-width: 65px;">Rs.</span>
-                    <span style="width: 25%; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 800; font-size: 1.15rem; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
+                    <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 800; font-size: 1.15rem; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; margin-right: 15px;">
                         ₹${amountVal.toLocaleString('en-IN')}/-
                     </span>
-                    <span style="font-weight: 700; white-space: nowrap; margin-left: 10px; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.82rem; color: #444;">(in words)</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000;">
+                    <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.82rem; color: #444;">(in words)</span>
+                    <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
                         ${amountWords}
                     </span>
                 </div>
@@ -1024,16 +1024,16 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 <!-- Towards -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                     <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; min-width: 65px;">Towards</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
-                        ${sevaPurpose || "&nbsp;"}
+                    <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 700; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
+                        ${sevaPurpose || ""}
                     </span>
                 </div>
                 
                 <!-- Extra payment details / payment mode details line -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                     <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.8rem; color: #444; min-width: 65px;">Payment Mode</span>
-                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 0.95rem; font-family: 'Courier New', Courier, monospace;">
-                        ${modeStr || "&nbsp;"}
+                    <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 700; font-size: 0.95rem; font-family: 'Courier New', Courier, monospace;">
+                        ${modeStr || ""}
                     </span>
                 </div>
             </div>
@@ -1102,32 +1102,34 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             <!-- Received with thanks from Smt./Sri -->
             <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                 <span style="font-weight: 800; white-space: nowrap; margin-right: 10px;">ಶ್ರೀ/ಶ್ರೀಮತಿ ಇವರಿಂದ ಸ್ವೀಕರಿಸಲಾಗಿದೆ:</span>
-                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
-                    ${devoteeName || "&nbsp;"}
+                <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 900; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
+                    ${devoteeName || ""}
                 </span>
             </div>
 
             <!-- Blank Line with "the sum of Rupees (in words)" in Kannada -->
             <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
-                <span style="width: 30%; border-bottom: 1px solid #000;">&nbsp;</span>
+                <span style="width: 30%;">&nbsp;</span>
                 <span style="font-weight: 800; white-space: nowrap; margin-left: 10px; margin-right: 10px; font-size: 0.82rem; color: #444;">ಮೊತ್ತ ಅಕ್ಷರಗಳಲ್ಲಿ (ರೂಪಾಯಿಗಳು)</span>
-                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
+                <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
                     ${part1}
                 </span>
             </div>
 
             <!-- Third Blank Line -->
             <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
-                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
-                    ${part2 || "&nbsp;"}
+                ${part2 ? `
+                <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
+                    ${part2}
                 </span>
+                ` : '&nbsp;'}
             </div>
 
             <!-- On account of -->
             <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                 <span style="font-weight: 800; white-space: nowrap; margin-right: 10px;">ಸೇವೆ/ಉದ್ದೇಶಕ್ಕಾಗಿ:</span>
-                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
-                    ${sevaPurpose || "&nbsp;"}
+                <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 900; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
+                    ${sevaPurpose || ""}
                 </span>
             </div>
         </div>
@@ -1206,32 +1208,34 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             <!-- Received with thanks from Smt./Sri -->
             <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                 <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif;">Received with thanks from Smt./Sri</span>
-                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
-                    ${devoteeName || "&nbsp;"}
+                <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 700; font-size: ${nameFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
+                    ${devoteeName || ""}
                 </span>
             </div>
 
             <!-- Blank Line with "the sum of Rupees (in words)" -->
             <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
-                <span style="width: 30%; border-bottom: 1px solid #000;">&nbsp;</span>
+                <span style="width: 30%;">&nbsp;</span>
                 <span style="font-weight: 700; white-space: nowrap; margin-left: 10px; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.82rem; color: #444;">the sum of Rupees (in words)</span>
-                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
+                <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
                     ${part1}
                 </span>
             </div>
 
             <!-- Third Blank Line -->
             <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
-                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
-                    ${part2 || "&nbsp;"}
+                ${part2 ? `
+                <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap;">
+                    ${part2}
                 </span>
+                ` : '&nbsp;'}
             </div>
 
             <!-- On account of -->
             <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
                 <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif;">On account of</span>
-                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
-                    ${sevaPurpose || "&nbsp;"}
+                <span style="border-bottom: 1px solid #000; padding: 0 10px; font-weight: 700; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
+                    ${sevaPurpose || ""}
                 </span>
             </div>
         </div>
@@ -1448,8 +1452,10 @@ function renderModalVoucherContent(rec) {
         <div class="dual-print-container" style="max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; background: white;">
             
             <!-- First Copy -->
-            <div style="position: relative; border: 2px solid #000; padding: 20px 20px 24px 20px; box-sizing: border-box; background: white;">
-                <span style="position: absolute; top: 6px; right: 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; color: #555; border: 1px solid #ccc; padding: 1px 5px; border-radius: 3px; font-family: sans-serif; letter-spacing: 0.5px;">${label1}</span>
+            <div style="border: 2px solid #000; padding: 12px 20px 20px 20px; box-sizing: border-box; background: white;">
+                <div style="text-align: center; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #555; border-bottom: 1px dashed #ccc; padding-bottom: 6px; margin-bottom: 12px; font-family: sans-serif; letter-spacing: 1px;">
+                    *** ${label1} ***
+                </div>
                 ${htmlSingle}
             </div>
             
@@ -1459,8 +1465,10 @@ function renderModalVoucherContent(rec) {
             </div>
             
             <!-- Second Copy -->
-            <div style="position: relative; border: 2px solid #000; padding: 20px 20px 24px 20px; box-sizing: border-box; background: white;">
-                <span style="position: absolute; top: 6px; right: 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; color: #555; border: 1px solid #ccc; padding: 1px 5px; border-radius: 3px; font-family: sans-serif; letter-spacing: 0.5px;">${label2}</span>
+            <div style="border: 2px solid #000; padding: 12px 20px 20px 20px; box-sizing: border-box; background: white;">
+                <div style="text-align: center; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #555; border-bottom: 1px dashed #ccc; padding-bottom: 6px; margin-bottom: 12px; font-family: sans-serif; letter-spacing: 1px;">
+                    *** ${label2} ***
+                </div>
                 ${htmlSingle}
             </div>
             
