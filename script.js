@@ -186,8 +186,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("authPassword").value.trim();
             const errMsg = document.getElementById("authErrorMessage");
 
-            // Credentials check: kushsharma.cor@gmail.com / 123456
-            if (email === "kushsharma.cor@gmail.com" && password === "123456") {
+            // Credentials check
+            const validUsers = [
+                { email: "kushsharma.cor@gmail.com", password: "123456" },
+                { email: "venkatavasuswr@gmail.com", password: "vasu@123" }
+            ];
+            const isValid = validUsers.some(u => u.email === email && u.password === password);
+
+            if (isValid) {
                 localStorage.setItem("sabari_logged_in", "true");
                 if (errMsg) errMsg.style.display = "none";
                 checkAuth();
