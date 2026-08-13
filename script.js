@@ -878,7 +878,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
     if (type === "OUTWARD") {
         if (lang === 'kannada') {
             return `
-            <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif;">
+            <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif; max-width: 500px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
             <!-- HEADER (KANNADA OUTWARD VOUCHER) -->
             <div style="display: flex; border-bottom: 2px solid #000; margin-bottom: 12px; padding-bottom: 8px;">
@@ -968,7 +968,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             `;
         } else {
             return `
-            <div style="font-family: 'Inter', sans-serif;">
+            <div style="font-family: 'Inter', sans-serif; max-width: 500px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
             <!-- HEADER (ENGLISH OUTWARD VOUCHER) -->
             <div style="display: flex; border-bottom: 2px solid #000; margin-bottom: 12px; padding-bottom: 8px;">
@@ -1061,7 +1061,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
 
     if (lang === 'kannada') {
         return `
-        <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif;">
+        <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif; max-width: 500px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
         <!-- HEADER (KANNADA ONLY) -->
         <div style="display: flex; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; align-items: center;">
@@ -1165,7 +1165,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
 
     // DEFAULT: ENGLISH ONLY
     return `
-        <div style="font-family: 'Inter', sans-serif;">
+        <div style="font-family: 'Inter', sans-serif; max-width: 500px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
         <!-- HEADER (ENGLISH ONLY) -->
         <div style="display: flex; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; align-items: center;">
@@ -1437,9 +1437,33 @@ function renderModalVoucherContent(rec) {
     const container = document.getElementById("printableVoucherContent");
     if (!container) return;
     const amtWords = numberToWords(rec.amount);
+    
+    const isOutward = rec.type === "OUTWARD";
+    const label1 = isOutward ? "Office Copy" : "Devotee Copy";
+    const label2 = isOutward ? "Receiver Copy" : "Office Copy";
+    
+    const htmlSingle = renderVoucherHTML(rec.id, rec.date, rec.devoteeName, rec.amount, amtWords, rec.paymentMode, rec.sevaName, currentVoucherLang, rec.type || "INWARD");
+    
     container.innerHTML = `
-        <div style="margin: 0 auto; border: 2px solid #000; padding: 20px; background: white;">
-            ${renderVoucherHTML(rec.id, rec.date, rec.devoteeName, rec.amount, amtWords, rec.paymentMode, rec.sevaName, currentVoucherLang, rec.type || "INWARD")}
+        <div class="dual-print-container" style="max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; background: white;">
+            
+            <!-- First Copy -->
+            <div style="position: relative; border: 2px solid #000; padding: 20px 20px 24px 20px; box-sizing: border-box; background: white;">
+                <span style="position: absolute; top: 6px; right: 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; color: #555; border: 1px solid #ccc; padding: 1px 5px; border-radius: 3px; font-family: sans-serif; letter-spacing: 0.5px;">${label1}</span>
+                ${htmlSingle}
+            </div>
+            
+            <!-- Perforation Line -->
+            <div style="width: 100%; border-top: 1px dashed #000; margin: 5px 0; position: relative; text-align: center;">
+                <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: white; padding: 0 10px; font-size: 0.62rem; font-weight: 800; color: #555; font-family: sans-serif; letter-spacing: 1px; text-transform: uppercase;">✂ Fold &amp; Tear / ಕತ್ತರಿಸಿ</span>
+            </div>
+            
+            <!-- Second Copy -->
+            <div style="position: relative; border: 2px solid #000; padding: 20px 20px 24px 20px; box-sizing: border-box; background: white;">
+                <span style="position: absolute; top: 6px; right: 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; color: #555; border: 1px solid #ccc; padding: 1px 5px; border-radius: 3px; font-family: sans-serif; letter-spacing: 0.5px;">${label2}</span>
+                ${htmlSingle}
+            </div>
+            
         </div>
     `;
 }
