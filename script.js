@@ -897,7 +897,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             <!-- HEADER (KANNADA OUTWARD VOUCHER) -->
             <div style="display: flex; border-bottom: 2px solid #000; margin-bottom: 12px; padding-bottom: 8px;">
                 <!-- Left Side: Logo & Temple Info -->
-                <div style="width: 70%; display: flex; align-items: center; padding: 6px 10px 10px 0;">
+                <div style="width: 67%; display: flex; align-items: center; padding: 6px 10px 10px 0;">
                     <img src="./Images/1000053595.jpg" style="width: 60px; height: 60px; border-radius: 50%; object-fit: contain; margin-right: 12px;">
                     <div style="text-align: left;">
                         <div style="font-size: 0.95rem; font-weight: 900; color: #111; line-height: 1.3;">
@@ -910,15 +910,15 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 </div>
                 
                 <!-- Right Side: Voucher Box -->
-                <div style="width: 30%; border-left: 2px solid #000; display: flex; flex-direction: column;">
+                <div style="width: 33%; border-left: 2px solid #000; display: flex; flex-direction: column;">
                     <div style="text-align: center; font-size: 1.05rem; font-weight: 900; letter-spacing: 1px; border-bottom: 2px solid #000; padding: 4px 0; background: #f8fafc;">
                         ಪಾವತಿ ಚೀಟಿ
                     </div>
-                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 800; border-bottom: 2px solid #000; text-align: left;">
+                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 800; border-bottom: 2px solid #000; text-align: left; white-space: nowrap;">
                         ಸಂಖ್ಯೆ: <span style="font-family: 'Courier New', Courier, monospace; font-size: 1rem; font-weight: 900; margin-left: 6px;">${recNo}</span>
                     </div>
-                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 800; text-align: left;">
-                        ದಿನಾಂಕ: <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.92rem; font-weight: 900; margin-left: 4px;">${displayDate}</span>
+                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 800; text-align: left; white-space: nowrap;">
+                        ದಿನಾಂಕ: <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.92rem; font-weight: 900; margin-left: 4px; white-space: nowrap;">${displayDate}</span>
                     </div>
                 </div>
             </div>
@@ -987,7 +987,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             <!-- HEADER (ENGLISH OUTWARD VOUCHER) -->
             <div style="display: flex; border-bottom: 2px solid #000; margin-bottom: 12px; padding-bottom: 8px;">
                 <!-- Left Side: Logo & Temple Info -->
-                <div style="width: 70%; display: flex; align-items: center; padding: 6px 10px 10px 0;">
+                <div style="width: 67%; display: flex; align-items: center; padding: 6px 10px 10px 0;">
                     <img src="./Images/1000053595.jpg" style="width: 60px; height: 60px; border-radius: 50%; object-fit: contain; margin-right: 12px;">
                     <div style="text-align: left;">
                         <div style="font-size: 1.05rem; font-weight: 800; color: #000; font-family: 'Georgia', serif; line-height: 1.25;">
@@ -1000,15 +1000,15 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 </div>
                 
                 <!-- Right Side: Voucher Box -->
-                <div style="width: 30%; border-left: 2px solid #000; display: flex; flex-direction: column;">
+                <div style="width: 33%; border-left: 2px solid #000; display: flex; flex-direction: column;">
                     <div style="text-align: center; font-size: 1.05rem; font-weight: 900; font-family: 'Georgia', serif; letter-spacing: 1.5px; border-bottom: 2px solid #000; padding: 4px 0; background: #f8fafc;">
                         VOUCHER
                     </div>
-                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 700; border-bottom: 2px solid #000; font-family: 'Georgia', serif; text-align: left;">
+                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 700; border-bottom: 2px solid #000; font-family: 'Georgia', serif; text-align: left; white-space: nowrap;">
                         No. <span style="font-family: 'Courier New', Courier, monospace; font-size: 1rem; font-weight: 800; margin-left: 6px;">${recNo}</span>
                     </div>
-                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 700; font-family: 'Georgia', serif; text-align: left;">
-                        Date : <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.92rem; font-weight: 800; margin-left: 4px;">${displayDate}</span>
+                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 700; font-family: 'Georgia', serif; text-align: left; white-space: nowrap;">
+                        Date : <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.92rem; font-weight: 800; margin-left: 4px; white-space: nowrap;">${displayDate}</span>
                     </div>
                 </div>
             </div>
@@ -1100,14 +1100,14 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
 
         <!-- RECEIPT NUMBER & DATE -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.9rem; font-weight: 800;">
-            <div style="width: 30%; text-align: left;">
+            <div style="width: 31%; text-align: left; white-space: nowrap;">
                 ಸಂಖ್ಯೆ: <span style="font-family: 'Courier New', Courier, monospace; font-size: 1.05rem; font-weight: 900; margin-left: 6px; color: #e11d48;">${recNo}</span>
             </div>
-            <div style="width: 40%; text-align: center;">
+            <div style="width: 37%; text-align: center;">
                 <span style="font-size: 1.15rem; font-weight: 900; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 2px; letter-spacing: 1.5px;">ರಶೀದಿ</span>
             </div>
-            <div style="width: 30%; text-align: right;">
-                ದಿನಾಂಕ: <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.95rem; font-weight: 900; margin-left: 4px;">${displayDate}</span>
+            <div style="width: 32%; text-align: right; white-space: nowrap;">
+                ದಿನಾಂಕ: <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.95rem; font-weight: 900; margin-left: 4px; white-space: nowrap;">${displayDate}</span>
             </div>
         </div>
 
@@ -1214,14 +1214,14 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
 
         <!-- RECEIPT NUMBER & DATE -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.9rem; font-weight: 800;">
-            <div style="width: 30%; text-align: left;">
+            <div style="width: 31%; text-align: left; white-space: nowrap;">
                 No. <span style="font-family: 'Courier New', Courier, monospace; font-size: 1.05rem; font-weight: 900; margin-left: 6px; color: #e11d48;">${recNo}</span>
             </div>
-            <div style="width: 40%; text-align: center;">
+            <div style="width: 37%; text-align: center;">
                 <span style="font-size: 1.15rem; font-weight: 900; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 2px; letter-spacing: 1.5px; font-family: 'Georgia', serif;">RECEIPT</span>
             </div>
-            <div style="width: 30%; text-align: right;">
-                Date: <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.95rem; font-weight: 900; margin-left: 4px;">${displayDate}</span>
+            <div style="width: 32%; text-align: right; white-space: nowrap;">
+                Date: <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.95rem; font-weight: 900; margin-left: 4px; white-space: nowrap;">${displayDate}</span>
             </div>
         </div>
 
@@ -1472,9 +1472,8 @@ function renderModalVoucherContent(rec) {
     if (!container) return;
     const amtWords = numberToWords(rec.amount);
     
-    const isOutward = rec.type === "OUTWARD";
-    const label1 = isOutward ? "Office Copy" : "Devotee Copy";
-    const label2 = isOutward ? "Receiver Copy" : "Office Copy";
+    const label1 = "Receiver's Copy";
+    const label2 = "Office Copy";
     
     const htmlSingle = renderVoucherHTML(rec.id, rec.date, rec.devoteeName, rec.amount, amtWords, rec.paymentMode, rec.sevaName, currentVoucherLang, rec.type || "INWARD");
     

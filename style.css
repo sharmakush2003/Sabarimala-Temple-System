@@ -912,7 +912,7 @@ select[multiple] option:checked {
 .print-only { display: none; }
 
 @media print {
-    @page { size: portrait; margin: 8mm; }
+    @page { size: portrait; margin: 6mm 8mm; }
     body > * { display: none !important; }
 
     /* Show legacy receipt template */
@@ -961,6 +961,9 @@ select[multiple] option:checked {
     #printableVoucherContent {
         width: 100% !important;
         display: block !important;
+    }
+    .dual-print-container {
+        page-break-inside: avoid !important;
     }
 }
 
