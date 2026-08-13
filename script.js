@@ -1029,10 +1029,10 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <div style="display: flex; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; align-items: center;">
             <img src="./Images/1000053595.jpg" style="width: 65px; height: 65px; border-radius: 50%; object-fit: contain; margin-right: 15px;">
             <div style="flex-grow: 1; text-align: center;">
-                <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 800; color: #333; margin-bottom: 2px;">
-                    <span style="visibility: hidden;">Placeholder</span>
-                    <span>|| ಓಂ ಸ್ವಾಮಿಯೇ ಶರಣಮಯ್ಯಪ್ಪ ||</span>
-                    <span>(ನೋಂದಣಿ ಸಂಖ್ಯೆ: ೪೧೦/೨೦೦೬-೦೭)</span>
+                <div style="display: grid; grid-template-columns: 1fr auto 1fr; font-size: 0.65rem; font-weight: 800; color: #333; margin-bottom: 2px; width: 100%; white-space: nowrap; align-items: center;">
+                    <div></div>
+                    <div style="text-align: center;">|| ಓಂ ಸ್ವಾಮಿಯೇ ಶರಣಮಯ್ಯಪ್ಪ ||</div>
+                    <div style="text-align: right;">(ನೋಂದಣಿ ಸಂಖ್ಯೆ: ೪೧೦/೨೦೦೬-೦೭)</div>
                 </div>
                 <div style="font-size: 0.95rem; font-weight: 900; color: #111; line-height: 1.3; margin-bottom: 2px;">
                     ಸಬರಿಮಲ ಶ್ರೀ ಅಯ್ಯಪ್ಪಸ್ವಾಮಿ ಭಜನ ಮಂಡಳಿ (ರಿ), ಹುಬ್ಬಳ್ಳಿ.
@@ -1124,10 +1124,10 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <div style="display: flex; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; align-items: center;">
             <img src="./Images/1000053595.jpg" style="width: 65px; height: 65px; border-radius: 50%; object-fit: contain; margin-right: 15px;">
             <div style="flex-grow: 1; text-align: center;">
-                <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 800; color: #333; margin-bottom: 2px;">
-                    <span style="visibility: hidden;">Placeholder</span>
-                    <span>|| Om Swamiye Saranamayyappa ||</span>
-                    <span>(Reg.No. 410/2006-07)</span>
+                <div style="display: grid; grid-template-columns: 1fr auto 1fr; font-size: 0.65rem; font-weight: 800; color: #333; margin-bottom: 2px; width: 100%; white-space: nowrap; align-items: center;">
+                    <div></div>
+                    <div style="text-align: center;">|| Om Swamiye Saranamayyappa ||</div>
+                    <div style="text-align: right;">(Reg.No. 410/2006-07)</div>
                 </div>
                 <div style="font-size: 1.05rem; font-weight: 900; color: #000; font-family: 'Georgia', serif; line-height: 1.2; margin-bottom: 2px;">
                     Sabarimala Sri Ayyappaswamy Bhajan Mandali (R), Hubli.
