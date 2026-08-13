@@ -20,14 +20,18 @@
             <!-- Top Bar: Logo & Language Toggle -->
             <div class="mobile-notice-header">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="logo.png" alt="Logo" style="width: 30px; height: 30px; border-radius: 8px; object-fit: contain;">
+                    <img src="logo.png" alt="Logo"
+                        style="width: 30px; height: 30px; border-radius: 8px; object-fit: contain;">
                     <span style="font-weight: 800; font-size: 0.85rem; color: #ffffff;">ChittorTech TMS</span>
                 </div>
-                <div class="voucher-lang-group" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
-                    <button type="button" id="mobileLangEng" class="voucher-lang-btn active" onclick="switchMobileNoticeLang('english')">
+                <div class="voucher-lang-group"
+                    style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
+                    <button type="button" id="mobileLangEng" class="voucher-lang-btn active"
+                        onclick="switchMobileNoticeLang('english')">
                         English
                     </button>
-                    <button type="button" id="mobileLangKan" class="voucher-lang-btn" onclick="switchMobileNoticeLang('kannada')">
+                    <button type="button" id="mobileLangKan" class="voucher-lang-btn"
+                        onclick="switchMobileNoticeLang('kannada')">
                         ಕನ್ನಡ
                     </button>
                 </div>
@@ -47,7 +51,8 @@
 
             <!-- Action Buttons -->
             <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 24px;">
-                <button type="button" onclick="copyWebsiteLink()" class="btn-primary" style="justify-content: center; width: 100%; padding: 14px; background: linear-gradient(135deg, #4f46e5, #6366f1); font-weight: 800; border-radius: 12px; border: none; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+                <button type="button" onclick="copyWebsiteLink()" class="btn-primary"
+                    style="justify-content: center; width: 100%; padding: 14px; background: linear-gradient(135deg, #4f46e5, #6366f1); font-weight: 800; border-radius: 12px; border: none; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
                     <i data-lucide="copy" style="width: 18px; height: 18px;"></i>
                     <span id="btnCopyText">Copy Portal Link</span>
                 </button>
@@ -56,32 +61,49 @@
     </div>
 
     <!-- ChittorTech TMS Auth Lock Screen -->
-    <div id="loginScreen" style="position: fixed; inset: 0; background: #0f172a; display: none; align-items: center; justify-content: center; z-index: 9999; font-family: 'Inter', sans-serif;">
-        <div style="background: #ffffff; width: 100%; max-width: 420px; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); text-align: center;">
+    <div id="loginScreen"
+        style="position: fixed; inset: 0; background: #0f172a; display: none; align-items: center; justify-content: center; z-index: 9999; font-family: 'Inter', sans-serif;">
+        <div
+            style="background: #ffffff; width: 100%; max-width: 420px; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); text-align: center;">
             <!-- Brand Logo Header -->
-            <div style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; background: #f8fafc; border-radius: 16px; border: 1px solid #cbd5e1; box-shadow: 0 4px 10px rgba(0,0,0,0.03); margin-bottom: 20px;">
+            <div
+                style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; background: #f8fafc; border-radius: 16px; border: 1px solid #cbd5e1; box-shadow: 0 4px 10px rgba(0,0,0,0.03); margin-bottom: 20px;">
                 <img src="logo.png" alt="ChittorTech Logo" style="width: 42px; height: 42px; object-fit: contain;">
             </div>
-            
-            <h2 style="font-size: 1.6rem; font-weight: 900; color: #1e293b; margin: 0 0 4px; letter-spacing: -0.5px;">ChittorTech TMS</h2>
-            <p style="font-size: 0.85rem; font-weight: 700; color: #64748b; margin: 0 0 28px; text-transform: uppercase; letter-spacing: 1.5px;">Enterprise Edition</p>
+
+            <h2 style="font-size: 1.6rem; font-weight: 900; color: #1e293b; margin: 0 0 4px; letter-spacing: -0.5px;">
+                ChittorTech TMS</h2>
+            <p
+                style="font-size: 0.85rem; font-weight: 700; color: #64748b; margin: 0 0 28px; text-transform: uppercase; letter-spacing: 1.5px;">
+                Enterprise Edition</p>
 
             <form id="authForm" style="text-align: left;">
                 <div style="margin-bottom: 18px;">
-                    <label style="display: block; font-size: 0.72rem; font-weight: 900; color: #475569; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase;">Email Address</label>
-                    <input type="email" id="authEmail" required style="width: 100%; padding: 12px 16px; font-size: 0.92rem; border-radius: 10px; border: 1px solid #cbd5e1; color: #1e293b; background: #f8fafc; outline: none; transition: border-color 0.2s;" placeholder="e.g. kushsharma.cor@gmail.com">
-                </div>
-                
-                <div style="margin-bottom: 24px;">
-                    <label style="display: block; font-size: 0.72rem; font-weight: 900; color: #475569; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase;">Password Key</label>
-                    <input type="password" id="authPassword" required style="width: 100%; padding: 12px 16px; font-size: 0.92rem; border-radius: 10px; border: 1px solid #cbd5e1; color: #1e293b; background: #f8fafc; outline: none; transition: border-color 0.2s;" placeholder="••••••••">
+                    <label
+                        style="display: block; font-size: 0.72rem; font-weight: 900; color: #475569; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase;">Email
+                        Address</label>
+                    <input type="email" id="authEmail" required
+                        style="width: 100%; padding: 12px 16px; font-size: 0.92rem; border-radius: 10px; border: 1px solid #cbd5e1; color: #1e293b; background: #f8fafc; outline: none; transition: border-color 0.2s;"
+                        placeholder="e.g. kushsharma.cor@gmail.com">
                 </div>
 
-                <div id="authErrorMessage" style="display: none; color: #ef4444; font-size: 0.82rem; font-weight: 800; margin-bottom: 18px; text-align: center; background: #fee2e2; padding: 10px; border-radius: 8px;">
+                <div style="margin-bottom: 24px;">
+                    <label
+                        style="display: block; font-size: 0.72rem; font-weight: 900; color: #475569; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase;">Password
+                        Key</label>
+                    <input type="password" id="authPassword" required
+                        style="width: 100%; padding: 12px 16px; font-size: 0.92rem; border-radius: 10px; border: 1px solid #cbd5e1; color: #1e293b; background: #f8fafc; outline: none; transition: border-color 0.2s;"
+                        placeholder="••••••••">
+                </div>
+
+                <div id="authErrorMessage"
+                    style="display: none; color: #ef4444; font-size: 0.82rem; font-weight: 800; margin-bottom: 18px; text-align: center; background: #fee2e2; padding: 10px; border-radius: 8px;">
                     Incorrect email address or password key.
                 </div>
 
-                <button type="submit" style="width: 100%; padding: 13px; font-size: 0.95rem; font-weight: 900; color: #ffffff; background: #111827; border: none; border-radius: 12px; cursor: pointer; transition: background 0.2s; box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);" onmouseover="this.style.background='#1f2937'" onmouseout="this.style.background='#111827'">
+                <button type="submit"
+                    style="width: 100%; padding: 13px; font-size: 0.95rem; font-weight: 900; color: #ffffff; background: #111827; border: none; border-radius: 12px; cursor: pointer; transition: background 0.2s; box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);"
+                    onmouseover="this.style.background='#1f2937'" onmouseout="this.style.background='#111827'">
                     Unlock Dashboard
                 </button>
             </form>
@@ -92,13 +114,16 @@
         <!-- SIDEBAR (OBSIDIAN GLASS - EXACT DHAM ADMIN PORTAL) -->
         <aside class="sidebar">
             <div class="sidebar-brand">
-                <img src="logo.png" alt="ChittorTech Logo" style="width: 32px; height: 32px; border-radius: 8px; object-fit: contain;">
+                <img src="logo.png" alt="ChittorTech Logo"
+                    style="width: 32px; height: 32px; border-radius: 8px; object-fit: contain;">
                 <div style="display: flex; flex-direction: column;">
                     <span style="line-height: 1;">ChittorTech TMS</span>
-                    <span style="font-size: 0.6rem; color: #94a3af; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">Enterprise Edition</span>
+                    <span
+                        style="font-size: 0.6rem; color: #94a3af; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">Enterprise
+                        Edition</span>
                 </div>
             </div>
-            
+
             <nav style="flex: 1;">
                 <div class="nav-link active" id="navCustomBill" data-tab="custom-bill">
                     <i data-lucide="plus-square" class="icon-inward"></i>
@@ -133,7 +158,8 @@
                     <p class="dev-badge-item">Registered MSME | Startup India</p>
                 </div>
                 <div class="dev-contact">
-                    <a href="https://chittortech.online" target="_blank" rel="dofollow"><i data-lucide="globe"></i> chittortech.online</a>
+                    <a href="https://chittortech.online" target="_blank" rel="dofollow"><i data-lucide="globe"></i>
+                        chittortech.online</a>
                 </div>
                 <p class="dev-rights">
                     © 2026 ChittorTech <br> All Rights Reserved
@@ -146,42 +172,58 @@
             <header class="dashboard-header">
                 <div>
                     <h1 id="pageTitle" style="font-size: 1.8rem; font-weight: 800;">Create Invoice</h1>
-                    <p id="pageSub" style="color: #64748b; font-size: 0.9rem;">ChittorTech TMS &mdash; Enterprise Edition</p>
+                    <p id="pageSub" style="color: #64748b; font-size: 0.9rem;">ChittorTech TMS &mdash; Enterprise
+                        Edition</p>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;">
                     <!-- LOGOUT BUTTON -->
-                    <button type="button" onclick="lockSession()" style="display: flex; align-items: center; gap: 6px; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); padding: 7px 16px; border-radius: 100px; color: #ef4444; font-size: 0.72rem; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 0.8px; transition: all 0.2s;" onmouseover="this.style.background='rgba(239, 68, 68, 0.12)'; this.style.borderColor='rgba(239, 68, 68, 0.35)'" onmouseout="this.style.background='rgba(239, 68, 68, 0.05)'; this.style.borderColor='rgba(239, 68, 68, 0.2)'">
+                    <button type="button" onclick="lockSession()"
+                        style="display: flex; align-items: center; gap: 6px; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); padding: 7px 16px; border-radius: 100px; color: #ef4444; font-size: 0.72rem; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 0.8px; transition: all 0.2s;"
+                        onmouseover="this.style.background='rgba(239, 68, 68, 0.12)'; this.style.borderColor='rgba(239, 68, 68, 0.35)'"
+                        onmouseout="this.style.background='rgba(239, 68, 68, 0.05)'; this.style.borderColor='rgba(239, 68, 68, 0.2)'">
                         <i data-lucide="log-out" style="width: 12px; height: 12px; stroke-width: 2.5;"></i>
                         Logout
                     </button>
 
                     <!-- LIVE SYSTEM STATUS BADGE — REFINED HUD STYLE -->
-                    <div id="systemStatus" class="status-badge-container" onclick="openSystemInfoModal()" style="margin-right: 12px; cursor: pointer;">
-                        <div style="display: flex; align-items: center; gap: 10px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.25); padding: 7px 16px; border-radius: 100px; backdrop-filter: blur(8px);">
-                            <div class="pulse-dot" style="width: 7px; height: 7px; border-radius: 50%; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);"></div>
-                            <span id="statusText" style="font-size: 0.62rem; font-weight: 800; color: #065f46; text-transform: uppercase; letter-spacing: 1.2px; display: flex; align-items: center; gap: 6px;">
+                    <div id="systemStatus" class="status-badge-container" onclick="openSystemInfoModal()"
+                        style="margin-right: 12px; cursor: pointer;">
+                        <div
+                            style="display: flex; align-items: center; gap: 10px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.25); padding: 7px 16px; border-radius: 100px; backdrop-filter: blur(8px);">
+                            <div class="pulse-dot"
+                                style="width: 7px; height: 7px; border-radius: 50%; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);">
+                            </div>
+                            <span id="statusText"
+                                style="font-size: 0.62rem; font-weight: 800; color: #065f46; text-transform: uppercase; letter-spacing: 1.2px; display: flex; align-items: center; gap: 6px;">
                                 <i data-lucide="activity" style="width: 12px; height: 12px; opacity: 0.7;"></i>
                                 <span id="statusLabel">SYSTEM LIVE</span>
                             </span>
                         </div>
                     </div>
 
-                    <button onclick="openSystemInfoModal()" style="background: none; border: none; padding: 8px; cursor: pointer; color: #94a3b8;" title="System Info"><i data-lucide="info"></i></button>
-                    <button onclick="location.reload()" style="background: none; border: none; padding: 8px; cursor: pointer; color: #64748b;" title="Refresh"><i data-lucide="rotate-ccw"></i></button>
+                    <button onclick="openSystemInfoModal()"
+                        style="background: none; border: none; padding: 8px; cursor: pointer; color: #94a3b8;"
+                        title="System Info"><i data-lucide="info"></i></button>
+                    <button onclick="location.reload()"
+                        style="background: none; border: none; padding: 8px; cursor: pointer; color: #64748b;"
+                        title="Refresh"><i data-lucide="rotate-ccw"></i></button>
                 </div>
             </header>
 
             <!-- TAB: DONATION REGISTRY -->
             <div id="tab-registry" class="card-layer tab-pane" style="display: none;">
-                <div style="padding: 12px 20px; background: #f0fdf4; border-bottom: 1px solid #dcfce7; display: flex; align-items: center; gap: 10px;">
+                <div
+                    style="padding: 12px 20px; background: #f0fdf4; border-bottom: 1px solid #dcfce7; display: flex; align-items: center; gap: 10px;">
                     <i data-lucide="info" style="width: 16px; height: 16px; color: #10b981; flex-shrink: 0;"></i>
                     <span style="font-size: 0.78rem; font-weight: 700; color: #166534; letter-spacing: 0.2px;">
-                        Registry shows only today's Seva bookings and temple donations, not the whole history. To see whole history, click on the button given on the right side - View Google Sheet.
+                        Registry shows only today's Seva bookings and temple donations, not the whole history. To see
+                        whole history, click on the button given on the right side - View Google Sheet.
                     </span>
                 </div>
-                
+
                 <div class="table-controls">
-                    <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; flex: 1; min-width: 250px;">
+                    <div
+                        style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; flex: 1; min-width: 250px;">
                         <div class="filter-group">
                             <button class="filter-btn active" data-filter="all">All Invoices</button>
                             <button class="filter-btn" data-filter="inward">Inward (Income)</button>
@@ -190,18 +232,24 @@
                             <button class="filter-btn" data-filter="cash">Cash</button>
                             <button class="filter-btn" data-filter="upi">UPI / Online</button>
                         </div>
-                        <div class="search-input-container" style="position: relative; flex: 1; min-width: 200px; max-width: 320px;">
-                            <i data-lucide="search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #94a3b8;"></i>
-                            <input type="text" id="registrySearch" placeholder="Search name, receipt #, mobile..." 
+                        <div class="search-input-container"
+                            style="position: relative; flex: 1; min-width: 200px; max-width: 320px;">
+                            <i data-lucide="search"
+                                style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #94a3b8;"></i>
+                            <input type="text" id="registrySearch" placeholder="Search name, receipt #, mobile..."
                                 style="padding: 8px 12px 8px 36px; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.8rem; width: 100%; font-weight: 600; background: white; outline: none;">
                         </div>
                     </div>
-                    
-                    <div style="text-align: right; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto;">
-                        <a href="https://docs.google.com/spreadsheets/d/1vAZ5zr2M3mbd8pgs-MKs4muulTwUE56dVqnezIlP4QY/edit?gid=0#gid=0" id="viewGoogleSheetBtn" target="_blank" class="btn-export btn-export-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; padding: 10px 16px; border-radius: 10px;">
+
+                    <div
+                        style="text-align: right; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto;">
+                        <a href="https://docs.google.com/spreadsheets/d/1vAZ5zr2M3mbd8pgs-MKs4muulTwUE56dVqnezIlP4QY/edit?gid=0#gid=0"
+                            id="viewGoogleSheetBtn" target="_blank" class="btn-export btn-export-green"
+                            style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; padding: 10px 16px; border-radius: 10px;">
                             <i data-lucide="file-spreadsheet" style="width: 16px; height: 16px;"></i> View Google Sheet
                         </a>
-                        <div id="showingCountText" style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+                        <div id="showingCountText"
+                            style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
                             Showing All Donations
                         </div>
                     </div>
@@ -231,35 +279,53 @@
                     <div class="card-layer" style="padding: 24px 28px;">
                         <form id="invoiceForm">
                             <div style="margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">DEVOTEE NAME (SRI / SMT) *</label>
-                                <input type="text" id="devoteeName" placeholder="e.g. Priyanshu Sharma" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                <label
+                                    style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">DEVOTEE
+                                    NAME (SRI / SMT) *</label>
+                                <input type="text" id="devoteeName" placeholder="e.g. Priyanshu Sharma" required
+                                    style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                             </div>
 
                             <div style="margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">MOBILE NUMBER</label>
-                                <input type="tel" id="devoteeMobile" placeholder="e.g. 7014311772" style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                <label
+                                    style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">MOBILE
+                                    NUMBER</label>
+                                <input type="tel" id="devoteeMobile" placeholder="e.g. 7014311772"
+                                    style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                             </div>
 
                             <div style="margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">SELECT SEVA / POOJA PURPOSE *</label>
-                                <select id="sevaSelect" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                <label
+                                    style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">SELECT
+                                    SEVA / POOJA PURPOSE *</label>
+                                <select id="sevaSelect" required
+                                    style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                                     <option value="">-- Choose Seva (25 Predefined Options) --</option>
                                 </select>
                             </div>
 
                             <div id="customSevaRow" style="display: none; margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">CUSTOM PURPOSE DETAILS</label>
-                                <input type="text" id="customSevaName" placeholder="Enter custom purpose details..." style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                <label
+                                    style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">CUSTOM
+                                    PURPOSE DETAILS</label>
+                                <input type="text" id="customSevaName" placeholder="Enter custom purpose details..."
+                                    style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                             </div>
 
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
                                 <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">EVENT / SEVA DATE *</label>
-                                    <input type="date" id="sevaDate" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                    <label
+                                        style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">EVENT
+                                        / SEVA DATE *</label>
+                                    <input type="date" id="sevaDate" required
+                                        style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                                 </div>
                                 <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">PAYMENT MODE *</label>
-                                    <select id="paymentMode" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                    <label
+                                        style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">PAYMENT
+                                        MODE *</label>
+                                    <select id="paymentMode" required
+                                        style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                                         <option value="Cash">Cash</option>
                                         <option value="UPI">UPI / Online</option>
                                         <option value="Cheque">Cheque</option>
@@ -268,26 +334,41 @@
                             </div>
 
                             <div id="paymentRefRow" style="display: none; margin-bottom: 14px;">
-                                <label id="paymentRefLabel" style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">TRANSACTION ID / CHEQUE NO *</label>
-                                <input type="text" id="paymentRefInput" placeholder="e.g. 423981726354" style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                <label id="paymentRefLabel"
+                                    style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">TRANSACTION
+                                    ID / CHEQUE NO *</label>
+                                <input type="text" id="paymentRefInput" placeholder="e.g. 423981726354"
+                                    style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                             </div>
 
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
                                 <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">AMOUNT (RS ₹) *</label>
-                                    <input type="number" id="amount" min="1" placeholder="0.00" required style="width: 100%; font-weight: 800; font-size: 1.15rem; color: #10b981; padding: 10px 14px; border-radius: 10px;">
+                                    <label
+                                        style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">AMOUNT
+                                        (RS ₹) *</label>
+                                    <input type="number" id="amount" min="1" placeholder="0.00" required
+                                        style="width: 100%; font-weight: 800; font-size: 1.15rem; color: #10b981; padding: 10px 14px; border-radius: 10px;">
                                 </div>
                                 <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">RECEIPT NUMBER</label>
-                                    <input type="text" id="receiptNo" style="width: 100%; font-weight: 700; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px; border: 1px solid #cbd5e1; background: #ffffff; color: #1e293b;">
+                                    <label
+                                        style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">RECEIPT
+                                        NUMBER</label>
+                                    <input type="text" id="receiptNo"
+                                        style="width: 100%; font-weight: 700; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px; border: 1px solid #cbd5e1; background: #ffffff; color: #1e293b;">
                                 </div>
-                                <div style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 10px 16px; border-radius: 10px; margin-bottom: 20px;">
-                                    <span style="font-size: 0.68rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Amount in Words:</span>
-                                    <div id="amountInWords" style="font-size: 0.92rem; font-weight: 800; color: #d97706; margin-top: 2px;">Rupees Zero Only</div>
+                                <div
+                                    style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 10px 16px; border-radius: 10px; margin-bottom: 20px;">
+                                    <span
+                                        style="font-size: 0.68rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Amount
+                                        in Words:</span>
+                                    <div id="amountInWords"
+                                        style="font-size: 0.92rem; font-weight: 800; color: #d97706; margin-top: 2px;">
+                                        Rupees Zero Only</div>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn-allot" style="width: 100%; padding: 13px; font-size: 0.95rem; font-weight: 800; gap: 8px; justify-content: center; border-radius: 12px;">
+                            <button type="submit" class="btn-allot"
+                                style="width: 100%; padding: 13px; font-size: 0.95rem; font-weight: 800; gap: 8px; justify-content: center; border-radius: 12px;">
                                 <i data-lucide="printer"></i>
                                 Generate & Print Receipt Voucher
                             </button>
@@ -296,21 +377,26 @@
 
                     <!-- Live Voucher Preview -->
                     <div class="card-layer" style="padding: 24px 28px; background: #f8fafc;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
-                            <h3 style="font-weight: 800; font-size: 1rem; color: #0f172a; display: flex; align-items: center; gap: 8px; margin: 0;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+                            <h3
+                                style="font-weight: 800; font-size: 1rem; color: #0f172a; display: flex; align-items: center; gap: 8px; margin: 0;">
                                 <i data-lucide="eye" style="color: #4f46e5;"></i>
                                 Live Paper Voucher Preview
                             </h3>
                             <div class="voucher-lang-group">
-                                <button type="button" id="btnLangEnglish" class="voucher-lang-btn active" onclick="setVoucherLanguage('english')">
+                                <button type="button" id="btnLangEnglish" class="voucher-lang-btn active"
+                                    onclick="setVoucherLanguage('english')">
                                     <i data-lucide="globe" style="width: 14px; height: 14px;"></i> English Preview
                                 </button>
-                                <button type="button" id="btnLangKannada" class="voucher-lang-btn" onclick="setVoucherLanguage('kannada')">
+                                <button type="button" id="btnLangKannada" class="voucher-lang-btn"
+                                    onclick="setVoucherLanguage('kannada')">
                                     <i data-lucide="languages" style="width: 14px; height: 14px;"></i> Kannada Preview
                                 </button>
                             </div>
                         </div>
-                        <div id="voucherPreviewBox" style="background: #ffffff; border: 2px solid #000; padding: 20px; font-family: 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                        <div id="voucherPreviewBox"
+                            style="background: #ffffff; border: 2px solid #000; padding: 20px; font-family: 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
                             <!-- Live Voucher Rendered Here -->
                         </div>
                     </div>
@@ -324,76 +410,104 @@
                     <div class="card-layer" style="padding: 24px 28px;">
                         <form id="outwardForm">
                             <div style="margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">RECEIVER'S NAME (SRI / SMT / M/S) *</label>
-                                <input type="text" id="payeeName" placeholder="e.g. Balaji Pooja Store" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                <label
+                                    style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">RECEIVER'S
+                                    NAME (SRI / SMT / M/S) *</label>
+                                <input type="text" id="payeeName" placeholder="e.g. Balaji Pooja Store" required
+                                    style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                             </div>
 
                             <div style="margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">MOBILE NUMBER</label>
-                                <input type="tel" id="payeeMobile" placeholder="e.g. 9845012345" style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                <label
+                                    style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">MOBILE
+                                    NUMBER</label>
+                                <input type="tel" id="payeeMobile" placeholder="e.g. 9845012345"
+                                    style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                             </div>
 
                             <div style="margin-bottom: 14px;">
-                                 <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">SELECT REASON FOR PAYMENT GIVEN *</label>
-                                 <div class="custom-select-container" id="customExpenseContainer">
-                                     <div class="custom-select-trigger" id="customExpenseTrigger">
-                                         <span id="customExpenseVal">-- Choose Reason for Payment --</span>
-                                         <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #64748b; transition: transform 0.2s;"><path d="m6 9 6 6 6-6"/></svg>
-                                     </div>
-                                     <div class="custom-select-options" id="customExpenseOptions">
-                                         <div class="custom-select-option selected" data-value="">-- Choose Reason for Payment --</div>
-                                         <div class="custom-select-option" data-value="1">1. Printing, Stationery & Xerox</div>
-                                         <div class="custom-select-option" data-value="2">2. CA Fees</div>
-                                         <div class="custom-select-option" data-value="3">3. AGB/EGB Expense</div>
-                                         <div class="custom-select-option" data-value="4">4. Pooja Expense</div>
-                                         <div class="custom-select-option" data-value="5">5. Mahaannadhanam Expense</div>
-                                         <div class="custom-select-option" data-value="6">6. Maha Prasadam</div>
-                                         <div class="custom-select-option" data-value="7">7. Deputy Register Expense</div>
-                                         <div class="custom-select-option" data-value="8">8. Labour</div>
-                                         <div class="custom-select-option" data-value="9">9. Electricity Charges</div>
-                                         <div class="custom-select-option" data-value="10">10. Temple Property Tax</div>
-                                         <div class="custom-select-option" data-value="11">11. Temple Construction Charges</div>
-                                         <div class="custom-select-option" data-value="12">12. Staff Salary (Priest)</div>
-                                         <div class="custom-select-option" data-value="13">13. Staff Salary (Cleaning Labour)</div>
-                                         <div class="custom-select-option" data-value="14">14. Miscellaneous</div>
-                                         <div class="custom-select-option" data-value="15">15. Internet Charges</div>
-                                         <div class="custom-select-option" data-value="99">99. Custom / Other Expense</div>
-                                     </div>
-                                 </div>
-                                 <select id="expenseSelect" required style="display: none;">
-                                     <option value="">-- Choose Reason for Payment --</option>
-                                     <option value="1">1. Printing, Stationery & Xerox</option>
-                                     <option value="2">2. CA Fees</option>
-                                     <option value="3">3. AGB/EGB Expense</option>
-                                     <option value="4">4. Pooja Expense</option>
-                                     <option value="5">5. Mahaannadhanam Expense</option>
-                                     <option value="6">6. Maha Prasadam</option>
-                                     <option value="7">7. Deputy Register Expense</option>
-                                     <option value="8">8. Labour</option>
-                                     <option value="9">9. Electricity Charges</option>
-                                     <option value="10">10. Temple Property Tax</option>
-                                     <option value="11">11. Temple Construction Charges</option>
-                                     <option value="12">12. Staff Salary (Priest)</option>
-                                     <option value="13">13. Staff Salary (Cleaning Labour)</option>
-                                     <option value="14">14. Miscellaneous</option>
-                                     <option value="15">15. Internet Charges</option>
-                                     <option value="99">99. Custom / Other Expense</option>
-                                 </select>
-                             </div>
+                                <label
+                                    style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">SELECT
+                                    REASON FOR PAYMENT GIVEN *</label>
+                                <div class="custom-select-container" id="customExpenseContainer">
+                                    <div class="custom-select-trigger" id="customExpenseTrigger">
+                                        <span id="customExpenseVal">-- Choose Reason for Payment --</span>
+                                        <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                            stroke-linejoin="round" style="color: #64748b; transition: transform 0.2s;">
+                                            <path d="m6 9 6 6 6-6" />
+                                        </svg>
+                                    </div>
+                                    <div class="custom-select-options" id="customExpenseOptions">
+                                        <div class="custom-select-option selected" data-value="">-- Choose Reason for
+                                            Payment --</div>
+                                        <div class="custom-select-option" data-value="1">1. Printing, Stationery & Xerox
+                                        </div>
+                                        <div class="custom-select-option" data-value="2">2. CA Fees</div>
+                                        <div class="custom-select-option" data-value="3">3. AGB/EGB Expense</div>
+                                        <div class="custom-select-option" data-value="4">4. Pooja Expense</div>
+                                        <div class="custom-select-option" data-value="5">5. Mahaannadhanam Expense</div>
+                                        <div class="custom-select-option" data-value="6">6. Maha Prasadam</div>
+                                        <div class="custom-select-option" data-value="7">7. Deputy Register Expense
+                                        </div>
+                                        <div class="custom-select-option" data-value="8">8. Labour</div>
+                                        <div class="custom-select-option" data-value="9">9. Electricity Charges</div>
+                                        <div class="custom-select-option" data-value="10">10. Temple Property Tax</div>
+                                        <div class="custom-select-option" data-value="11">11. Temple Construction
+                                            Charges</div>
+                                        <div class="custom-select-option" data-value="12">12. Staff Salary (Priest)
+                                        </div>
+                                        <div class="custom-select-option" data-value="13">13. Staff Salary (Cleaning
+                                            Labour)</div>
+                                        <div class="custom-select-option" data-value="14">14. Miscellaneous</div>
+                                        <div class="custom-select-option" data-value="15">15. Internet Charges</div>
+                                        <div class="custom-select-option" data-value="99">99. Custom / Other Expense
+                                        </div>
+                                    </div>
+                                </div>
+                                <select id="expenseSelect" required style="display: none;">
+                                    <option value="">-- Choose Reason for Payment --</option>
+                                    <option value="1">1. Printing, Stationery & Xerox</option>
+                                    <option value="2">2. CA Fees</option>
+                                    <option value="3">3. AGB/EGB Expense</option>
+                                    <option value="4">4. Pooja Expense</option>
+                                    <option value="5">5. Mahaannadhanam Expense</option>
+                                    <option value="6">6. Maha Prasadam</option>
+                                    <option value="7">7. Deputy Register Expense</option>
+                                    <option value="8">8. Labour</option>
+                                    <option value="9">9. Electricity Charges</option>
+                                    <option value="10">10. Temple Property Tax</option>
+                                    <option value="11">11. Temple Construction Charges</option>
+                                    <option value="12">12. Staff Salary (Priest)</option>
+                                    <option value="13">13. Staff Salary (Cleaning Labour)</option>
+                                    <option value="14">14. Miscellaneous</option>
+                                    <option value="15">15. Internet Charges</option>
+                                    <option value="99">99. Custom / Other Expense</option>
+                                </select>
+                            </div>
 
                             <div id="customExpenseRow" style="display: none; margin-bottom: 14px;">
-                                <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">CUSTOM PAYMENT DETAILS</label>
-                                <input type="text" id="customExpenseName" placeholder="Enter custom details..." style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                <label
+                                    style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">CUSTOM
+                                    PAYMENT DETAILS</label>
+                                <input type="text" id="customExpenseName" placeholder="Enter custom details..."
+                                    style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                             </div>
 
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
                                 <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">PAYMENT GIVEN ON DATE *</label>
-                                    <input type="date" id="expenseDate" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                    <label
+                                        style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">PAYMENT
+                                        GIVEN ON DATE *</label>
+                                    <input type="date" id="expenseDate" required
+                                        style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                                 </div>
                                 <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">PAYMENT MODE *</label>
-                                    <select id="paymentModeOutward" required style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                    <label
+                                        style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">PAYMENT
+                                        MODE *</label>
+                                    <select id="paymentModeOutward" required
+                                        style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                                         <option value="Cash">Cash</option>
                                         <option value="UPI">UPI / Online</option>
                                         <option value="Cheque">Cheque</option>
@@ -403,27 +517,42 @@
                             </div>
 
                             <div id="paymentRefRowOutward" style="display: none; margin-bottom: 14px;">
-                                <label id="paymentRefLabelOutward" style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">TRANSACTION ID / REF NO *</label>
-                                <input type="text" id="paymentRefInputOutward" placeholder="e.g. TXN998273" style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                <label id="paymentRefLabelOutward"
+                                    style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">TRANSACTION
+                                    ID / REF NO *</label>
+                                <input type="text" id="paymentRefInputOutward" placeholder="e.g. TXN998273"
+                                    style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                             </div>
 
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
                                 <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">AMOUNT (RS ₹) *</label>
-                                    <input type="number" id="amountOutward" min="1" placeholder="0.00" required style="width: 100%; font-weight: 800; font-size: 1.15rem; color: #f43f5e; padding: 10px 14px; border-radius: 10px;">
+                                    <label
+                                        style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">AMOUNT
+                                        (RS ₹) *</label>
+                                    <input type="number" id="amountOutward" min="1" placeholder="0.00" required
+                                        style="width: 100%; font-weight: 800; font-size: 1.15rem; color: #f43f5e; padding: 10px 14px; border-radius: 10px;">
                                 </div>
                                 <div>
-                                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">VOUCHER NUMBER</label>
-                                    <input type="text" id="voucherNo" style="width: 100%; font-weight: 700; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px; border: 1px solid #cbd5e1; background: #ffffff; color: #1e293b;">
+                                    <label
+                                        style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">VOUCHER
+                                        NUMBER</label>
+                                    <input type="text" id="voucherNo"
+                                        style="width: 100%; font-weight: 700; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px; border: 1px solid #cbd5e1; background: #ffffff; color: #1e293b;">
                                 </div>
                             </div>
 
-                            <div style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 10px 16px; border-radius: 10px; margin-bottom: 20px;">
-                                <span style="font-size: 0.68rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Amount in Words:</span>
-                                <div id="amountInWordsOutward" style="font-size: 0.92rem; font-weight: 800; color: #d97706; margin-top: 2px;">Rupees Zero Only</div>
+                            <div
+                                style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 10px 16px; border-radius: 10px; margin-bottom: 20px;">
+                                <span
+                                    style="font-size: 0.68rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Amount
+                                    in Words:</span>
+                                <div id="amountInWordsOutward"
+                                    style="font-size: 0.92rem; font-weight: 800; color: #d97706; margin-top: 2px;">
+                                    Rupees Zero Only</div>
                             </div>
 
-                            <button type="submit" class="btn-allot" style="width: 100%; padding: 13px; font-size: 0.95rem; font-weight: 800; gap: 8px; justify-content: center; border-radius: 12px; background: linear-gradient(135deg, #e11d48, #f43f5e);">
+                            <button type="submit" class="btn-allot"
+                                style="width: 100%; padding: 13px; font-size: 0.95rem; font-weight: 800; gap: 8px; justify-content: center; border-radius: 12px; background: linear-gradient(135deg, #e11d48, #f43f5e);">
                                 <i data-lucide="printer"></i>
                                 Generate &amp; Print Payment Voucher
                             </button>
@@ -432,21 +561,26 @@
 
                     <!-- Live Voucher Preview -->
                     <div class="card-layer" style="padding: 24px 28px; background: #f8fafc;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
-                            <h3 style="font-weight: 800; font-size: 1rem; color: #0f172a; display: flex; align-items: center; gap: 8px; margin: 0;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+                            <h3
+                                style="font-weight: 800; font-size: 1rem; color: #0f172a; display: flex; align-items: center; gap: 8px; margin: 0;">
                                 <i data-lucide="eye" style="color: #f43f5e;"></i>
                                 Live Paper Voucher Preview
                             </h3>
                             <div class="voucher-lang-group">
-                                <button type="button" id="btnLangEnglishOutward" class="voucher-lang-btn active" onclick="setVoucherLanguage('english')">
+                                <button type="button" id="btnLangEnglishOutward" class="voucher-lang-btn active"
+                                    onclick="setVoucherLanguage('english')">
                                     <i data-lucide="globe" style="width: 14px; height: 14px;"></i> English Preview
                                 </button>
-                                <button type="button" id="btnLangKannadaOutward" class="voucher-lang-btn" onclick="setVoucherLanguage('kannada')">
+                                <button type="button" id="btnLangKannadaOutward" class="voucher-lang-btn"
+                                    onclick="setVoucherLanguage('kannada')">
                                     <i data-lucide="languages" style="width: 14px; height: 14px;"></i> Kannada Preview
                                 </button>
                             </div>
                         </div>
-                        <div id="voucherPreviewBoxOutward" style="background: #ffffff; border: 2px solid #000; padding: 20px; font-family: 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                        <div id="voucherPreviewBoxOutward"
+                            style="background: #ffffff; border: 2px solid #000; padding: 20px; font-family: 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
                             <!-- Live Voucher Rendered Here -->
                         </div>
                     </div>
@@ -455,22 +589,28 @@
 
             <!-- TAB: HOW TO USE -->
             <div id="tab-how-to-use" class="tab-pane" style="display: none;">
-                
+
                 <!-- HEADER BAR WITH LANGUAGE SWITCHER -->
-                <div class="card-layer" style="padding: 24px 28px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff;">
+                <div class="card-layer"
+                    style="padding: 24px 28px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff;">
                     <div>
                         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
                             <i data-lucide="book-open" style="color: #818cf8; width: 24px; height: 24px;"></i>
-                            <h2 style="font-size: 1.25rem; font-weight: 900; margin: 0; color: #ffffff;">System Operating Manual &amp; User Guide</h2>
+                            <h2 style="font-size: 1.25rem; font-weight: 900; margin: 0; color: #ffffff;">System
+                                Operating Manual &amp; User Guide</h2>
                         </div>
-                        <p style="font-size: 0.82rem; color: #94a3b8; margin: 0;">Complete step-by-step instructions for temple administrative staff and counter operators.</p>
+                        <p style="font-size: 0.82rem; color: #94a3b8; margin: 0;">Complete step-by-step instructions for
+                            temple administrative staff and counter operators.</p>
                     </div>
 
-                    <div class="voucher-lang-group" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 4px; border-radius: 10px;">
-                        <button type="button" id="btnGuideEng" class="voucher-lang-btn active" onclick="switchGuideLang('english')" style="padding: 6px 16px; font-size: 0.8rem;">
+                    <div class="voucher-lang-group"
+                        style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 4px; border-radius: 10px;">
+                        <button type="button" id="btnGuideEng" class="voucher-lang-btn active"
+                            onclick="switchGuideLang('english')" style="padding: 6px 16px; font-size: 0.8rem;">
                             <i data-lucide="globe" style="width: 14px; height: 14px;"></i> English Guide
                         </button>
-                        <button type="button" id="btnGuideKan" class="voucher-lang-btn" onclick="switchGuideLang('kannada')" style="padding: 6px 16px; font-size: 0.8rem;">
+                        <button type="button" id="btnGuideKan" class="voucher-lang-btn"
+                            onclick="switchGuideLang('kannada')" style="padding: 6px 16px; font-size: 0.8rem;">
                             <i data-lucide="languages" style="width: 14px; height: 14px;"></i> ಕನ್ನಡ ಮಾರ್ಗದರ್ಶಿ
                         </button>
                     </div>
@@ -480,46 +620,73 @@
                 <div id="guideContentEng">
                     <!-- 1. CREATE INVOICE SECTION -->
                     <div class="card-layer" style="padding: 28px; margin-bottom: 24px;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
-                            <div style="background: #e0e7ff; color: #4f46e5; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div
+                                style="background: #e0e7ff; color: #4f46e5; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                                 <i data-lucide="plus-square" style="width: 20px; height: 20px;"></i>
                             </div>
                             <div>
-                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">1. How to Create &amp; Print Invoices (Counter Billing)</h3>
-                                <span style="font-size: 0.78rem; color: #64748b;">Generating official paper donation vouchers step-by-step</span>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">1. How to
+                                    Create &amp; Print Invoices (Counter Billing)</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">Generating official paper donation
+                                    vouchers step-by-step</span>
                             </div>
                         </div>
 
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
-                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">STEP 1</div>
-                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">Enter Devotee Details</h4>
+                            <div
+                                style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div
+                                    style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    STEP 1</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">
+                                    Enter Devotee Details</h4>
                                 <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    Type the Devotee's Name (Sri / Smt) and their 10-digit Mobile Number. The mobile number helps in searching donation history in the registry later.
+                                    Type the Devotee's Name (Sri / Smt) and their 10-digit Mobile Number. The mobile
+                                    number helps in searching donation history in the registry later.
                                 </p>
                             </div>
 
-                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
-                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">STEP 2</div>
-                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">Select Seva / Pooja Purpose</h4>
+                            <div
+                                style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div
+                                    style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    STEP 2</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">
+                                    Select Seva / Pooja Purpose</h4>
                                 <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    Select from 25 predefined official temple Sevas (e.g. Mahapooja, Annadana, Nitya Seva, Archana). Choose <em>"Custom Purpose"</em> if entering a special custom donation amount.
+                                    Select from 25 predefined official temple Sevas (e.g. Mahapooja, Annadana, Nitya
+                                    Seva, Archana). Choose <em>"Custom Purpose"</em> if entering a special custom
+                                    donation amount.
                                 </p>
                             </div>
 
-                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
-                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">STEP 3</div>
-                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">Select Date &amp; Payment Mode</h4>
+                            <div
+                                style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div
+                                    style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    STEP 3</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">
+                                    Select Date &amp; Payment Mode</h4>
                                 <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    Select payment mode: <strong>Cash</strong>, <strong>UPI</strong> (enter Transaction/Ref ID), or <strong>Cheque</strong> (enter Cheque No). Amount in Words is calculated automatically!
+                                    Select payment mode: <strong>Cash</strong>, <strong>UPI</strong> (enter
+                                    Transaction/Ref ID), or <strong>Cheque</strong> (enter Cheque No). Amount in Words
+                                    is calculated automatically!
                                 </p>
                             </div>
 
-                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
-                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">STEP 4</div>
-                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">Language Toggle &amp; Print</h4>
+                            <div
+                                style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div
+                                    style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    STEP 4</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">
+                                    Language Toggle &amp; Print</h4>
                                 <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    Check the Live Voucher Preview. Use <strong>English Preview</strong> or <strong>Kannada Preview</strong> buttons to select voucher language, then click <em>"Generate &amp; Print Receipt Voucher"</em> to print.
+                                    Check the Live Voucher Preview. Use <strong>English Preview</strong> or
+                                    <strong>Kannada Preview</strong> buttons to select voucher language, then click
+                                    <em>"Generate &amp; Print Receipt Voucher"</em> to print.
                                 </p>
                             </div>
                         </div>
@@ -527,44 +694,60 @@
 
                     <!-- 2. DONATION REGISTRY SECTION -->
                     <div class="card-layer" style="padding: 28px; margin-bottom: 24px;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
-                            <div style="background: #dcfce7; color: #166534; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div
+                                style="background: #dcfce7; color: #166534; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                                 <i data-lucide="layout-dashboard" style="width: 20px; height: 20px;"></i>
                             </div>
                             <div>
-                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">2. Donation Registry &amp; Management Dashboard</h3>
-                                <span style="font-size: 0.78rem; color: #64748b;">Searching, filtering, re-printing, and exporting donation data</span>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">2. Donation
+                                    Registry &amp; Management Dashboard</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">Searching, filtering, re-printing, and
+                                    exporting donation data</span>
                             </div>
                         </div>
 
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
-                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                            <div
+                                style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div
+                                    style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
                                     <i data-lucide="search" style="width: 18px; height: 18px;"></i>
-                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Instant Live Search</h4>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Instant
+                                        Live Search</h4>
                                 </div>
                                 <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    Type any Devotee Name, Receipt Number (e.g. 004), Mobile Number, or Seva Name in the search box to find matching records instantly.
+                                    Type any Devotee Name, Receipt Number (e.g. 004), Mobile Number, or Seva Name in the
+                                    search box to find matching records instantly.
                                 </p>
                             </div>
 
-                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                            <div
+                                style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div
+                                    style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
                                     <i data-lucide="filter" style="width: 18px; height: 18px;"></i>
-                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Payment Mode Filters</h4>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Payment
+                                        Mode Filters</h4>
                                 </div>
                                 <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    Click filter pills (All, Cash, UPI, Cheque) to isolate collection channels and view breakdown statistics for audit purposes.
+                                    Click filter pills (All, Cash, UPI, Cheque) to isolate collection channels and view
+                                    breakdown statistics for audit purposes.
                                 </p>
                             </div>
 
-                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                            <div
+                                style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div
+                                    style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
                                     <i data-lucide="download" style="width: 18px; height: 18px;"></i>
-                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Export to Excel / CSV</h4>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Export
+                                        to Excel / CSV</h4>
                                 </div>
                                 <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    Click <em>"Export CSV"</em> to download complete donation registry files for Excel bookkeeping, auditing, or temple archives.
+                                    Click <em>"Export CSV"</em> to download complete donation registry files for Excel
+                                    bookkeeping, auditing, or temple archives.
                                 </p>
                             </div>
                         </div>
@@ -572,33 +755,45 @@
 
                     <!-- 3. ADVANCED FEATURES & TIPS -->
                     <div class="card-layer" style="padding: 28px;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
-                            <div style="background: #fef3c7; color: #b45309; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div
+                                style="background: #fef3c7; color: #b45309; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                                 <i data-lucide="zap" style="width: 20px; height: 20px;"></i>
                             </div>
                             <div>
-                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">3. Quick Reference Tips for Operators</h3>
-                                <span style="font-size: 0.78rem; color: #64748b;">Important features for smooth counter operation</span>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">3. Quick
+                                    Reference Tips for Operators</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">Important features for smooth counter
+                                    operation</span>
                             </div>
                         </div>
 
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                            <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
-                                <i data-lucide="check-circle-2" style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div
+                                style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
+                                <i data-lucide="check-circle-2"
+                                    style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
                                 <div>
-                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">Re-printing Old Vouchers</h5>
+                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">
+                                        Re-printing Old Vouchers</h5>
                                     <p style="font-size: 0.8rem; color: #78350f; margin: 0; line-height: 1.4;">
-                                        Go to Donation Registry, locate the receipt, and click <em>"Print Voucher"</em>. You can switch language to English or Kannada inside the modal before printing.
+                                        Go to Donation Registry, locate the receipt, and click <em>"Print Voucher"</em>.
+                                        You can switch language to English or Kannada inside the modal before printing.
                                     </p>
                                 </div>
                             </div>
 
-                            <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
-                                <i data-lucide="check-circle-2" style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div
+                                style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
+                                <i data-lucide="check-circle-2"
+                                    style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
                                 <div>
-                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">Safe Local Storage</h5>
+                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">
+                                        Safe Local Storage</h5>
                                     <p style="font-size: 0.8rem; color: #78350f; margin: 0; line-height: 1.4;">
-                                        All billing data is automatically saved in browser local storage. Data stays safe even if you refresh the browser page or restart the computer.
+                                        All billing data is automatically saved in browser local storage. Data stays
+                                        safe even if you refresh the browser page or restart the computer.
                                     </p>
                                 </div>
                             </div>
@@ -610,46 +805,72 @@
                 <div id="guideContentKan" style="display: none;">
                     <!-- 1. CREATE INVOICE SECTION (KANNADA) -->
                     <div class="card-layer" style="padding: 28px; margin-bottom: 24px;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
-                            <div style="background: #e0e7ff; color: #4f46e5; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div
+                                style="background: #e0e7ff; color: #4f46e5; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                                 <i data-lucide="plus-square" style="width: 20px; height: 20px;"></i>
                             </div>
                             <div>
-                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">೧. ಇನ್‌ವಾಯ್ಸ್ ಮತ್ತು ರಶೀದಿ ರಚಿಸುವುದು ಹೇಗೆ (Counter Billing)</h3>
-                                <span style="font-size: 0.78rem; color: #64748b;">ಅಧಿಕೃತ ದೇವಸ್ಥಾನದ ರಶೀದಿ ರಚಿಸುವ ಹಂತ-ಹಂತದ ಮಾರ್ಗದರ್ಶಿ</span>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">೧.
+                                    ಇನ್‌ವಾಯ್ಸ್ ಮತ್ತು ರಶೀದಿ ರಚಿಸುವುದು ಹೇಗೆ (Counter Billing)</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">ಅಧಿಕೃತ ದೇವಸ್ಥಾನದ ರಶೀದಿ ರಚಿಸುವ ಹಂತ-ಹಂತದ
+                                    ಮಾರ್ಗದರ್ಶಿ</span>
                             </div>
                         </div>
 
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
-                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">ಹಂತ ೧</div>
-                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">ಭಕ್ತರ ವಿವರಗಳನ್ನು ನಮೂದಿಸಿ</h4>
+                            <div
+                                style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div
+                                    style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    ಹಂತ ೧</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">
+                                    ಭಕ್ತರ ವಿವರಗಳನ್ನು ನಮೂದಿಸಿ</h4>
                                 <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    ಭಕ್ತರ ಹೆಸರು (ಶ್ರೀ / ಶ್ರೀಮತಿ) ಮತ್ತು ಅವರ ೧೦-ಅಂಕಿಗಳ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ. ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯು ನಂತರ ರಿಜಿಸ್ಟ್ರಿಯಲ್ಲಿ ಹುಡುಕಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
+                                    ಭಕ್ತರ ಹೆಸರು (ಶ್ರೀ / ಶ್ರೀಮತಿ) ಮತ್ತು ಅವರ ೧೦-ಅಂಕಿಗಳ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ. ಮೊಬೈಲ್
+                                    ಸಂಖ್ಯೆಯು ನಂತರ ರಿಜಿಸ್ಟ್ರಿಯಲ್ಲಿ ಹುಡುಕಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
                                 </p>
                             </div>
 
-                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
-                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">ಹಂತ ೨</div>
-                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">ಸೇವೆ / ಪೂಜೆಯ ಉದ್ದೇಶ ಆಯ್ಕೆಮಾಡಿ</h4>
+                            <div
+                                style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div
+                                    style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    ಹಂತ ೨</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">
+                                    ಸೇವೆ / ಪೂಜೆಯ ಉದ್ದೇಶ ಆಯ್ಕೆಮಾಡಿ</h4>
                                 <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    ೨೫ ಪೂರ್ವನಿರ್ಧರಿತ ದೇವಸ್ಥಾನದ ಸೇವೆಗಳಲ್ಲಿ (ಉದಾ: ಮಹಾಪೂಜೆ, ಅನ್ನದಾನ, ನಿತ್ಯ ಸೇವೆ, ಅರ್ಚನೆ) ಒಂದನ್ನು ಆಯ್ಕೆಮಾಡಿ. ವಿಶೇಷ ಮೊತ್ತವಿದ್ದರೆ <em>"Custom Purpose"</em> ಆಯ್ಕೆಮಾಡಿ.
+                                    ೨೫ ಪೂರ್ವನಿರ್ಧರಿತ ದೇವಸ್ಥಾನದ ಸೇವೆಗಳಲ್ಲಿ (ಉದಾ: ಮಹಾಪೂಜೆ, ಅನ್ನದಾನ, ನಿತ್ಯ ಸೇವೆ, ಅರ್ಚನೆ)
+                                    ಒಂದನ್ನು ಆಯ್ಕೆಮಾಡಿ. ವಿಶೇಷ ಮೊತ್ತವಿದ್ದರೆ <em>"Custom Purpose"</em> ಆಯ್ಕೆಮಾಡಿ.
                                 </p>
                             </div>
 
-                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
-                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">ಹಂತ ೩</div>
-                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">ದಿನಾಂಕ ಮತ್ತು ಪಾವತಿ ವಿಧಾನ ಆಯ್ಕೆಮಾಡಿ</h4>
+                            <div
+                                style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div
+                                    style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    ಹಂತ ೩</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">
+                                    ದಿನಾಂಕ ಮತ್ತು ಪಾವತಿ ವಿಧಾನ ಆಯ್ಕೆಮಾಡಿ</h4>
                                 <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    ಪಾವತಿ ವಿಧಾನ ಆಯ್ಕೆಮಾಡಿ: <strong>ನಗದು (Cash)</strong>, <strong>UPI</strong> (ರೆಫರೆನ್ಸ್ ಐಡಿ ಹಾಕಿ), ಅಥವಾ <strong>ಚೆಕ್ (Cheque)</strong>. ಅಕ್ಷರಗಳಲ್ಲಿ ಮೊತ್ತವು ತಾನಾಗಿಯೇ ಲೆಕ್ಕಾಚಾರವಾಗುತ್ತದೆ!
+                                    ಪಾವತಿ ವಿಧಾನ ಆಯ್ಕೆಮಾಡಿ: <strong>ನಗದು (Cash)</strong>, <strong>UPI</strong> (ರೆಫರೆನ್ಸ್
+                                    ಐಡಿ ಹಾಕಿ), ಅಥವಾ <strong>ಚೆಕ್ (Cheque)</strong>. ಅಕ್ಷರಗಳಲ್ಲಿ ಮೊತ್ತವು ತಾನಾಗಿಯೇ
+                                    ಲೆಕ್ಕಾಚಾರವಾಗುತ್ತದೆ!
                                 </p>
                             </div>
 
-                            <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
-                                <div style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">ಹಂತ ೪</div>
-                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">ಭಾಷಾ ಆಯ್ಕೆ ಮತ್ತು ಮುದ್ರಣ (Print)</h4>
+                            <div
+                                style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 8px; padding: 16px;">
+                                <div
+                                    style="font-size: 0.72rem; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    ಹಂತ ೪</div>
+                                <h4 style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px;">
+                                    ಭಾಷಾ ಆಯ್ಕೆ ಮತ್ತು ಮುದ್ರಣ (Print)</h4>
                                 <p style="font-size: 0.82rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    ಲೈವ್ ರಶೀದಿ ಪೂರ್ವವೀಕ್ಷಣೆ ನೋಡಿ. <strong>English Preview</strong> ಅಥವಾ <strong>Kannada Preview</strong> ಬಟನ್ ಬಳಸಿ ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ, ನಂತರ <em>"Generate &amp; Print Receipt Voucher"</em> ಕ್ಲಿಕ್ ಮಾಡಿ.
+                                    ಲೈವ್ ರಶೀದಿ ಪೂರ್ವವೀಕ್ಷಣೆ ನೋಡಿ. <strong>English Preview</strong> ಅಥವಾ <strong>Kannada
+                                        Preview</strong> ಬಟನ್ ಬಳಸಿ ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ, ನಂತರ <em>"Generate &amp; Print
+                                        Receipt Voucher"</em> ಕ್ಲಿಕ್ ಮಾಡಿ.
                                 </p>
                             </div>
                         </div>
@@ -657,44 +878,60 @@
 
                     <!-- 2. DONATION REGISTRY SECTION (KANNADA) -->
                     <div class="card-layer" style="padding: 28px; margin-bottom: 24px;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
-                            <div style="background: #dcfce7; color: #166534; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div
+                                style="background: #dcfce7; color: #166534; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                                 <i data-lucide="layout-dashboard" style="width: 20px; height: 20px;"></i>
                             </div>
                             <div>
-                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">೨. ದೇಣಿಗೆ ದಾಖಲೆ ಮತ್ತು ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ನಿರ್ವಹಣೆ</h3>
-                                <span style="font-size: 0.78rem; color: #64748b;">ದೇಣಿಗೆ ದಾಖಲೆಗಳನ್ನು ಹುಡುಕುವುದು, ಫಿಲ್ಟರ್ ಮಾಡುವುದು ಮತ್ತು ಡೌನ್‌ಲೋಡ್ ಮಾಡುವುದು</span>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">೨. ದೇಣಿಗೆ
+                                    ದಾಖಲೆ ಮತ್ತು ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ನಿರ್ವಹಣೆ</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">ದೇಣಿಗೆ ದಾಖಲೆಗಳನ್ನು ಹುಡುಕುವುದು, ಫಿಲ್ಟರ್
+                                    ಮಾಡುವುದು ಮತ್ತು ಡೌನ್‌ಲೋಡ್ ಮಾಡುವುದು</span>
                             </div>
                         </div>
 
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
-                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                            <div
+                                style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div
+                                    style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
                                     <i data-lucide="search" style="width: 18px; height: 18px;"></i>
-                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">ತ್ವರಿತ ಶೋಧನೆ (Search)</h4>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">ತ್ವರಿತ
+                                        ಶೋಧನೆ (Search)</h4>
                                 </div>
                                 <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    ಯಾವುದೇ ಭಕ್ತರ ಹೆಸರು, ರಶೀದಿ ಸಂಖ್ಯೆ (ಉದಾ: 004), ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಅಥವಾ ಸೇವೆಯ ಹೆಸರನ್ನು ಸರ್ಚ್ ಬಾಕ್ಸ್‌ನಲ್ಲಿ ಟೈಪ್ ಮಾಡುವ ಮೂಲಕ ತಕ್ಷಣ ಹುಡುಕಿ.
+                                    ಯಾವುದೇ ಭಕ್ತರ ಹೆಸರು, ರಶೀದಿ ಸಂಖ್ಯೆ (ಉದಾ: 004), ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಅಥವಾ ಸೇವೆಯ ಹೆಸರನ್ನು ಸರ್ಚ್
+                                    ಬಾಕ್ಸ್‌ನಲ್ಲಿ ಟೈಪ್ ಮಾಡುವ ಮೂಲಕ ತಕ್ಷಣ ಹುಡುಕಿ.
                                 </p>
                             </div>
 
-                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                            <div
+                                style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div
+                                    style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
                                     <i data-lucide="filter" style="width: 18px; height: 18px;"></i>
-                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">ಪಾವತಿ ವಿಧಾನ ಫಿಲ್ಟರ್‌ಗಳು</h4>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">ಪಾವತಿ
+                                        ವಿಧಾನ ಫಿಲ್ಟರ್‌ಗಳು</h4>
                                 </div>
                                 <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    ಲೆಕ್ಕಪರಿಶೋಧನೆಗಾಗಿ ನಗದು (Cash), UPI, ಅಥವಾ ಚೆಕ್ (Cheque) ಪಾವತಿಗಳನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ವೀಕ್ಷಿಸಲು ಫಿಲ್ಟರ್ ಬಟನ್‌ಗಳನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ.
+                                    ಲೆಕ್ಕಪರಿಶೋಧನೆಗಾಗಿ ನಗದು (Cash), UPI, ಅಥವಾ ಚೆಕ್ (Cheque) ಪಾವತಿಗಳನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ
+                                    ವೀಕ್ಷಿಸಲು ಫಿಲ್ಟರ್ ಬಟನ್‌ಗಳನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ.
                                 </p>
                             </div>
 
-                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
+                            <div
+                                style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px;">
+                                <div
+                                    style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #166534;">
                                     <i data-lucide="download" style="width: 18px; height: 18px;"></i>
-                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Excel / CSV ಗೆ ಎಕ್ಸ್‌ಪೋರ್ಟ್ ಮಾಡಿ</h4>
+                                    <h4 style="font-size: 0.9rem; font-weight: 800; margin: 0; color: #0f172a;">Excel /
+                                        CSV ಗೆ ಎಕ್ಸ್‌ಪೋರ್ಟ್ ಮಾಡಿ</h4>
                                 </div>
                                 <p style="font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5;">
-                                    ದೇವಸ್ಥಾನದ ಲೆಕ್ಕಪತ್ರ ದಾಖಲೆಗಳಿಗಾಗಿ ಸಂಪೂರ್ಣ ದೇಣಿಗೆ ರಿಜಿಸ್ಟ್ರಿಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು <em>"Export CSV"</em> ಕ್ಲಿಕ್ ಮಾಡಿ.
+                                    ದೇವಸ್ಥಾನದ ಲೆಕ್ಕಪತ್ರ ದಾಖಲೆಗಳಿಗಾಗಿ ಸಂಪೂರ್ಣ ದೇಣಿಗೆ ರಿಜಿಸ್ಟ್ರಿಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು
+                                    <em>"Export CSV"</em> ಕ್ಲಿಕ್ ಮಾಡಿ.
                                 </p>
                             </div>
                         </div>
@@ -702,33 +939,45 @@
 
                     <!-- 3. ADVANCED FEATURES & TIPS (KANNADA) -->
                     <div class="card-layer" style="padding: 28px;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
-                            <div style="background: #fef3c7; color: #b45309; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                            <div
+                                style="background: #fef3c7; color: #b45309; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                                 <i data-lucide="zap" style="width: 20px; height: 20px;"></i>
                             </div>
                             <div>
-                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">೩. ಸಿಬ್ಬಂದಿಗಾಗಿ ಪ್ರಮುಖ ಸಲಹೆಗಳು</h3>
-                                <span style="font-size: 0.78rem; color: #64748b;">ಸುಲಭ ಮತ್ತು ಸುರಕ್ಷಿತ ಕಾರ್ಯಾಚರಣೆಗಾಗಿ</span>
+                                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0;">೩.
+                                    ಸಿಬ್ಬಂದಿಗಾಗಿ ಪ್ರಮುಖ ಸಲಹೆಗಳು</h3>
+                                <span style="font-size: 0.78rem; color: #64748b;">ಸುಲಭ ಮತ್ತು ಸುರಕ್ಷಿತ
+                                    ಕಾರ್ಯಾಚರಣೆಗಾಗಿ</span>
                             </div>
                         </div>
 
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                            <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
-                                <i data-lucide="check-circle-2" style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div
+                                style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
+                                <i data-lucide="check-circle-2"
+                                    style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
                                 <div>
-                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">ಹಳೆಯ ರಶೀದಿಗಳನ್ನು ಮರು-ಮುದ್ರಿಸುವುದು</h5>
+                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">
+                                        ಹಳೆಯ ರಶೀದಿಗಳನ್ನು ಮರು-ಮುದ್ರಿಸುವುದು</h5>
                                     <p style="font-size: 0.8rem; color: #78350f; margin: 0; line-height: 1.4;">
-                                        Donation Registry ಗೆ ಹೋಗಿ, ರಶೀದಿಯನ್ನು ಹುಡುಕಿ ಮತ್ತು <em>"Print Voucher"</em> ಕ್ಲಿಕ್ ಮಾಡಿ. ಮುದ್ರಿಸುವ ಮುನ್ನ ಇಂಗ್ಲಿಷ್ ಅಥವಾ ಕನ್ನಡ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಬಹುದು.
+                                        Donation Registry ಗೆ ಹೋಗಿ, ರಶೀದಿಯನ್ನು ಹುಡುಕಿ ಮತ್ತು <em>"Print Voucher"</em>
+                                        ಕ್ಲಿಕ್ ಮಾಡಿ. ಮುದ್ರಿಸುವ ಮುನ್ನ ಇಂಗ್ಲಿಷ್ ಅಥವಾ ಕನ್ನಡ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಬಹುದು.
                                     </p>
                                 </div>
                             </div>
 
-                            <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
-                                <i data-lucide="check-circle-2" style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div
+                                style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 16px; display: flex; gap: 12px;">
+                                <i data-lucide="check-circle-2"
+                                    style="color: #d97706; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
                                 <div>
-                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">ಸುರಕ್ಷಿತ ಡೇಟಾ ಸಂಗ್ರಹಣೆ</h5>
+                                    <h5 style="font-size: 0.88rem; font-weight: 800; color: #92400e; margin: 0 0 4px;">
+                                        ಸುರಕ್ಷಿತ ಡೇಟಾ ಸಂಗ್ರಹಣೆ</h5>
                                     <p style="font-size: 0.8rem; color: #78350f; margin: 0; line-height: 1.4;">
-                                        ಎಲ್ಲಾ ಬಿಲ್ಲಿಂಗ್ ಡೇಟಾವನ್ನು ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸುರಕ್ಷಿತವಾಗಿ ಉಳಿಸಲಾಗುತ್ತದೆ. ಕಂಪ್ಯೂಟರ್ ರಿಸ್ಟಾರ್ಟ್ ಮಾಡಿದರೂ ಡೇಟಾ ಸುರಕ್ಷಿತವಾಗಿರುತ್ತದೆ.
+                                        ಎಲ್ಲಾ ಬಿಲ್ಲಿಂಗ್ ಡೇಟಾವನ್ನು ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸುರಕ್ಷಿತವಾಗಿ
+                                        ಉಳಿಸಲಾಗುತ್ತದೆ. ಕಂಪ್ಯೂಟರ್ ರಿಸ್ಟಾರ್ಟ್ ಮಾಡಿದರೂ ಡೇಟಾ ಸುರಕ್ಷಿತವಾಗಿರುತ್ತದೆ.
                                     </p>
                                 </div>
                             </div>
@@ -749,57 +998,79 @@
             </div>
 
             <div style="margin-bottom: 25px;">
-                <div id="sysIconBox" class="is-online" style="width: 60px; height: 60px; background: #dcfce7; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; transition: 0.3s;">
+                <div id="sysIconBox" class="is-online"
+                    style="width: 60px; height: 60px; background: #dcfce7; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; transition: 0.3s;">
                     <i id="sysIcon" data-lucide="check-circle" style="width: 28px; height: 28px;"></i>
                 </div>
-                <h2 id="sysTitle" style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-bottom: 5px;">System Running Smoothly</h2>
-                <p id="sysSubtitle" style="font-size: 0.85rem; color: #64748b; margin-bottom: 25px;">Internet Connected. All services are operational.</p>
-                
-                <div class="dev-card-vip" style="padding: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px;">
-                    <p style="font-size: 0.7rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; text-align: center;">A Product Of</p>
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 15px;">
-                        <img src="logo.png" alt="ChittorTech Logo" style="width: 40px; height: 40px; border-radius: 8px; object-fit: contain;">
-                        <h3 style="font-size: 1.4rem; font-weight: 900; color: #0f172a; margin: 0; letter-spacing: -0.5px;">ChittorTech</h3>
+                <h2 id="sysTitle" style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-bottom: 5px;">
+                    System Running Smoothly</h2>
+                <p id="sysSubtitle" style="font-size: 0.85rem; color: #64748b; margin-bottom: 25px;">Internet Connected.
+                    All services are operational.</p>
+
+                <div class="dev-card-vip"
+                    style="padding: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px;">
+                    <p
+                        style="font-size: 0.7rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; text-align: center;">
+                        A Product Of</p>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 15px;">
+                        <img src="logo.png" alt="ChittorTech Logo"
+                            style="width: 40px; height: 40px; border-radius: 8px; object-fit: contain;">
+                        <h3
+                            style="font-size: 1.4rem; font-weight: 900; color: #0f172a; margin: 0; letter-spacing: -0.5px;">
+                            ChittorTech</h3>
                     </div>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; align-items: center;">
-                        <p style="font-size: 0.75rem; font-weight: 700; color: #00ff88; background: #111827; padding: 4px 12px; border-radius: 50px; display: inline-flex; align-items: center; gap: 6px;">
+
+                    <div
+                        style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; align-items: center;">
+                        <p
+                            style="font-size: 0.75rem; font-weight: 700; color: #00ff88; background: #111827; padding: 4px 12px; border-radius: 50px; display: inline-flex; align-items: center; gap: 6px;">
                             Recognized by iStart Rajasthan
                         </p>
-                        <p style="font-size: 0.72rem; color: #334155; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-                            <i data-lucide="mail" style="width: 14px; height: 14px; opacity: 0.6;"></i> chittortech@gmail.com
+                        <p
+                            style="font-size: 0.72rem; color: #334155; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="mail" style="width: 14px; height: 14px; opacity: 0.6;"></i>
+                            chittortech@gmail.com
                         </p>
                     </div>
-                    
-                    <p style="font-size: 0.65rem; color: #94a3b8; border-top: 1px dashed #e2e8f0; padding-top: 15px; text-align: center; font-weight: 700; margin-top: 10px; letter-spacing: 0.5px; text-transform: uppercase;">
+
+                    <p
+                        style="font-size: 0.65rem; color: #94a3b8; border-top: 1px dashed #e2e8f0; padding-top: 15px; text-align: center; font-weight: 700; margin-top: 10px; letter-spacing: 0.5px; text-transform: uppercase;">
                         © 2026 ChittorTech • All Rights Reserved
                     </p>
                 </div>
             </div>
-            
-            <button onclick="document.getElementById('systemInfoModal').style.display='none'" style="width: 100%; padding: 14px; border-radius: 12px; background: #0f172a; color: white; border: none; font-weight: 800; font-size: 0.9rem; cursor: pointer;">Close Window</button>
+
+            <button onclick="document.getElementById('systemInfoModal').style.display='none'"
+                style="width: 100%; padding: 14px; border-radius: 12px; background: #0f172a; color: white; border: none; font-weight: 800; font-size: 0.9rem; cursor: pointer;">Close
+                Window</button>
         </div>
     </div>
 
     <!-- PRINT VOUCHER MODAL -->
     <div id="printVoucherModal" class="overlay" style="display: none;">
         <div class="modal-pane" style="max-width: 600px; padding: 28px; margin: auto;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; gap: 10px;">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; gap: 10px;">
                 <h3 style="font-weight: 800; font-size: 1.05rem; margin: 0;">Official Temple Voucher Print View</h3>
                 <div class="voucher-lang-group">
-                    <button type="button" id="modalBtnLangEnglish" class="voucher-lang-btn active" onclick="setVoucherLanguage('english')">
+                    <button type="button" id="modalBtnLangEnglish" class="voucher-lang-btn active"
+                        onclick="setVoucherLanguage('english')">
                         English
                     </button>
-                    <button type="button" id="modalBtnLangKannada" class="voucher-lang-btn" onclick="setVoucherLanguage('kannada')">
+                    <button type="button" id="modalBtnLangKannada" class="voucher-lang-btn"
+                        onclick="setVoucherLanguage('kannada')">
                         Kannada
                     </button>
                 </div>
-                <button onclick="closeVoucherModal()" style="background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #64748b;">✕</button>
+                <button onclick="closeVoucherModal()"
+                    style="background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #64748b;">✕</button>
             </div>
             <div id="printableVoucherContent">
                 <!-- Rendered dynamically -->
             </div>
-            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 12px; border-top: 1px solid #e2e8f0;">
+            <div
+                style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 12px; border-top: 1px solid #e2e8f0;">
                 <button onclick="closeVoucherModal()" class="btn-profile">Close</button>
                 <button onclick="window.print()" class="btn-export btn-export-green">
                     <i data-lucide="printer" style="width: 16px; height: 16px;"></i> Print Receipt
@@ -815,4 +1086,5 @@
         }
     </script>
 </body>
+
 </html>
