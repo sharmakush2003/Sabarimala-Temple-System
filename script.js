@@ -1490,19 +1490,13 @@ function renderModalVoucherContent(rec) {
     if (!container) return;
     const amtWords = numberToWords(rec.amount);
     
-    const label1 = "Receiver's Copy";
-    const label2 = "Office Copy";
-    
     const htmlSingle = renderVoucherHTML(rec.id, rec.date, rec.devoteeName, rec.amount, amtWords, rec.paymentMode, rec.sevaName, currentVoucherLang, rec.type || "INWARD");
     
     container.innerHTML = `
         <div class="dual-print-container" style="max-width: 510px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; background: white;">
             
             <!-- First Copy -->
-            <div style="border: 2px solid #000; padding: 12px 20px 20px 20px; box-sizing: border-box; background: white;">
-                <div style="text-align: center; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #555; border-bottom: 1px dashed #ccc; padding-bottom: 6px; margin-bottom: 12px; font-family: sans-serif; letter-spacing: 1px;">
-                    *** ${label1} ***
-                </div>
+            <div style="border: 2px solid #000; padding: 20px; box-sizing: border-box; background: white;">
                 ${htmlSingle}
             </div>
             
@@ -1512,10 +1506,7 @@ function renderModalVoucherContent(rec) {
             </div>
             
             <!-- Second Copy -->
-            <div style="border: 2px solid #000; padding: 12px 20px 20px 20px; box-sizing: border-box; background: white;">
-                <div style="text-align: center; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #555; border-bottom: 1px dashed #ccc; padding-bottom: 6px; margin-bottom: 12px; font-family: sans-serif; letter-spacing: 1px;">
-                    *** ${label2} ***
-                </div>
+            <div style="border: 2px solid #000; padding: 20px; box-sizing: border-box; background: white;">
                 ${htmlSingle}
             </div>
             
