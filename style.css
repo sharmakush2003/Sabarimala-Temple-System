@@ -913,7 +913,7 @@ select[multiple] option:checked {
 .print-only { display: none; }
 
 @media print {
-    @page { size: portrait; margin: 6mm 8mm; }
+    @page { size: A4 portrait; margin: 4mm 6mm; }
     body > * { display: none !important; }
 
     /* Show legacy receipt template */
@@ -963,10 +963,31 @@ select[multiple] option:checked {
         width: 100% !important;
         display: block !important;
     }
+
+    /* Dual container: allow page break between copies */
     .dual-print-container {
+        gap: 4px !important;
+    }
+
+    /* Each individual copy: never break internally */
+    .dual-print-container > div[style*="border: 2px solid"] {
         page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        padding: 10px 14px 12px 14px !important;
+    }
+
+    /* Compact receipt body for print — reduce spacing to fit both on A4 */
+    .dual-print-container div[style*="margin-bottom: 8px"] {
+        margin-bottom: 4px !important;
+    }
+    .dual-print-container div[style*="margin-bottom: 12px"] {
+        margin-bottom: 6px !important;
+    }
+    .dual-print-container div[style*="margin-top: 35px"] {
+        margin-top: 12px !important;
     }
 }
+
 
 /* DUAL RECEIPT STACKING */
 .dual-receipt-wrapper {
