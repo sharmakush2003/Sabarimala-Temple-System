@@ -857,23 +857,23 @@ function splitAmountWords(words, maxLength = 35) {
 function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, modeStr, sevaPurpose, lang = currentVoucherLang, type = "INWARD") {
     const displayDate = formatDateToDDMMYYYY(dateStr);
     
+    const { part1, part2 } = splitAmountWords(amountWords, 35);
+
     let nameFontSize = "1.05rem";
-    if (devoteeName && devoteeName.length > 25) {
+    if (devoteeName) {
         const len = devoteeName.length;
-        if (len <= 35) nameFontSize = "0.9rem";
-        else if (len <= 45) nameFontSize = "0.8rem";
-        else nameFontSize = "0.7rem";
+        if (len > 15 && len <= 20) nameFontSize = "0.92rem";
+        else if (len > 20 && len <= 28) nameFontSize = "0.76rem";
+        else if (len > 28 && len <= 38) nameFontSize = "0.65rem";
+        else if (len > 38) nameFontSize = "0.52rem";
     }
     
     let wordsFontSize = "0.92rem";
-    if (amountWords && amountWords.length > 25) {
-        const len = amountWords.length;
-        if (len <= 35) wordsFontSize = "0.82rem";
-        else if (len <= 50) wordsFontSize = "0.74rem";
-        else wordsFontSize = "0.65rem";
+    if (part1) {
+        const len = part1.length;
+        if (len > 20 && len <= 28) wordsFontSize = "0.78rem";
+        else if (len > 28) wordsFontSize = "0.68rem";
     }
-
-    const { part1, part2 } = splitAmountWords(amountWords, 35);
     
     if (type === "OUTWARD") {
         if (lang === 'kannada') {
