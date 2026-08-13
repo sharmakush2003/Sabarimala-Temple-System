@@ -282,7 +282,8 @@ function initNavigation() {
     const titlesMap = {
         "custom-bill": { title: "Create Inward Invoice", sub: "ChittorTech TMS — Inward Receipts & Billing" },
         "outward-bill": { title: "Create Outward Invoice", sub: "ChittorTech TMS — Outward Expense & Vouchers" },
-        "registry": { title: "Donation Registry", sub: "Sabarimala Sri Ayyappaswamy Temple — Management Dashboard" },
+        "registry": { title: "Donation Registry", sub: "Today's Inward Donations — Sabarimala Sri Ayyappaswamy Temple" },
+        "payment-registry": { title: "Payment Registry", sub: "Today's Outward Payments — Sabarimala Sri Ayyappaswamy Temple" },
         "how-to-use": { title: "How To Use", sub: "Complete User Manual & System Operating Guide" }
     };
 
@@ -1326,14 +1327,10 @@ function initFiltersAndSearch() {
         searchInput.addEventListener("input", renderRegistryTable);
     }
 
-    const filterBtns = document.querySelectorAll(".filter-btn");
-    filterBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            filterBtns.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            renderRegistryTable();
-        });
-    });
+    const paymentSearchInput = document.getElementById("paymentRegistrySearch");
+    if (paymentSearchInput) {
+        paymentSearchInput.addEventListener("input", renderPaymentRegistryTable);
+    }
 
     const exportCsvBtn = document.getElementById("exportCsvBtn");
     if (exportCsvBtn) {
@@ -1355,6 +1352,7 @@ function initFiltersAndSearch() {
 // RENDER ALL VIEWS
 function renderAllViews() {
     renderRegistryTable();
+    renderPaymentRegistryTable();
     renderTotalDonationsTable();
     renderStats();
     if (window.lucide) lucide.createIcons();
@@ -1364,41 +1362,24 @@ function renderRegistryTable() {
     const tbody = document.getElementById("registryTableBody");
     if (!tbody) return;
 
-    const searchTerm = (document.getElementById("registrySearch") ? document.getElementById("registrySearch").value : "").toLowerCase();
-    const activeFilterBtn = document.querySelector(".filter-btn.active");
-    const filterType = activeFilterBtn ? activeFilterBtn.getAttribute("data-filter") : "all";
     const todayStr = new Date().toISOString().split('T')[0];
+    const searchTerm = (document.getElementById("registrySearch") ? document.getElementById("registrySearch").value : "").toLowerCase();
 
     const filtered = receiptsData.filter(r => {
-        const matchesSearch = r.devoteeName.toLowerCase().includes(searchTerm) ||
-                              r.id.toLowerCase().includes(searchTerm) ||
-                              r.mobile.includes(searchTerm) ||
-                              r.sevaName.toLowerCase().includes(searchTerm);
-        
-        if (!matchesSearch) return false;
-
-        if (filterType === "today") return r.date === todayStr;
-        if (filterType === "cash") return r.paymentMode.includes("Cash");
-        if (filterType === "upi") return r.paymentMode.includes("UPI") || r.paymentMode.includes("Online") || r.paymentMode.includes("Transfer");
-        if (filterType === "inward") return (!r.type || r.type === "INWARD");
-        if (filterType === "outward") return r.type === "OUTWARD";
-        return true;
+        const isInward = !r.type || r.type === "INWARD";
+        const isToday = r.date === todayStr;
+        if (!isInward || !isToday) return false;
+        return r.devoteeName.toLowerCase().includes(searchTerm) ||
+               r.id.toLowerCase().includes(searchTerm) ||
+               r.mobile.includes(searchTerm) ||
+               r.sevaName.toLowerCase().includes(searchTerm);
     });
 
     tbody.innerHTML = filtered.map(r => {
-        const isOutward = r.type === "OUTWARD";
-        const badge = isOutward 
-            ? '<span style="font-size:0.6rem; padding: 2px 6px; background:#fee2e2; color:#ef4444; border-radius:4px; margin-left:8px; font-weight:800; vertical-align:middle; display:inline-block;">OUTWARD</span>'
-            : '<span style="font-size:0.6rem; padding: 2px 6px; background:#dcfce7; color:#15803d; border-radius:4px; margin-left:8px; font-weight:800; vertical-align:middle; display:inline-block;">INWARD</span>';
-        
-        const amtColor = isOutward ? '#ef4444' : '#10b981';
-        
         return `
         <tr>
             <td>
-                <div style="font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 4px;">
-                    ${r.devoteeName} ${badge}
-                </div>
+                <div style="font-weight: 800; color: #0f172a;">${r.devoteeName}</div>
                 <div style="font-size: 0.72rem; color: #64748b;">Ref: ${r.id}</div>
             </td>
             <td>
@@ -1409,7 +1390,7 @@ function renderRegistryTable() {
                 <div style="font-size: 0.72rem; color: #64748b;">${formatDateToDDMMYYYY(r.date)} ${r.time}</div>
             </td>
             <td>
-                <div style="font-weight: 900; color: ${amtColor};">₹${r.amount.toLocaleString('en-IN')}</div>
+                <div style="font-weight: 900; color: #10b981;">₹${r.amount.toLocaleString('en-IN')}</div>
                 <span class="status-tag ${r.paymentMode.startsWith('Cash') ? 'tag-booked' : 'tag-pending'}">${r.paymentMode}</span>
             </td>
             <td>
@@ -1427,7 +1408,62 @@ function renderRegistryTable() {
     }).join('');
 
     const showingText = document.getElementById("showingCountText");
-    if (showingText) showingText.textContent = `SHOWING ${filtered.length} OF ${receiptsData.length} INVOICES`;
+    if (showingText) showingText.textContent = `SHOWING ${filtered.length} TODAY'S DONATIONS`;
+
+    if (window.lucide) lucide.createIcons();
+}
+
+function renderPaymentRegistryTable() {
+    const tbody = document.getElementById("paymentRegistryTableBody");
+    if (!tbody) return;
+
+    const todayStr = new Date().toISOString().split('T')[0];
+    const searchTerm = (document.getElementById("paymentRegistrySearch") ? document.getElementById("paymentRegistrySearch").value : "").toLowerCase();
+
+    const filtered = receiptsData.filter(r => {
+        const isOutward = r.type === "OUTWARD";
+        const isToday = r.date === todayStr;
+        if (!isOutward || !isToday) return false;
+        return r.devoteeName.toLowerCase().includes(searchTerm) ||
+               r.id.toLowerCase().includes(searchTerm) ||
+               r.mobile.includes(searchTerm) ||
+               r.sevaName.toLowerCase().includes(searchTerm);
+    });
+
+    tbody.innerHTML = filtered.map(r => {
+        return `
+        <tr>
+            <td>
+                <div style="font-weight: 800; color: #0f172a;">${r.devoteeName}</div>
+                <div style="font-size: 0.72rem; color: #64748b;">Ref: ${r.id}</div>
+            </td>
+            <td>
+                <div style="font-weight: 700;">${r.sevaName}</div>
+            </td>
+            <td>
+                <div style="font-size: 0.85rem; font-weight: 600;">${r.mobile}</div>
+                <div style="font-size: 0.72rem; color: #64748b;">${formatDateToDDMMYYYY(r.date)} ${r.time}</div>
+            </td>
+            <td>
+                <div style="font-weight: 900; color: #ef4444;">₹${r.amount.toLocaleString('en-IN')}</div>
+                <span class="status-tag ${r.paymentMode.startsWith('Cash') ? 'tag-booked' : 'tag-pending'}">${r.paymentMode}</span>
+            </td>
+            <td>
+                <span class="status-tag tag-booked" style="background: #dcfce7; color: #15803d;">
+                    ${r.status}
+                </span>
+            </td>
+            <td>
+                <button class="btn-allot" style="padding: 6px 12px; font-size: 0.72rem;" onclick="printVoucherById('${r.id}')">
+                    <i data-lucide="printer" style="width: 14px; height: 14px; margin-right: 4px;"></i> Print
+                </button>
+            </td>
+        </tr>
+        `;
+    }).join('');
+
+    const showingText = document.getElementById("paymentShowingCountText");
+    if (showingText) showingText.textContent = `SHOWING ${filtered.length} TODAY'S PAYMENTS`;
 
     if (window.lucide) lucide.createIcons();
 }

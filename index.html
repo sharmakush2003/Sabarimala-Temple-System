@@ -137,6 +137,10 @@
                     <i data-lucide="layout-dashboard" class="icon-registry"></i>
                     <span>Donation Registry</span>
                 </div>
+                <div class="nav-link" id="navPaymentRegistry" data-tab="payment-registry">
+                    <i data-lucide="receipt" class="icon-payment-registry"></i>
+                    <span>Payment Registry</span>
+                </div>
 
                 <div class="nav-link" id="navHowToUse" data-tab="how-to-use">
                     <i data-lucide="help-circle" class="icon-help"></i>
@@ -216,22 +220,12 @@
                     style="padding: 12px 20px; background: #f0fdf4; border-bottom: 1px solid #dcfce7; display: flex; align-items: center; gap: 10px;">
                     <i data-lucide="info" style="width: 16px; height: 16px; color: #10b981; flex-shrink: 0;"></i>
                     <span style="font-size: 0.78rem; font-weight: 700; color: #166534; letter-spacing: 0.2px;">
-                        Registry shows only today's Seva bookings and temple donations, not the whole history. To see
-                        whole history, click on the button given on the right side - View Google Sheet.
+                        Showing only <strong>today's</strong> Inward (Income) donations &amp; Seva bookings.
                     </span>
                 </div>
 
                 <div class="table-controls">
-                    <div
-                        style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; flex: 1; min-width: 250px;">
-                        <div class="filter-group">
-                            <button class="filter-btn active" data-filter="all">All Invoices</button>
-                            <button class="filter-btn" data-filter="inward">Inward (Income)</button>
-                            <button class="filter-btn" data-filter="outward">Outward (Expense)</button>
-                            <button class="filter-btn" data-filter="today">Today's</button>
-                            <button class="filter-btn" data-filter="cash">Cash</button>
-                            <button class="filter-btn" data-filter="upi">UPI / Online</button>
-                        </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; flex: 1; min-width: 250px;">
                         <div class="search-input-container"
                             style="position: relative; flex: 1; min-width: 200px; max-width: 320px;">
                             <i data-lucide="search"
@@ -250,7 +244,7 @@
                         </a>
                         <div id="showingCountText"
                             style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
-                            Showing All Donations
+                            Today's Donations
                         </div>
                     </div>
                 </div>
@@ -261,12 +255,64 @@
                             <th>Guest Information</th>
                             <th>Seva / Purpose</th>
                             <th>Mobile / Date</th>
-                            <th>Amount & Mode</th>
+                            <th>Amount &amp; Mode</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="registryTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB: PAYMENT REGISTRY -->
+            <div id="tab-payment-registry" class="card-layer tab-pane" style="display: none;">
+                <div
+                    style="padding: 12px 20px; background: #fff7ed; border-bottom: 1px solid #fed7aa; display: flex; align-items: center; gap: 10px;">
+                    <i data-lucide="info" style="width: 16px; height: 16px; color: #f59e0b; flex-shrink: 0;"></i>
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #92400e; letter-spacing: 0.2px;">
+                        Showing only <strong>today's</strong> Outward (Expense) payments &amp; vouchers.
+                    </span>
+                </div>
+
+                <div class="table-controls">
+                    <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; flex: 1; min-width: 250px;">
+                        <div class="search-input-container"
+                            style="position: relative; flex: 1; min-width: 200px; max-width: 320px;">
+                            <i data-lucide="search"
+                                style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #94a3b8;"></i>
+                            <input type="text" id="paymentRegistrySearch" placeholder="Search name, voucher #, mobile..."
+                                style="padding: 8px 12px 8px 36px; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.8rem; width: 100%; font-weight: 600; background: white; outline: none;">
+                        </div>
+                    </div>
+
+                    <div
+                        style="text-align: right; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto;">
+                        <a href="https://docs.google.com/spreadsheets/d/1vAZ5zr2M3mbd8pgs-MKs4muulTwUE56dVqnezIlP4QY/edit?gid=0#gid=0"
+                            target="_blank" class="btn-export btn-export-green"
+                            style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; padding: 10px 16px; border-radius: 10px;">
+                            <i data-lucide="file-spreadsheet" style="width: 16px; height: 16px;"></i> View Google Sheet
+                        </a>
+                        <div id="paymentShowingCountText"
+                            style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+                            Today's Payments
+                        </div>
+                    </div>
+                </div>
+
+                <table class="tms-table">
+                    <thead>
+                        <tr>
+                            <th>Receiver Information</th>
+                            <th>Payment Purpose</th>
+                            <th>Mobile / Date</th>
+                            <th>Amount &amp; Mode</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentRegistryTableBody">
                         <!-- Populated by JS -->
                     </tbody>
                 </table>
