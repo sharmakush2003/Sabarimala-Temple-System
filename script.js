@@ -1,5 +1,5 @@
 // ========================================================
-// SABARIMALA TEMPLE HUBBALLI HMS — SCRIPT (EXACT DHAM ADMIN)
+// SABARIMALA TEMPLE HUBBALLI TMS — SCRIPT (EXACT DHAM ADMIN)
 // ========================================================
 
 // --- GOOGLE SPREADSHEET CONFIGURATION ---
@@ -280,10 +280,9 @@ function initNavigation() {
     const pageSub = document.getElementById("pageSub");
 
     const titlesMap = {
-        "custom-bill": { title: "Create Inward Invoice", sub: "ChittorTech HMS — Inward Receipts & Billing" },
-        "outward-bill": { title: "Create Outward Invoice", sub: "ChittorTech HMS — Outward Expense & Vouchers" },
+        "custom-bill": { title: "Create Inward Invoice", sub: "ChittorTech TMS — Inward Receipts & Billing" },
+        "outward-bill": { title: "Create Outward Invoice", sub: "ChittorTech TMS — Outward Expense & Vouchers" },
         "registry": { title: "Donation Registry", sub: "Sabarimala Sri Ayyappaswamy Temple — Management Dashboard" },
-        "about-temple": { title: "About Sabarimala Temple", sub: "Hubballi Charitable Society & Official Seva Directory" },
         "how-to-use": { title: "How To Use", sub: "Complete User Manual & System Operating Guide" }
     };
 
@@ -418,7 +417,7 @@ function initFormHandling() {
         });
     }
 
-    [amountInput, devoteeNameInput, sevaDateInput, customSevaName, paymentMode, paymentRefInput].forEach(input => {
+    [amountInput, devoteeNameInput, sevaDateInput, customSevaName, paymentMode, paymentRefInput, receiptNoInput].forEach(input => {
         if (input) {
             input.addEventListener("input", () => {
                 updateAmountInWords();
@@ -464,7 +463,7 @@ function initFormHandling() {
             }
 
             const newRec = {
-                id: generateReceiptNo(),
+                id: (receiptNoInput ? receiptNoInput.value.trim() : "") || generateReceiptNo(),
                 date: sevaDateInput.value || new Date().toISOString().split('T')[0],
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 devoteeName: devoteeNameInput.value.trim(),
@@ -628,7 +627,7 @@ function initFormHandling() {
         });
     }
 
-    [amountOutward, payeeName, payeeMobile, expenseDate, customExpenseName, paymentModeOutward, paymentRefInputOutward].forEach(input => {
+    [amountOutward, payeeName, payeeMobile, expenseDate, customExpenseName, paymentModeOutward, paymentRefInputOutward, voucherNo].forEach(input => {
         if (input) {
             input.addEventListener("input", () => {
                 updateAmountInWordsOutward();
@@ -672,7 +671,7 @@ function initFormHandling() {
             }
 
             const newRec = {
-                id: generateReceiptNo(),
+                id: (voucherNo ? voucherNo.value.trim() : "") || generateReceiptNo(),
                 date: expenseDate.value || new Date().toISOString().split('T')[0],
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 devoteeName: payeeName.value.trim(),
@@ -766,7 +765,7 @@ function updateVoucherPreview() {
     // Inward Preview
     if (previewBox) {
         const devoteeInput = document.getElementById("devoteeName");
-        const devotee = devoteeInput && devoteeInput.value.trim() ? devoteeInput.value.trim() : "_______________________";
+        const devotee = devoteeInput && devoteeInput.value.trim() ? devoteeInput.value.trim() : "";
         
         const amtInput = document.getElementById("amount");
         const amt = amtInput ? parseFloat(amtInput.value) || 0 : 0;
@@ -781,7 +780,7 @@ function updateVoucherPreview() {
             else if (modeInput.value === "Cheque") mode = `Cheque (${ref})`;
         }
 
-        let seva = "_______________________";
+        let seva = "";
         const sevaSel = document.getElementById("sevaSelect");
         if (sevaSel && sevaSel.value) {
             const selectedVal = parseInt(sevaSel.value);
@@ -806,7 +805,7 @@ function updateVoucherPreview() {
     // Outward Preview
     if (previewBoxOutward) {
         const payeeInput = document.getElementById("payeeName");
-        const payee = payeeInput && payeeInput.value.trim() ? payeeInput.value.trim() : "_______________________";
+        const payee = payeeInput && payeeInput.value.trim() ? payeeInput.value.trim() : "";
         
         const amtInput = document.getElementById("amountOutward");
         const amt = amtInput ? parseFloat(amtInput.value) || 0 : 0;
@@ -820,7 +819,7 @@ function updateVoucherPreview() {
             mode = `${modeInput.value} (${ref})`;
         }
 
-        let expense = "_______________________";
+        let expense = "";
         const expenseSel = document.getElementById("expenseSelect");
         if (expenseSel && expenseSel.value) {
             const selectedVal = parseInt(expenseSel.value);
@@ -845,96 +844,271 @@ function updateVoucherPreview() {
 // VOUCHER HTML TEMPLATE — Single Language Render: English OR Kannada
 function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, modeStr, sevaPurpose, lang = currentVoucherLang, type = "INWARD") {
     const displayDate = formatDateToDDMMYYYY(dateStr);
+    
+    if (type === "OUTWARD") {
+        if (lang === 'kannada') {
+            return `
+            <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif;">
+
+            <!-- HEADER (KANNADA OUTWARD VOUCHER) -->
+            <div style="display: flex; border-bottom: 2px solid #000; margin-bottom: 12px; padding-bottom: 8px;">
+                <!-- Left Side: Logo & Temple Info -->
+                <div style="width: 70%; display: flex; align-items: center; padding: 6px 10px 10px 0;">
+                    <img src="./Images/1000053595.jpg" style="width: 60px; height: 60px; border-radius: 50%; object-fit: contain; margin-right: 12px;">
+                    <div style="text-align: left;">
+                        <div style="font-size: 0.95rem; font-weight: 900; color: #111; line-height: 1.3;">
+                            ಸಬರಿಮಲ ಶ್ರೀ ಅಯ್ಯಪ್ಪಸ್ವಾಮಿ<br>ಭಜನ ಮಂಡಳಿ (ರಿ) ಹುಬ್ಬಳ್ಳಿ
+                        </div>
+                        <div style="font-size: 0.72rem; font-weight: 800; color: #333; margin-top: 3px;">
+                            # ೯೦, ಆದರ್ಶ ಲೇಔಟ್, ಕುಸುಗಲ್ ರಸ್ತೆ, ಹುಬ್ಬಳ್ಳಿ ೫೮೦ ೦೨೦.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Side: Voucher Box -->
+                <div style="width: 30%; border-left: 2px solid #000; display: flex; flex-direction: column;">
+                    <div style="text-align: center; font-size: 1.05rem; font-weight: 900; letter-spacing: 1px; border-bottom: 2px solid #000; padding: 4px 0; background: #f8fafc;">
+                        ಪಾವತಿ ಚೀಟಿ
+                    </div>
+                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 800; border-bottom: 2px solid #000; text-align: left;">
+                        ಸಂಖ್ಯೆ: <span style="font-family: 'Courier New', Courier, monospace; font-size: 1rem; font-weight: 900; margin-left: 6px;">${recNo}</span>
+                    </div>
+                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 800; text-align: left;">
+                        ದಿನಾಂಕ: <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.92rem; font-weight: 900; margin-left: 4px;">${displayDate}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BODY (KANNADA OUTWARD VOUCHER) -->
+            <div style="font-size: 0.95rem; line-height: 2.2; margin-top: 18px; margin-bottom: 25px; text-align: left;">
+                <!-- Paid To -->
+                <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
+                    <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; min-width: 120px;">ಪಾವತಿಸಿದ್ದು ಇವರಿಗೆ:</span>
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1.05rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                        ${devoteeName || "&nbsp;"}
+                    </span>
+                </div>
+
+                <!-- Rs. -->
+                <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
+                    <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; min-width: 120px;">ಮೊತ್ತ:</span>
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1.15rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                        ₹${amountVal.toLocaleString('en-IN')}/-
+                    </span>
+                </div>
+
+                <!-- Towards -->
+                <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
+                    <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; min-width: 120px;">ಉದ್ದೇಶ:</span>
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
+                        ${sevaPurpose || "&nbsp;"}
+                    </span>
+                </div>
+                
+                <!-- Extra details / mode line -->
+                <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
+                    <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; min-width: 120px;">ಪಾವತಿ ವಿಧಾನ:</span>
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 0.95rem; font-family: 'Courier New', Courier, monospace;">
+                        ${modeStr || "&nbsp;"}
+                    </span>
+                </div>
+            </div>
+
+            <!-- SIGNATURES (KANNADA OUTWARD VOUCHER) -->
+            <div style="margin-top: 40px; display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800; text-align: center;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 180px;">
+                    <div style="height: 35px;"></div>
+                    <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">ಅಧ್ಯಕ್ಷರು / ಕಾರ್ಯದರ್ಶಿ</div>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; width: 120px;">
+                    <div style="height: 35px;"></div>
+                    <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">ಖಜಾಂಚಿ</div>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; width: 150px;">
+                    <div style="height: 35px;"></div>
+                    <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">ಸ್ವೀಕೃತದಾರರ ಸಹಿ</div>
+                </div>
+            </div>
+
+            </div>
+            `;
+        } else {
+            return `
+            <div style="font-family: 'Inter', sans-serif;">
+
+            <!-- HEADER (ENGLISH OUTWARD VOUCHER) -->
+            <div style="display: flex; border-bottom: 2px solid #000; margin-bottom: 12px; padding-bottom: 8px;">
+                <!-- Left Side: Logo & Temple Info -->
+                <div style="width: 70%; display: flex; align-items: center; padding: 6px 10px 10px 0;">
+                    <img src="./Images/1000053595.jpg" style="width: 60px; height: 60px; border-radius: 50%; object-fit: contain; margin-right: 12px;">
+                    <div style="text-align: left;">
+                        <div style="font-size: 1.05rem; font-weight: 800; color: #000; font-family: 'Georgia', serif; line-height: 1.25;">
+                            Sabarimala Sri Ayyappa Swamy<br>Bhajan Mandali (R)
+                        </div>
+                        <div style="font-size: 0.72rem; font-weight: 700; color: #333; margin-top: 3px; font-family: 'Inter', sans-serif;">
+                            # 90, Adarsh Layout, Kusugal Road, HUBLI 580 020.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Side: Voucher Box -->
+                <div style="width: 30%; border-left: 2px solid #000; display: flex; flex-direction: column;">
+                    <div style="text-align: center; font-size: 1.05rem; font-weight: 900; font-family: 'Georgia', serif; letter-spacing: 1.5px; border-bottom: 2px solid #000; padding: 4px 0; background: #f8fafc;">
+                        VOUCHER
+                    </div>
+                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 700; border-bottom: 2px solid #000; font-family: 'Georgia', serif; text-align: left;">
+                        No. <span style="font-family: 'Courier New', Courier, monospace; font-size: 1rem; font-weight: 800; margin-left: 6px;">${recNo}</span>
+                    </div>
+                    <div style="padding: 5px 8px; font-size: 0.82rem; font-weight: 700; font-family: 'Georgia', serif; text-align: left;">
+                        Date : <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.92rem; font-weight: 800; margin-left: 4px;">${displayDate}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BODY (ENGLISH OUTWARD VOUCHER) -->
+            <div style="font-size: 0.95rem; line-height: 2.2; margin-top: 18px; margin-bottom: 25px; font-family: 'Inter', sans-serif; text-align: left;">
+                <!-- Paid To -->
+                <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
+                    <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; min-width: 65px;">Paid To</span>
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 1.05rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                        ${devoteeName || "&nbsp;"}
+                    </span>
+                </div>
+
+                <!-- Rs. -->
+                <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
+                    <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; min-width: 65px;">Rs.</span>
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 800; font-size: 1.15rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                        ₹${amountVal.toLocaleString('en-IN')}/-
+                    </span>
+                </div>
+
+                <!-- Towards -->
+                <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
+                    <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; min-width: 65px;">Towards</span>
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
+                        ${sevaPurpose || "&nbsp;"}
+                    </span>
+                </div>
+                
+                <!-- Extra payment details / payment mode details line -->
+                <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
+                    <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.8rem; color: #444; min-width: 65px;">Payment Mode</span>
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 0.95rem; font-family: 'Courier New', Courier, monospace;">
+                        ${modeStr || "&nbsp;"}
+                    </span>
+                </div>
+            </div>
+
+            <!-- SIGNATURES (ENGLISH OUTWARD VOUCHER) -->
+            <div style="margin-top: 40px; display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800; text-align: center; font-family: 'Georgia', serif;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 180px;">
+                    <div style="height: 35px;"></div>
+                    <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">President / Secretary</div>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; width: 120px;">
+                    <div style="height: 35px;"></div>
+                    <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">Treasurer</div>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; width: 150px;">
+                    <div style="height: 35px;"></div>
+                    <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">Receiver's Signature</div>
+                </div>
+            </div>
+
+            </div>
+            `;
+        }
+    }
+
     if (lang === 'kannada') {
         return `
         <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif;">
 
         <!-- HEADER (KANNADA ONLY) -->
-        <div class="pv-header" style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px;">
-                <img src="./Images/1000053595.jpg" style="width: 42px; height: 42px; border-radius: 50%; object-fit: contain;">
-                <div>
-                    <div style="font-size: 0.85rem; font-weight: 900; color: #111;">ಸಬರಿಮಲ ಶ್ರೀ ಅಯ್ಯಪ್ಪಸ್ವಾಮಿ ಭಜನ ಮಂಡಳಿ (ರಿ) ಹುಬ್ಬಳ್ಳಿ</div>
-                    <div style="font-size: 0.72rem; font-weight: 800; color: #333;">ಸೇವಾ ಸಂಸ್ಥೆ</div>
+        <div style="display: flex; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; align-items: center;">
+            <img src="./Images/1000053595.jpg" style="width: 65px; height: 65px; border-radius: 50%; object-fit: contain; margin-right: 15px;">
+            <div style="flex-grow: 1; text-align: center;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 800; color: #333; margin-bottom: 2px;">
+                    <span style="visibility: hidden;">Placeholder</span>
+                    <span>|| ಓಂ ಸ್ವಾಮಿಯೇ ಶರಣಮಯ್ಯಪ್ಪ ||</span>
+                    <span>(ನೋಂದಣಿ ಸಂಖ್ಯೆ: ೪೧೦/೨೦೦೬-೦೭)</span>
+                </div>
+                <div style="font-size: 0.95rem; font-weight: 900; color: #111; line-height: 1.3; margin-bottom: 2px;">
+                    ಸಬರಿಮಲ ಶ್ರೀ ಅಯ್ಯಪ್ಪಸ್ವಾಮಿ ಭಜನ ಮಂಡಳಿ (ರಿ), ಹುಬ್ಬಳ್ಳಿ.
+                </div>
+                <div style="font-size: 0.75rem; font-weight: 800; color: #333; font-style: italic; margin-bottom: 2px;">
+                    ಧರ್ಮದತ್ತಿ ಸಂಸ್ಥೆ
+                </div>
+                <div style="font-size: 0.7rem; font-weight: 800; color: #444;">
+                    ನಂ. ೪೨೮/೯೦, ಆದರ್ಶ ಲೇಔಟ್, ಹೆಸ್ಕಾಮ್ ಹಿಂದೆ, ಕುಸುಗಲ್ ರಸ್ತೆ, ಹುಬ್ಬಳ್ಳಿ - ೫೮೦ ೦೨೦.
                 </div>
             </div>
-            <div style="font-size: 0.82rem; font-weight: 900; color: #111; margin-top: 2px;">ಸಬರಿಮಲ ಶ್ರೀ ಅಯ್ಯಪ್ಪಸ್ವಾಮಿ ದೇವಸ್ಥಾನ &amp; ಶ್ರೀ ದುರ್ಗಾದೇವಿ ದೇವಸ್ಥಾನ</div>
-            <div style="font-size: 0.7rem; font-weight: 700; color: #444; margin-top: 2px;">ನಂ.೪೨೮/೯೦, ಆದರ್ಶ ಲೇಔಟ್, ಹೆಸ್ಕಾಮ್ ಹಿಂದೆ, ಹುಬ್ಬಳ್ಳಿ-೫೮೦೦೨೦.</div>
-            <div style="font-size: 0.7rem; font-weight: 800; margin-top: 2px;">ನೋಂದಣಿ ಸಂಖ್ಯೆ: HUB/S-428/90-91</div>
         </div>
 
         <!-- RECEIPT NUMBER & DATE -->
-        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 800; margin-bottom: 10px;">
-            <span>ಸಂಖ್ಯೆ: <strong>${recNo}</strong></span>
-            <span>ದಿನಾಂಕ: <strong>${displayDate}</strong></span>
-        </div>
-
-        <!-- RECEIPT TITLE -->
-        <div style="text-align: center; font-size: 1.05rem; font-weight: 900; letter-spacing: 1px; margin: 10px 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 5px 0;">
-            ${type === "OUTWARD" ? "ಪಾವತಿ ಚೀಟಿ" : "ರಶೀದಿ"}
-        </div>
-
-        <!-- FROM (DEVOTEE NAME) -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                ${type === "OUTWARD" ? "ಪಾವತಿಸಿದ್ದು ಇವರಿಗೆ:" : "ಶ್ರೀ/ಶ್ರೀಮತಿ:"}
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${devoteeName}</span>
-        </div>
-
-        <!-- AMOUNT IN WORDS -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                ${type === "OUTWARD" ? "ಪಾವತಿಸಿದ ಮೊತ್ತ:" : "ಸ್ವೀಕರಿಸಿದ ಮೊತ್ತ:"}
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${amountWords}</span>
-        </div>
-
-        <!-- PAYMENT MODE -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                ಪಾವತಿ ವಿಧಾನ:
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${modeStr}</span>
-        </div>
-
-        <!-- SEVA / PURPOSE -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                ${type === "OUTWARD" ? "ಉದ್ದೇಶ:" : "ಸೇವೆ/ಉದ್ದೇಶ:"}
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${sevaPurpose}</span>
-        </div>
-
-        <!-- DATE -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                ದಿನಾಂಕ:
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${displayDate}</span>
-        </div>
-
-        <!-- AMOUNT BOX -->
-        <div style="display: inline-block; border: 2px solid #000; padding: 6px 16px; font-size: 1.1rem; font-weight: 900; margin-top: 10px; background: #f8fafc;">
-            ರೂ. ₹${amountVal.toLocaleString('en-IN')}/-
-        </div>
-
-        <!-- SIGNATURES (KANNADA ONLY) -->
-        <div style="margin-top: 24px; display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; text-align: center;">
-            <div style="display: flex; flex-direction: column; gap: 2px;">
-                <span>ಅಧ್ಯಕ್ಷರು</span>
-                <span style="font-size: 0.65rem; color: #475569;">9448394878</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.9rem; font-weight: 800;">
+            <div style="width: 30%; text-align: left;">
+                ಸಂಖ್ಯೆ: <span style="font-family: 'Courier New', Courier, monospace; font-size: 1.05rem; font-weight: 900; margin-left: 6px; color: #e11d48;">${recNo}</span>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 2px;">
-                <span>ಖಜಾಂಚಿ</span>
-                <span style="font-size: 0.65rem; color: #475569;">9731605779</span>
+            <div style="width: 40%; text-align: center;">
+                <span style="font-size: 1.15rem; font-weight: 900; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 2px; letter-spacing: 1.5px;">ರಶೀದಿ</span>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 2px;">
-                <span>ಕಾರ್ಯದರ್ಶಿ</span>
-                <span style="font-size: 0.65rem; color: #475569;">9448543913</span>
+            <div style="width: 30%; text-align: right;">
+                ದಿನಾಂಕ: <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.95rem; font-weight: 900; margin-left: 4px;">${displayDate}</span>
             </div>
-            <div style="display: flex; flex-direction: column; border-top: 1px dashed #000; padding-top: 4px; width: 90px;">
-                <span>${type === "OUTWARD" ? "ಸ್ವೀಕೃತದಾರರ ಸಹಿ" : "ಸಹಿ"}</span>
+        </div>
+
+        <!-- BODY (KANNADA RECEIPT) -->
+        <div style="font-size: 0.95rem; line-height: 2.2; margin-top: 15px; margin-bottom: 20px; text-align: left;">
+            <!-- Received with thanks from Smt./Sri -->
+            <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
+                <span style="font-weight: 800; white-space: nowrap; margin-right: 10px;">ಶ್ರೀ/ಶ್ರೀಮತಿ ಇವರಿಂದ ಸ್ವೀಕರಿಸಲಾಗಿದೆ:</span>
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1.05rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                    ${devoteeName || "&nbsp;"}
+                </span>
+            </div>
+
+            <!-- Blank Line with "the sum of Rupees (in words)" in Kannada -->
+            <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
+                <span style="width: 30%; border-bottom: 1px solid #000;">&nbsp;</span>
+                <span style="font-weight: 800; white-space: nowrap; margin-left: 10px; margin-right: 10px; font-size: 0.85rem; color: #444;">ಮೊತ್ತ ಅಕ್ಷರಗಳಲ್ಲಿ (ರೂಪಾಯಿಗಳು)</span>
+                <span style="flex-grow: 1; border-bottom: 1px solid #000;">&nbsp;</span>
+            </div>
+
+            <!-- Third Blank Line -->
+            <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
+                <span style="flex-grow: 1; border-bottom: 1px solid #000;">&nbsp;</span>
+            </div>
+
+            <!-- On account of -->
+            <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
+                <span style="font-weight: 800; white-space: nowrap; margin-right: 10px;">ಸೇವೆ/ಉದ್ದೇಶಕ್ಕಾಗಿ:</span>
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 900; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
+                    ${sevaPurpose || "&nbsp;"}
+                </span>
+            </div>
+        </div>
+
+        <!-- BOTTOM SECTION -->
+        <div style="margin-top: 35px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.85rem; font-weight: 800; text-align: center;">
+            <!-- Amount Box Container -->
+            <div style="display: flex; align-items: center; width: 35%;">
+                <div style="border: 2px solid #000; padding: 6px 16px; font-size: 1.15rem; font-weight: 900; background: #f8fafc; font-family: 'Courier New', Courier, monospace;">
+                    ರೂ. ₹ ${amountVal.toLocaleString('en-IN')}/-
+                </div>
+            </div>
+            
+            <!-- President Signature -->
+            <div style="display: flex; flex-direction: column; align-items: center; width: 30%;">
+                <div style="height: 35px;"></div>
+                <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">ಅಧ್ಯಕ್ಷರು</div>
+            </div>
+            
+            <!-- Treasurer Signature -->
+            <div style="display: flex; flex-direction: column; align-items: center; width: 30%;">
+                <div style="height: 35px;"></div>
+                <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">ಖಜಾಂಚಿ</div>
             </div>
         </div>
 
@@ -947,91 +1121,89 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <div style="font-family: 'Inter', sans-serif;">
 
         <!-- HEADER (ENGLISH ONLY) -->
-        <div class="pv-header" style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px;">
-                <img src="./Images/1000053595.jpg" style="width: 42px; height: 42px; border-radius: 50%; object-fit: contain;">
-                <div>
-                    <div style="font-size: 0.82rem; font-weight: 900; text-transform: uppercase;">SABARIMALA SRI AYYAPPASWAMY BHAJAN MANDALI (R) HUBBALLI</div>
-                    <div style="font-size: 0.68rem; font-weight: 800; color: #333;">CHARITABLE SOCIETY</div>
+        <div style="display: flex; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; align-items: center;">
+            <img src="./Images/1000053595.jpg" style="width: 65px; height: 65px; border-radius: 50%; object-fit: contain; margin-right: 15px;">
+            <div style="flex-grow: 1; text-align: center;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 800; color: #333; margin-bottom: 2px;">
+                    <span style="visibility: hidden;">Placeholder</span>
+                    <span>|| Om Swamiye Saranamayyappa ||</span>
+                    <span>(Reg.No. 410/2006-07)</span>
+                </div>
+                <div style="font-size: 1.05rem; font-weight: 900; color: #000; font-family: 'Georgia', serif; line-height: 1.2; margin-bottom: 2px;">
+                    Sabarimala Sri Ayyappaswamy Bhajan Mandali (R), Hubli.
+                </div>
+                <div style="font-size: 0.78rem; font-weight: 800; color: #333; font-style: italic; margin-bottom: 2px;">
+                    Charitable Society
+                </div>
+                <div style="font-size: 0.7rem; font-weight: 800; color: #444;">
+                    No. 428/90, Adarsh Layout, Behind HESCOM, Kusugal Road, HUBLI - 580 020.
                 </div>
             </div>
-            <div style="font-size: 0.8rem; font-weight: 900;">SABARIMALA SRI AYYAPPASWAMY TEMPLE &amp; SRI DURGA DEVI TEMPLE</div>
-            <div style="font-size: 0.68rem; font-weight: 700; margin-top: 2px;">NO.428/90, ADARSH LAYOUT, BEHIND HESCOM, HUBBALLI-580020.</div>
-            <div style="font-size: 0.7rem; font-weight: 800; margin-top: 2px;">Reg No: HUB/S-428/90-91</div>
         </div>
 
         <!-- RECEIPT NUMBER & DATE -->
-        <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 800; margin-bottom: 10px;">
-            <span>No: <strong>${recNo}</strong></span>
-            <span>Date: <strong>${displayDate}</strong></span>
-        </div>
-
-        <!-- RECEIPT TITLE -->
-        <div style="text-align: center; font-size: 1rem; font-weight: 900; letter-spacing: 2px; margin: 10px 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 5px 0;">
-            ${type === "OUTWARD" ? "PAYMENT VOUCHER" : "RECEIPT"}
-        </div>
-
-        <!-- FROM (DEVOTEE NAME) -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                ${type === "OUTWARD" ? "Paid To (Sri/Smt/M/s):" : "From Sri/Smt:"}
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${devoteeName}</span>
-        </div>
-
-        <!-- AMOUNT IN WORDS -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                ${type === "OUTWARD" ? "Paid Rs:" : "Received Rs:"}
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${amountWords}</span>
-        </div>
-
-        <!-- PAYMENT MODE -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                Cash/Cheque/UPI:
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${modeStr}</span>
-        </div>
-
-        <!-- SEVA / PURPOSE -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                ${type === "OUTWARD" ? "Towards:" : "On account of:"}
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${sevaPurpose}</span>
-        </div>
-
-        <!-- DATE -->
-        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline;">
-            <span style="white-space: nowrap; margin-right: 6px; font-weight: 800;">
-                On:
-            </span>
-            <span style="flex-grow: 1; border-bottom: 1px solid #000; font-weight: 900; padding-left: 4px;">${displayDate}</span>
-        </div>
-
-        <!-- AMOUNT BOX -->
-        <div style="display: inline-block; border: 2px solid #000; padding: 6px 16px; font-size: 1.1rem; font-weight: 900; margin-top: 10px; background: #f8fafc;">
-            Rs. ₹${amountVal.toLocaleString('en-IN')}/-
-        </div>
-
-        <!-- SIGNATURES (ENGLISH ONLY) -->
-        <div style="margin-top: 24px; display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 800; text-align: center;">
-            <div style="display: flex; flex-direction: column; gap: 2px;">
-                <span>President</span>
-                <span style="font-size: 0.65rem; color: #475569;">9448394878</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.9rem; font-weight: 800;">
+            <div style="width: 30%; text-align: left;">
+                No. <span style="font-family: 'Courier New', Courier, monospace; font-size: 1.05rem; font-weight: 900; margin-left: 6px; color: #e11d48;">${recNo}</span>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 2px;">
-                <span>Treasurer</span>
-                <span style="font-size: 0.65rem; color: #475569;">9731605779</span>
+            <div style="width: 40%; text-align: center;">
+                <span style="font-size: 1.15rem; font-weight: 900; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 2px; letter-spacing: 1.5px; font-family: 'Georgia', serif;">RECEIPT</span>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 2px;">
-                <span>Secretary</span>
-                <span style="font-size: 0.65rem; color: #475569;">9448543913</span>
+            <div style="width: 30%; text-align: right;">
+                Date: <span style="font-family: 'Courier New', Courier, monospace; font-size: 0.95rem; font-weight: 900; margin-left: 4px;">${displayDate}</span>
             </div>
-            <div style="display: flex; flex-direction: column; border-top: 1px dashed #000; padding-top: 4px; width: 90px;">
-                <span>${type === "OUTWARD" ? "Receiver's Signature" : "Signature"}</span>
+        </div>
+
+        <!-- BODY (ENGLISH RECEIPT) -->
+        <div style="font-size: 0.95rem; line-height: 2.2; margin-top: 15px; margin-bottom: 20px; text-align: left; font-family: 'Inter', sans-serif;">
+            <!-- Received with thanks from Smt./Sri -->
+            <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
+                <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif;">Received with thanks from Smt./Sri</span>
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 1.05rem; font-family: 'Courier New', Courier, monospace; color: #000;">
+                    ${devoteeName || "&nbsp;"}
+                </span>
+            </div>
+
+            <!-- Blank Line with "the sum of Rupees (in words)" -->
+            <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
+                <span style="width: 30%; border-bottom: 1px solid #000;">&nbsp;</span>
+                <span style="font-weight: 700; white-space: nowrap; margin-left: 10px; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.85rem; color: #444;">the sum of Rupees (in words)</span>
+                <span style="flex-grow: 1; border-bottom: 1px solid #000;">&nbsp;</span>
+            </div>
+
+            <!-- Third Blank Line -->
+            <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
+                <span style="flex-grow: 1; border-bottom: 1px solid #000;">&nbsp;</span>
+            </div>
+
+            <!-- On account of -->
+            <div style="display: flex; align-items: baseline; margin-bottom: 10px;">
+                <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif;">On account of</span>
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 10px; font-weight: 700; font-size: 1rem; font-family: 'Courier New', Courier, monospace;">
+                    ${sevaPurpose || "&nbsp;"}
+                </span>
+            </div>
+        </div>
+
+        <!-- BOTTOM SECTION -->
+        <div style="margin-top: 35px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.85rem; font-weight: 800; text-align: center; font-family: 'Georgia', serif;">
+            <!-- Amount Box Container -->
+            <div style="display: flex; align-items: center; width: 35%;">
+                <div style="border: 2px solid #000; padding: 6px 16px; font-size: 1.15rem; font-weight: 900; background: #f8fafc; font-family: 'Courier New', Courier, monospace;">
+                    ₹ ${amountVal.toLocaleString('en-IN')}/-
+                </div>
+            </div>
+            
+            <!-- President Signature -->
+            <div style="display: flex; flex-direction: column; align-items: center; width: 30%;">
+                <div style="height: 35px;"></div>
+                <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">President</div>
+            </div>
+            
+            <!-- Treasurer Signature -->
+            <div style="display: flex; flex-direction: column; align-items: center; width: 30%;">
+                <div style="height: 35px;"></div>
+                <div style="border-top: 1px solid #000; padding-top: 4px; width: 100%;">Treasurer</div>
             </div>
         </div>
 
@@ -1211,7 +1383,7 @@ function renderModalVoucherContent(rec) {
     const amtWords = numberToWords(rec.amount);
     container.innerHTML = `
         <div style="margin: 0 auto; border: 2px solid #000; padding: 20px; background: white;">
-            ${renderVoucherHTML(rec.id, rec.date, rec.devoteeName, rec.amount, amtWords, rec.paymentMode, rec.sevaName, currentVoucherLang)}
+            ${renderVoucherHTML(rec.id, rec.date, rec.devoteeName, rec.amount, amtWords, rec.paymentMode, rec.sevaName, currentVoucherLang, rec.type || "INWARD")}
         </div>
     `;
 }

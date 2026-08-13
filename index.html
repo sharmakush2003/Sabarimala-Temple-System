@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChittorTech HMS | Enterprise Edition</title>
+    <title>ChittorTech TMS | Enterprise Edition</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,7 +21,7 @@
             <div class="mobile-notice-header">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <img src="logo.png" alt="Logo" style="width: 30px; height: 30px; border-radius: 8px; object-fit: contain;">
-                    <span style="font-weight: 800; font-size: 0.85rem; color: #ffffff;">ChittorTech HMS</span>
+                    <span style="font-weight: 800; font-size: 0.85rem; color: #ffffff;">ChittorTech TMS</span>
                 </div>
                 <div class="voucher-lang-group" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
                     <button type="button" id="mobileLangEng" class="voucher-lang-btn active" onclick="switchMobileNoticeLang('english')">
@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    <!-- ChittorTech HMS Auth Lock Screen -->
+    <!-- ChittorTech TMS Auth Lock Screen -->
     <div id="loginScreen" style="position: fixed; inset: 0; background: #0f172a; display: none; align-items: center; justify-content: center; z-index: 9999; font-family: 'Inter', sans-serif;">
         <div style="background: #ffffff; width: 100%; max-width: 420px; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); text-align: center;">
             <!-- Brand Logo Header -->
@@ -63,7 +63,7 @@
                 <img src="logo.png" alt="ChittorTech Logo" style="width: 42px; height: 42px; object-fit: contain;">
             </div>
             
-            <h2 style="font-size: 1.6rem; font-weight: 900; color: #1e293b; margin: 0 0 4px; letter-spacing: -0.5px;">ChittorTech HMS</h2>
+            <h2 style="font-size: 1.6rem; font-weight: 900; color: #1e293b; margin: 0 0 4px; letter-spacing: -0.5px;">ChittorTech TMS</h2>
             <p style="font-size: 0.85rem; font-weight: 700; color: #64748b; margin: 0 0 28px; text-transform: uppercase; letter-spacing: 1.5px;">Enterprise Edition</p>
 
             <form id="authForm" style="text-align: left;">
@@ -94,7 +94,7 @@
             <div class="sidebar-brand">
                 <img src="logo.png" alt="ChittorTech Logo" style="width: 32px; height: 32px; border-radius: 8px; object-fit: contain;">
                 <div style="display: flex; flex-direction: column;">
-                    <span style="line-height: 1;">ChittorTech HMS</span>
+                    <span style="line-height: 1;">ChittorTech TMS</span>
                     <span style="font-size: 0.6rem; color: #94a3af; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">Enterprise Edition</span>
                 </div>
             </div>
@@ -112,10 +112,7 @@
                     <i data-lucide="layout-dashboard" class="icon-registry"></i>
                     <span>Donation Registry</span>
                 </div>
-                <div class="nav-link" id="navAboutTemple" data-tab="about-temple">
-                    <i data-lucide="landmark" class="icon-temple"></i>
-                    <span>About Temple</span>
-                </div>
+
                 <div class="nav-link" id="navHowToUse" data-tab="how-to-use">
                     <i data-lucide="help-circle" class="icon-help"></i>
                     <span>How To Use</span>
@@ -149,7 +146,7 @@
             <header class="dashboard-header">
                 <div>
                     <h1 id="pageTitle" style="font-size: 1.8rem; font-weight: 800;">Create Invoice</h1>
-                    <p id="pageSub" style="color: #64748b; font-size: 0.9rem;">ChittorTech HMS &mdash; Enterprise Edition</p>
+                    <p id="pageSub" style="color: #64748b; font-size: 0.9rem;">ChittorTech TMS &mdash; Enterprise Edition</p>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;">
                     <!-- LOGOUT BUTTON -->
@@ -210,7 +207,7 @@
                     </div>
                 </div>
 
-                <table class="hms-table">
+                <table class="tms-table">
                     <thead>
                         <tr>
                             <th>Guest Information</th>
@@ -282,11 +279,11 @@
                                 </div>
                                 <div>
                                     <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">RECEIPT NUMBER</label>
-                                    <input type="text" id="receiptNo" readonly style="width: 100%; background: #f1f5f9; font-weight: 700; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                    <input type="text" id="receiptNo" style="width: 100%; font-weight: 700; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px; border: 1px solid #cbd5e1; background: #ffffff; color: #1e293b;">
                                 </div>
                             </div>
 
-                            <div style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 10px 16px; border-radius: 10px; margin-bottom: 20px;">
+                            <div style="display: none; background: #f8fafc; border: 1px dashed #cbd5e1; padding: 10px 16px; border-radius: 10px; margin-bottom: 20px;">
                                 <span style="font-size: 0.68rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Amount in Words:</span>
                                 <div id="amountInWords" style="font-size: 0.92rem; font-weight: 800; color: #d97706; margin-top: 2px;">Rupees Zero Only</div>
                             </div>
@@ -418,11 +415,11 @@
                                 </div>
                                 <div>
                                     <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">VOUCHER NUMBER</label>
-                                    <input type="text" id="voucherNo" readonly style="width: 100%; background: #f1f5f9; font-weight: 700; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
+                                    <input type="text" id="voucherNo" style="width: 100%; font-weight: 700; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px; border: 1px solid #cbd5e1; background: #ffffff; color: #1e293b;">
                                 </div>
                             </div>
 
-                            <div style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 10px 16px; border-radius: 10px; margin-bottom: 20px;">
+                            <div style="display: none; background: #f8fafc; border: 1px dashed #cbd5e1; padding: 10px 16px; border-radius: 10px; margin-bottom: 20px;">
                                 <span style="font-size: 0.68rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Amount in Words:</span>
                                 <div id="amountInWordsOutward" style="font-size: 0.92rem; font-weight: 800; color: #d97706; margin-top: 2px;">Rupees Zero Only</div>
                             </div>
@@ -452,147 +449,6 @@
                         </div>
                         <div id="voucherPreviewBoxOutward" style="background: #ffffff; border: 2px solid #000; padding: 20px; font-family: 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
                             <!-- Live Voucher Rendered Here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- TAB 4: ABOUT TEMPLE -->
-            <div id="tab-about-temple" class="tab-pane" style="display: none;">
-                <!-- DEVOTIONAL HERO BANNER -->
-                <div class="card-layer" style="padding: 40px; margin-bottom: 28px; background: linear-gradient(135deg, #fffbeb, #ffedd5); border: 2px solid #f59e0b; border-radius: 20px; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.1); position: relative; overflow: hidden; display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
-                    
-                    <!-- Saffron Glowing Orbs in Background -->
-                    <div style="position: absolute; width: 250px; height: 250px; background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0) 70%); top: -50px; right: -50px; pointer-events: none;"></div>
-                    <div style="position: absolute; width: 200px; height: 200px; background: radial-gradient(circle, rgba(234, 179, 8, 0.08) 0%, rgba(234, 179, 8, 0) 70%); bottom: -50px; left: -50px; pointer-events: none;"></div>
-
-                    <!-- Temple Image Frame with Glowing Saffron & Gold Arch -->
-                    <div style="position: relative; flex-shrink: 0; display: inline-block;">
-                        <div style="position: absolute; inset: -4px; background: linear-gradient(135deg, #ea580c, #ca8a04); border-radius: 50%; filter: blur(3px); opacity: 0.8;"></div>
-                        <img src="./Images/1000053595.jpg" alt="Swami Ayyappa" style="width: 140px; height: 140px; border-radius: 50%; border: 4px solid #ffffff; padding: 4px; object-fit: contain; background: #ffffff; position: relative; z-index: 2; box-shadow: var(--shadow);">
-                    </div>
-
-                    <div style="flex: 1; min-width: 300px; position: relative; z-index: 2;">
-                        <span class="status-tag" style="background: #ff7e00; color: #ffffff; font-weight: 900; font-size: 0.72rem; letter-spacing: 1.5px; border-radius: 100px; padding: 4px 14px; border: none; box-shadow: 0 4px 10px rgba(255,126,0,0.3); display: inline-block; margin-bottom: 12px; text-transform: uppercase;">
-                            स्वामीये शरणम् अय्यಪ್ಪ • ಸ್ವಾಮಿಯೇ ಶರಣಂ ಅಯ್ಯಪ್ಪ
-                        </span>
-                        <h2 style="font-size: 1.75rem; font-weight: 900; color: #7c2d12; letter-spacing: -0.5px; line-height: 1.25; margin-bottom: 6px; font-family: 'Noto Sans Kannada', 'Inter', sans-serif;">
-                            SABARIMALA SRI AYYAPPASWAMY TEMPLE &amp; SRI DURGA DEVI TEMPLE
-                        </h2>
-                        <h4 style="font-size: 0.95rem; font-weight: 800; color: #b45309; line-height: 1.4; margin-bottom: 12px;">
-                            SABARIMALA SRI AYYAPPASWAMY BHAJAN MANDALI (R) HUBBALLI CHARITABLE SOCIETY
-                        </h4>
-                        
-                        <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 14px;">
-                            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 800; color: #7c2d12; background: rgba(234, 179, 8, 0.15); padding: 4px 12px; border-radius: 8px;">
-                                <i data-lucide="award" style="width: 14px; height: 14px; stroke-width: 2.5;"></i>
-                                REG NO: HUB/S-428/90-91
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 800; color: #7c2d12; background: rgba(234, 179, 8, 0.15); padding: 4px 12px; border-radius: 8px;">
-                                <i data-lucide="map-pin" style="width: 14px; height: 14px; stroke-width: 2.5;"></i>
-                                Adarsh Layout, Behind HESCOM, Hubballi
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MAIN TEMPLE INFORMATION SECTION -->
-                <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 28px; margin-bottom: 28px; align-items: start;">
-                    <!-- LEFT COLUMN: ABOUT & DEVOTION -->
-                    <div style="display: flex; flex-direction: column; gap: 24px;">
-                        
-                        <!-- Temple Devotional Summary Card -->
-                        <div class="card-layer" style="padding: 28px; border-left: 5px solid #ea580c; background: #ffffff;">
-                            <h3 style="font-size: 1.15rem; font-weight: 900; color: #7c2d12; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
-                                <i data-lucide="flame" style="color: #ea580c; fill: #f97316;"></i>
-                                Divine Shrine &amp; History
-                            </h3>
-                            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6; font-weight: 500; margin-bottom: 12px;">
-                                Established in 1990 (Reg No. 428/90), the Sabarimala Sri Ayyappaswamy Temple in Hubballi has stood as a sacred beacon of spiritual devotion, Hindu religious values, and charity. Dedicated to Lord Ayyappa and Sri Durga Devi, the shrine hosts daily poojas, weekly bhajan sandhyas, and serves as an important gathering point for pilgrims making the annual holy pilgrimage to the Sabarimala hill shrine in Kerala.
-                            </p>
-                            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6; font-weight: 500; margin: 0;">
-                                Under the dedicated guidance of the Bhajan Mandali, the temple performs spiritual services, conducts major festivals like Mandalapooja and Makara Jyothi, and fosters social welfare through Annadana (free food distribution) and charitable initiatives for the local community.
-                            </p>
-                        </div>
-
-                        <!-- Predefined Sevas List Accordion style -->
-                        <div class="card-layer" style="padding: 28px; border-left: 5px solid #ca8a04; background: #ffffff;">
-                            <h3 style="font-size: 1.15rem; font-weight: 900; color: #78350f; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-                                <i data-lucide="book-open-check" style="color: #ca8a04;"></i>
-                                Official Predefined Sevas Directory
-                            </h3>
-                            <p style="font-size: 0.82rem; color: #64748b; margin-top: -8px; margin-bottom: 16px; font-weight: 600;">
-                                Below is the list of official poojas and sevas performed at the temple. These can be billed at the counter using the Invoice System.
-                            </p>
-                            <div id="aboutSevasList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px;">
-                                <!-- JS Items will load dynamically -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- RIGHT COLUMN: TEAM & COMMUNITY -->
-                    <div style="display: flex; flex-direction: column; gap: 24px;">
-                        
-                        <!-- Bhajan Mandali Committee Contacts -->
-                        <div class="card-layer" style="padding: 28px; background: #fffdfa; border: 1px solid #fef3c7;">
-                            <h3 style="font-size: 1.15rem; font-weight: 900; color: #7c2d12; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; border-bottom: 2px dashed #fed7aa; padding-bottom: 10px;">
-                                <i data-lucide="users" style="color: #ea580c;"></i>
-                                Temple Committee Contacts
-                            </h3>
-                            
-                            <div style="display: flex; flex-direction: column; gap: 16px;">
-                                <!-- President -->
-                                <div style="display: flex; align-items: center; gap: 14px; background: #ffffff; border: 1px solid #fed7aa; padding: 12px 16px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-                                    <div style="background: #ffedd5; color: #ea580c; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem;">
-                                        <i data-lucide="user" style="width: 18px; height: 18px;"></i>
-                                    </div>
-                                    <div>
-                                        <span style="font-size: 0.65rem; font-weight: 900; color: #b45309; text-transform: uppercase; letter-spacing: 0.5px;">President</span>
-                                        <h4 style="font-size: 0.95rem; font-weight: 800; color: #1e293b; margin: 1px 0;">Sri Bhajan Mandali</h4>
-                                        <span style="font-size: 0.8rem; font-weight: 700; color: #ea580c; display: flex; align-items: center; gap: 4px; margin-top: 1px;">
-                                            <i data-lucide="phone" style="width: 12px; height: 12px;"></i> +91 9448394878
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- Treasurer -->
-                                <div style="display: flex; align-items: center; gap: 14px; background: #ffffff; border: 1px solid #fed7aa; padding: 12px 16px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-                                    <div style="background: #fef9c3; color: #ca8a04; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem;">
-                                        <i data-lucide="wallet" style="width: 18px; height: 18px;"></i>
-                                    </div>
-                                    <div>
-                                        <span style="font-size: 0.65rem; font-weight: 900; color: #a16207; text-transform: uppercase; letter-spacing: 0.5px;">Treasurer</span>
-                                        <h4 style="font-size: 0.95rem; font-weight: 800; color: #1e293b; margin: 1px 0;">Sri Bhajan Mandali</h4>
-                                        <span style="font-size: 0.8rem; font-weight: 700; color: #ca8a04; display: flex; align-items: center; gap: 4px; margin-top: 1px;">
-                                            <i data-lucide="phone" style="width: 12px; height: 12px;"></i> +91 9731605779
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- Secretary -->
-                                <div style="display: flex; align-items: center; gap: 14px; background: #ffffff; border: 1px solid #fed7aa; padding: 12px 16px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-                                    <div style="background: #ffedd5; color: #ea580c; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem;">
-                                        <i data-lucide="file-signature" style="width: 18px; height: 18px;"></i>
-                                    </div>
-                                    <div>
-                                        <span style="font-size: 0.65rem; font-weight: 900; color: #b45309; text-transform: uppercase; letter-spacing: 0.5px;">Secretary</span>
-                                        <h4 style="font-size: 0.95rem; font-weight: 800; color: #1e293b; margin: 1px 0;">Sri Bhajan Mandali</h4>
-                                        <span style="font-size: 0.8rem; font-weight: 700; color: #ea580c; display: flex; align-items: center; gap: 4px; margin-top: 1px;">
-                                            <i data-lucide="phone" style="width: 12px; height: 12px;"></i> +91 9448543913
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Devotional Quote Banner -->
-                        <div style="background: linear-gradient(135deg, #7c2d12, #9a3412); color: #ffedd5; padding: 24px 28px; border-radius: 20px; text-align: center; border: 1px solid #ea580c; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;">
-                            <i data-lucide="info" style="width: 28px; height: 28px; color: #fcd34d; stroke-width: 2.5;"></i>
-                            <h4 style="font-size: 1.02rem; font-weight: 900; letter-spacing: -0.2px; margin: 0; color: #ffffff;">WEEKLY BHAJAN &amp; POOJA</h4>
-                            <p style="font-size: 0.82rem; color: #ffedd5; line-height: 1.5; margin: 0; opacity: 0.9;">
-                                Join the congregation every Saturday evening at 7:00 PM for Sri Ayyappaswamy Bhajans, Mahaprasada, and community Annadanam.
-                            </p>
                         </div>
                     </div>
                 </div>
