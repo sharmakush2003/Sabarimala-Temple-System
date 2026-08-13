@@ -1537,14 +1537,18 @@ function renderModalVoucherContent(rec) {
     const container = document.getElementById("printableVoucherContent");
     if (!container) return;
     const amtWords = numberToWords(rec.amount);
+    const isInward = !rec.type || rec.type === "INWARD";
     
     const htmlSingle = renderVoucherHTML(rec.id, rec.date, rec.devoteeName, rec.amount, amtWords, rec.paymentMode, rec.sevaName, currentVoucherLang, rec.type || "INWARD");
-    
+
+    const copyLabelStyle = `text-align: center; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; color: #555; border-bottom: 1px dashed #bbb; padding-bottom: 5px; margin-bottom: 10px; font-family: sans-serif; letter-spacing: 1.2px;`;
+
     container.innerHTML = `
         <div class="dual-print-container" style="max-width: 510px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; background: white;">
             
             <!-- First Copy -->
-            <div style="border: 2px solid #000; padding: 20px; box-sizing: border-box; background: white;">
+            <div style="border: 2px solid #000; padding: 16px 20px 20px 20px; box-sizing: border-box; background: white;">
+                ${isInward ? `<div style="${copyLabelStyle}">✦ Devotee's Copy ✦</div>` : ''}
                 ${htmlSingle}
             </div>
             
@@ -1554,7 +1558,8 @@ function renderModalVoucherContent(rec) {
             </div>
             
             <!-- Second Copy -->
-            <div style="border: 2px solid #000; padding: 20px; box-sizing: border-box; background: white;">
+            <div style="border: 2px solid #000; padding: 16px 20px 20px 20px; box-sizing: border-box; background: white;">
+                ${isInward ? `<div style="${copyLabelStyle}">✦ Office Copy ✦</div>` : ''}
                 ${htmlSingle}
             </div>
             
