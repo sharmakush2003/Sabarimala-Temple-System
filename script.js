@@ -1154,22 +1154,25 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 </span>
             </div>
 
-            <!-- Third Blank Line -->
+            <!-- Part2 continuation row (Kannada) -->
+            ${part2 ? `
             <div style="display: flex; align-items: baseline; margin-bottom: 8px; width: 100%;">
-                ${part2 ? `
-                <span style="border-bottom: 1px solid #000; padding: 0 4px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding: 0 4px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
                     ${part2}
                 </span>
-                ` : ''}
-                
+            </div>
+            ` : ''}
+
+            <!-- Third Blank Line: through + mode (Kannada) -->
+            <div style="display: flex; align-items: baseline; margin-bottom: 8px; width: 100%;">
                 ${modeText ? `
-                <span style="font-weight: 900; white-space: nowrap; margin-left: ${part2 ? '20px' : '0px'}; margin-right: 10px; font-size: 0.82rem; color: #000;">
+                <span style="font-weight: 900; white-space: nowrap; margin-right: 10px; font-size: 0.82rem; color: #000;">
                     ${throughLabel}
                 </span>
                 <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 4px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
                     ${modeText}
                 </span>
-                ` : (part2 ? '' : '&nbsp;')}
+                ` : '<span style="flex-grow:1; border-bottom: 1px solid #000;">&nbsp;</span>'}
             </div>
 
             <!-- On account of -->
@@ -1268,22 +1271,25 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                 </span>
             </div>
 
-            <!-- Third Blank Line -->
+            <!-- Part2 continuation row (English) -->
+            ${part2 ? `
             <div style="display: flex; align-items: baseline; margin-bottom: 8px; width: 100%;">
-                ${part2 ? `
-                <span style="border-bottom: 1px solid #000; padding: 0 4px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
+                <span style="flex-grow: 1; border-bottom: 1px solid #000; padding: 0 4px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
                     ${part2}
                 </span>
-                ` : ''}
-                
+            </div>
+            ` : ''}
+
+            <!-- Third Blank Line: through + mode (English) -->
+            <div style="display: flex; align-items: baseline; margin-bottom: 8px; width: 100%;">
                 ${modeText ? `
-                <span style="font-weight: 900; white-space: nowrap; margin-left: ${part2 ? '20px' : '0px'}; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.82rem; color: #000;">
+                <span style="font-weight: 900; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.82rem; color: #000;">
                     ${throughLabel}
                 </span>
                 <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 4px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
                     ${modeText}
                 </span>
-                ` : (part2 ? '' : '&nbsp;')}
+                ` : '<span style="flex-grow:1; border-bottom: 1px solid #000;">&nbsp;</span>'}
             </div>
 
             <!-- On account of -->
