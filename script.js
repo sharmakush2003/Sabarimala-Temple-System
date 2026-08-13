@@ -1108,10 +1108,15 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- BOTTOM SECTION -->
         <div style="margin-top: 35px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.85rem; font-weight: 800; text-align: center;">
             <!-- Amount Box Container -->
-            <div style="display: flex; align-items: center; width: 35%;">
-                <div style="border: 2px solid #000; padding: 6px 16px; font-size: 1.15rem; font-weight: 900; background: #f8fafc; font-family: 'Courier New', Courier, monospace;">
+            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 45%;">
+                <div style="border: 2px solid #000; padding: 6px 16px; font-size: 1.15rem; font-weight: 900; background: #f8fafc; font-family: 'Courier New', Courier, monospace; text-align: center;">
                     ರೂ. ₹ ${amountVal.toLocaleString('en-IN')}/-
                 </div>
+                ${modeStr && !modeStr.startsWith('Cash') ? `
+                <div style="font-size: 0.68rem; font-weight: 800; font-family: 'Inter', sans-serif; margin-top: 5px; color: #111; text-align: left; white-space: nowrap;">
+                    ಪಾವತಿ ವಿವರ: ${modeStr}
+                </div>
+                ` : ''}
             </div>
             
             <!-- President Signature -->
@@ -1205,10 +1210,15 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         <!-- BOTTOM SECTION -->
         <div style="margin-top: 35px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.85rem; font-weight: 800; text-align: center; font-family: 'Georgia', serif;">
             <!-- Amount Box Container -->
-            <div style="display: flex; align-items: center; width: 35%;">
-                <div style="border: 2px solid #000; padding: 6px 16px; font-size: 1.15rem; font-weight: 900; background: #f8fafc; font-family: 'Courier New', Courier, monospace;">
+            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 45%;">
+                <div style="border: 2px solid #000; padding: 6px 16px; font-size: 1.15rem; font-weight: 900; background: #f8fafc; font-family: 'Courier New', Courier, monospace; text-align: center;">
                     ₹ ${amountVal.toLocaleString('en-IN')}/-
                 </div>
+                ${modeStr && !modeStr.startsWith('Cash') ? `
+                <div style="font-size: 0.68rem; font-weight: 800; font-family: 'Inter', sans-serif; margin-top: 5px; color: #111; text-align: left; white-space: nowrap;">
+                    Payment Ref: ${modeStr}
+                </div>
+                ` : ''}
             </div>
             
             <!-- President Signature -->
