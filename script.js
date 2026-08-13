@@ -877,7 +877,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         }
     }
 
-    const { part1, part2 } = splitAmountWords(amountWords, 35);
+    const { part1, part2 } = splitAmountWords(amountWords, 24);
 
     let nameFontSize = "1.05rem";
     if (devoteeName && devoteeName.length > 0) {
@@ -941,9 +941,18 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                     </span>
                     <span style="font-weight: 800; white-space: nowrap; margin-right: 10px; font-size: 0.82rem; color: #444;">(ಅಕ್ಷರಗಳಲ್ಲಿ)</span>
                     <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 4px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
-                        ${amountWords || "&nbsp;"}
+                        ${part1 || "&nbsp;"}
                     </span>
                 </div>
+                
+                <!-- Words Continuation -->
+                ${part2 ? `
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 4px; font-weight: 900; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
+                        ${part2}
+                    </span>
+                </div>
+                ` : ''}
 
                 <!-- Towards -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
@@ -1031,9 +1040,18 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
                     </span>
                     <span style="font-weight: 700; white-space: nowrap; margin-right: 10px; font-family: 'Georgia', serif; font-size: 0.82rem; color: #444;">(in words)</span>
                     <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 4px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
-                        ${amountWords || "&nbsp;"}
+                        ${part1 || "&nbsp;"}
                     </span>
                 </div>
+                
+                <!-- Words Continuation -->
+                ${part2 ? `
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <span style="flex-grow: 1; border-bottom: 1px solid #000; padding-left: 4px; font-weight: 700; font-size: ${wordsFontSize}; font-family: 'Courier New', Courier, monospace; color: #000; white-space: nowrap; letter-spacing: -0.3px; word-spacing: -1px;">
+                        ${part2}
+                    </span>
+                </div>
+                ` : ''}
 
                 <!-- Towards -->
                 <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
