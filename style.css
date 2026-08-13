@@ -1208,17 +1208,17 @@ select[multiple] option:checked {
 }
 
 /* ============================================
-   DEVELOPER CREDITS — PREMIUM CHITTORTECH STYLE
+   DEVELOPER CREDITS — PREMIUM REDESIGN
    ============================================ */
 .developer-credits {
-    padding: 14px 16px;
-    margin: 16px 8px 8px 8px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+    padding: 18px 16px 16px;
+    margin: 20px 10px 12px 10px;
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -1229,100 +1229,92 @@ select[multiple] option:checked {
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.6), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
 }
 
 .developer-credits:hover {
-    background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%);
-    border-color: rgba(99, 102, 241, 0.3);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.18);
     transform: translateY(-1px);
+}
+
+.dev-made-by {
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0;
 }
 
 .dev-pill {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+}
+
+.dev-logo-wrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .dev-logo {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 6px;
     object-fit: contain;
-    opacity: 0.9;
 }
 
 .dev-info {
     display: flex;
     flex-direction: column;
-}
-
-.dev-label {
-    font-size: 0.55rem;
-    font-weight: 700;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 0;
+    gap: 2px;
 }
 
 .dev-brand {
-    font-size: 0.82rem;
+    font-size: 1rem;
     font-weight: 900;
-    color: #e2e8f0;
-    letter-spacing: -0.3px;
+    color: #ffffff;
+    letter-spacing: -0.5px;
     margin: 0;
+    line-height: 1;
 }
 
-.dev-badges {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding-left: 4px;
-}
-
-.dev-badge-item {
+.dev-label {
     font-size: 0.62rem;
-    font-weight: 700;
-    color: #00ff88;
-    opacity: 0.9;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.dev-badge-item::before {
-    content: "•";
-    color: rgba(255,255,255,0.3);
-}
-
-.dev-contact {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding-top: 6px;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.dev-contact a {
-    font-size: 0.68rem;
     font-weight: 600;
-    color: #6366f1;
-    text-decoration: none;
+    color: #94a3b8;
+    margin: 0;
+    letter-spacing: 0.3px;
+}
+
+.dev-website-btn {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
-    transition: all 0.2s ease;
-    opacity: 0.85;
+    padding: 7px 14px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    letter-spacing: 0.3px;
 }
 
-.dev-contact a i {
-    width: 14px;
-    height: 14px;
-    opacity: 0.7;
-}
-
-.dev-contact a:hover {
+.dev-website-btn:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.25);
     color: #ffffff;
 }
 
@@ -1336,6 +1328,7 @@ select[multiple] option:checked {
     line-height: 1.4;
     margin-top: 4px;
 }
+
 
 /* ANIMATED STATS PULSE */
 @keyframes statPulse {
