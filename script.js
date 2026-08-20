@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Credentials check
             const validUsers = [
                 { email: "kushsharma.cor@gmail.com", password: "123456" },
-                { email: "venkatavasuswr@gmail.com", password: "vasu@123" }
+                { email: "venkatavasuswr@gmail.com", password: "Vasu@123" }
             ];
             const isValid = validUsers.some(u => u.email === email && u.password === password);
 
