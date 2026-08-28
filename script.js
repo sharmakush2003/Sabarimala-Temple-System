@@ -4,7 +4,7 @@
 
 // --- GOOGLE SPREADSHEET CONFIGURATION ---
 // Set your Google Apps Script Web App URL here after deploying the script.
-const API_URL = "https://script.google.com/macros/s/AKfycbwrxqufBYldX0D_evvfynkZLNs2sqUScyD2i9zCQS9tJE7A_a5_cb0KNkTD_U_2JUj7Bg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycby19lftWIUb4RLw2MGwxtd6--z2znAIi6eH6rJiKOvqsBwAk-4piSXcyREzNuDxN7WUyQ/exec";
 
 // Official 25 Seva List (From Reference Image 1000053592.jpg)
 const PREDEFINED_SEVAS = [
@@ -134,8 +134,8 @@ function numberToWords(num) {
 function generateReceiptNo() {
     let maxCount = 0;
     receiptsData.forEach(r => {
-        if (r.id) {
-            const match = r.id.match(/\d+$/);
+        if (r.type !== "OUTWARD" && r.id) {
+            const match = String(r.id).match(/\d+$/);
             if (match) {
                 const countNum = parseInt(match[0], 10);
                 if (!isNaN(countNum) && countNum > maxCount) {
@@ -150,7 +150,21 @@ function generateReceiptNo() {
 }
 
 function generateVoucherNo() {
-    return generateReceiptNo();
+    let maxCount = 0;
+    receiptsData.forEach(r => {
+        if (r.type === "OUTWARD" && r.id) {
+            const match = String(r.id).match(/\d+$/);
+            if (match) {
+                const countNum = parseInt(match[0], 10);
+                if (!isNaN(countNum) && countNum > maxCount) {
+                    maxCount = countNum;
+                }
+            }
+        }
+    });
+    
+    const nextCount = maxCount + 1;
+    return String(nextCount).padStart(3, '0');
 }
 
 // AUTHENTICATION SECURITY LOCK
@@ -442,6 +456,21 @@ function initFormHandling() {
     if (invoiceForm) {
         invoiceForm.addEventListener("submit", (e) => {
             e.preventDefault();
+
+            const nameVal = devoteeNameInput.value.trim();
+            if (/\d/.test(nameVal)) {
+                alert("Devotee Name must contain letters only! Numbers are not allowed in the name.");
+                devoteeNameInput.focus();
+                return;
+            }
+
+            const mobileInput = document.getElementById("devoteeMobile");
+            const mobVal = mobileInput ? mobileInput.value.trim() : "";
+            if (mobVal && mobVal !== "N/A" && /[^\d]/.test(mobVal)) {
+                alert("Mobile Number must contain digits/numbers only! Letters and special characters are not allowed.");
+                if (mobileInput) mobileInput.focus();
+                return;
+            }
             
             const amt = parseFloat(amountInput.value);
             if (!amt || amt <= 0) {
@@ -470,12 +499,13 @@ function initFormHandling() {
                 id: (receiptNoInput ? receiptNoInput.value.trim() : "") || generateReceiptNo(),
                 date: sevaDateInput.value || new Date().toISOString().split('T')[0],
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                devoteeName: devoteeNameInput.value.trim(),
-                mobile: document.getElementById("devoteeMobile").value.trim() || "N/A",
+                devoteeName: nameVal,
+                mobile: mobVal || "N/A",
                 sevaName: sevaText,
                 amount: amt,
                 paymentMode: modeVal,
                 status: "COMPLETED",
+                type: "INWARD",
                 createdAt: Date.now()
             };
 
@@ -513,7 +543,7 @@ function initFormHandling() {
     const voucherNo = document.getElementById("voucherNo");
     const amountInWordsOutward = document.getElementById("amountInWordsOutward");
 
-    if (voucherNo) voucherNo.value = generateReceiptNo();
+    if (voucherNo) voucherNo.value = generateVoucherNo();
     if (expenseDate) expenseDate.value = new Date().toISOString().split('T')[0];
 
     // Custom select initialization
@@ -653,6 +683,20 @@ function initFormHandling() {
     if (outwardForm) {
         outwardForm.addEventListener("submit", (e) => {
             e.preventDefault();
+
+            const pNameVal = payeeName.value.trim();
+            if (/\d/.test(pNameVal)) {
+                alert("Receiver's Name must contain letters only! Numbers are not allowed in the name.");
+                payeeName.focus();
+                return;
+            }
+
+            const pMobVal = payeeMobile.value.trim();
+            if (pMobVal && pMobVal !== "N/A" && /[^\d]/.test(pMobVal)) {
+                alert("Mobile Number must contain digits/numbers only! Letters and special characters are not allowed.");
+                payeeMobile.focus();
+                return;
+            }
             
             const amt = parseFloat(amountOutward.value);
             if (!amt || amt <= 0) {
@@ -675,11 +719,11 @@ function initFormHandling() {
             }
 
             const newRec = {
-                id: (voucherNo ? voucherNo.value.trim() : "") || generateReceiptNo(),
+                id: (voucherNo ? voucherNo.value.trim() : "") || generateVoucherNo(),
                 date: expenseDate.value || new Date().toISOString().split('T')[0],
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                devoteeName: payeeName.value.trim(),
-                mobile: payeeMobile.value.trim() || "N/A",
+                devoteeName: pNameVal,
+                mobile: pMobVal || "N/A",
                 sevaName: expenseText,
                 amount: amt,
                 paymentMode: modeVal,
@@ -699,7 +743,7 @@ function initFormHandling() {
             outwardForm.reset();
             resetCustomSelect();
             handlePaymentModeOutwardChange();
-            if (voucherNo) voucherNo.value = generateReceiptNo();
+            if (voucherNo) voucherNo.value = generateVoucherNo();
             if (expenseDate) expenseDate.value = new Date().toISOString().split('T')[0];
             updateAmountInWordsOutward();
             renderAllViews();
@@ -1750,32 +1794,38 @@ async function syncWithGoogleSheets() {
         
         if (Array.isArray(data)) {
             const formattedData = data.map((row, idx) => {
-                const idVal = row.id || row.Id || row.ID || "";
+                const rawId = row.id !== undefined && row.id !== null ? row.id : (row.Id !== undefined ? row.Id : (row.ID !== undefined ? row.ID : ""));
+                const idStr = String(rawId).trim();
+                const sevaOrExpense = row.sevaName || row["Seva Name"] || row.reasonForPayment || row["Reason for Payment"] || "";
+                const isExpenseItem = Object.values(EXPENSE_NAMES).includes(sevaOrExpense) || !!row.reasonForPayment || !!row["Reason for Payment"] || !!row.receiverName || !!row["Receiver Name"] || idStr.endsWith("-OUT");
+                const recType = row.type || row.Type || (isExpenseItem ? "OUTWARD" : "INWARD");
                 return {
-                    id: idVal,
+                    id: idStr,
                     date: parseAndFormatDate(row.date || row.Date || ""),
                     time: parseAndFormatTime(row.time || row.Time || ""),
-                    devoteeName: row.devoteeName || row["Devotee Name"] || row.name || "",
+                    devoteeName: row.devoteeName || row["Devotee Name"] || row.receiverName || row["Receiver Name"] || row.name || "",
                     mobile: row.mobile || row.Mobile || row["Mobile Number"] || "",
-                    sevaName: row.sevaName || row["Seva Name"] || "",
+                    sevaName: sevaOrExpense,
                     amount: parseFloat(row.amount || row.Amount || 0),
                     paymentMode: row.paymentMode || row["Payment Mode"] || "",
                     status: row.status || row.Status || "COMPLETED",
-                    type: row.type || row.Type || (idVal && idVal.endsWith("-OUT") ? "OUTWARD" : "INWARD"),
+                    type: recType,
                     createdAt: idx
                 };
             });
 
-            const validData = formattedData.filter(r => r.id);
+            const validData = formattedData.filter(r => r.id !== "");
             validData.sort((a, b) => b.createdAt - a.createdAt);
             
             receiptsData = validData;
             saveReceipts();
             renderAllViews();
 
-            // Refresh the form receipt number to match the newly synced data
+            // Refresh the form receipt & voucher numbers to match newly synced data
             const receiptNoInput = document.getElementById("receiptNo");
             if (receiptNoInput) receiptNoInput.value = generateReceiptNo();
+            const voucherNoInput = document.getElementById("voucherNo");
+            if (voucherNoInput) voucherNoInput.value = generateVoucherNo();
         }
 
         if (statusLabel) {
@@ -1825,8 +1875,10 @@ async function postReceiptToGoogleSheets(rec) {
             date: rec.date,
             time: rec.time,
             devoteeName: rec.devoteeName,
+            receiverName: rec.devoteeName,
             mobile: rec.mobile,
             sevaName: rec.sevaName,
+            reasonForPayment: rec.sevaName,
             amount: rec.amount,
             paymentMode: rec.paymentMode,
             status: rec.status,
