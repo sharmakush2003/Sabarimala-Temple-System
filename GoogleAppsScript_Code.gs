@@ -100,19 +100,19 @@ function doPost(e) {
     }
   }
 
-  // Calculate unique max ID for column A in this target sheet to guarantee no repeats
+  // Calculate unique max ID for column A in this target sheet (starts from 1 for 1st entry)
   var lastRow = targetSheet.getLastRow();
-  var rowId = 2;
+  var rowId = 1;
   if (lastRow >= 2) {
     var idValues = targetSheet.getRange(2, 1, lastRow - 1, 1).getValues();
-    var maxVal = 1;
+    var maxVal = 0;
     for (var k = 0; k < idValues.length; k++) {
       var numVal = parseInt(idValues[k][0], 10);
       if (!isNaN(numVal) && numVal > maxVal) {
         maxVal = numVal;
       }
     }
-    rowId = Math.max(maxVal + 1, lastRow + 1);
+    rowId = Math.max(maxVal + 1, lastRow);
   }
 
   if (type === "OUTWARD") {

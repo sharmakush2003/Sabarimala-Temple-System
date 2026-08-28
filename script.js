@@ -132,7 +132,7 @@ function numberToWords(num) {
 }
 
 function generateReceiptNo() {
-    let maxId = 1;
+    let maxId = 0;
     let count = 0;
     receiptsData.forEach(r => {
         if (r.type !== "OUTWARD" && r.id) {
@@ -143,11 +143,11 @@ function generateReceiptNo() {
             count++;
         }
     });
-    return String(Math.max(maxId + 1, count + 2));
+    return String(Math.max(maxId + 1, count + 1));
 }
 
 function generateVoucherNo() {
-    let maxId = 1;
+    let maxId = 0;
     let count = 0;
     receiptsData.forEach(r => {
         if (r.type === "OUTWARD" && r.id) {
@@ -158,7 +158,7 @@ function generateVoucherNo() {
             count++;
         }
     });
-    return String(Math.max(maxId + 1, count + 2));
+    return String(Math.max(maxId + 1, count + 1));
 }
 
 // AUTHENTICATION SECURITY LOCK
