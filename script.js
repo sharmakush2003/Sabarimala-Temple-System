@@ -917,7 +917,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
     if (type === "OUTWARD") {
         if (lang === 'kannada') {
             return `
-            <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif; max-width: 510px; width: 100%; box-sizing: border-box; margin: 0 auto;">
+            <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif; max-width: 780px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
             <!-- HEADER (KANNADA OUTWARD VOUCHER) -->
             <div style="display: flex; border-bottom: 2px solid #000; margin-bottom: 12px; padding-bottom: 8px;">
@@ -1016,7 +1016,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
             `;
         } else {
             return `
-            <div style="font-family: 'Inter', sans-serif; max-width: 510px; width: 100%; box-sizing: border-box; margin: 0 auto;">
+            <div style="font-family: 'Inter', sans-serif; max-width: 780px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
             <!-- HEADER (ENGLISH OUTWARD VOUCHER) -->
             <div style="display: flex; border-bottom: 2px solid #000; margin-bottom: 12px; padding-bottom: 8px;">
@@ -1118,7 +1118,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
 
     if (lang === 'kannada') {
         return `
-        <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif; max-width: 510px; width: 100%; box-sizing: border-box; margin: 0 auto;">
+        <div style="font-family: 'Noto Sans Kannada', 'Inter', sans-serif; max-width: 780px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
         <!-- HEADER (KANNADA ONLY) -->
         <div style="display: flex; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; align-items: center;">
@@ -1235,7 +1235,7 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
 
     // DEFAULT: ENGLISH ONLY
     return `
-        <div style="font-family: 'Inter', sans-serif; max-width: 510px; width: 100%; box-sizing: border-box; margin: 0 auto;">
+        <div style="font-family: 'Inter', sans-serif; max-width: 780px; width: 100%; box-sizing: border-box; margin: 0 auto;">
 
         <!-- HEADER (ENGLISH ONLY) -->
         <div style="display: flex; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; align-items: center;">
@@ -1562,7 +1562,7 @@ function renderModalVoucherContent(rec) {
     const copyLabelStyle = `text-align: center; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; color: #555; border-bottom: 1px dashed #bbb; padding-bottom: 5px; margin-bottom: 10px; font-family: sans-serif; letter-spacing: 1.2px;`;
 
     container.innerHTML = `
-        <div class="dual-print-container" style="max-width: 510px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; background: white;">
+        <div class="dual-print-container" style="max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; background: white;">
             
             <!-- First Copy -->
             <div style="border: 2px solid #000; padding: 16px 20px 20px 20px; box-sizing: border-box; background: white;">
