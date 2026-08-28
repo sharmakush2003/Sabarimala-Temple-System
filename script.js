@@ -132,13 +132,33 @@ function numberToWords(num) {
 }
 
 function generateReceiptNo() {
-    const inwardCount = receiptsData.filter(r => r.type !== "OUTWARD").length;
-    return String(inwardCount + 2);
+    let maxId = 1;
+    let count = 0;
+    receiptsData.forEach(r => {
+        if (r.type !== "OUTWARD" && r.id) {
+            const num = parseInt(r.id, 10);
+            if (!isNaN(num) && num > maxId) {
+                maxId = num;
+            }
+            count++;
+        }
+    });
+    return String(Math.max(maxId + 1, count + 2));
 }
 
 function generateVoucherNo() {
-    const outwardCount = receiptsData.filter(r => r.type === "OUTWARD").length;
-    return String(outwardCount + 2);
+    let maxId = 1;
+    let count = 0;
+    receiptsData.forEach(r => {
+        if (r.type === "OUTWARD" && r.id) {
+            const num = parseInt(r.id, 10);
+            if (!isNaN(num) && num > maxId) {
+                maxId = num;
+            }
+            count++;
+        }
+    });
+    return String(Math.max(maxId + 1, count + 2));
 }
 
 // AUTHENTICATION SECURITY LOCK

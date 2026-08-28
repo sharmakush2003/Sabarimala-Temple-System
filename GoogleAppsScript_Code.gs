@@ -100,8 +100,20 @@ function doPost(e) {
     }
   }
 
-  // The ID is ALWAYS the exact row number in the spreadsheet!
-  var rowId = targetSheet.getLastRow() + 1;
+  // Calculate unique max ID for column A in this target sheet to guarantee no repeats
+  var lastRow = targetSheet.getLastRow();
+  var rowId = 2;
+  if (lastRow >= 2) {
+    var idValues = targetSheet.getRange(2, 1, lastRow - 1, 1).getValues();
+    var maxVal = 1;
+    for (var k = 0; k < idValues.length; k++) {
+      var numVal = parseInt(idValues[k][0], 10);
+      if (!isNaN(numVal) && numVal > maxVal) {
+        maxVal = numVal;
+      }
+    }
+    rowId = Math.max(maxVal + 1, lastRow + 1);
+  }
 
   if (type === "OUTWARD") {
     targetSheet.appendRow([
