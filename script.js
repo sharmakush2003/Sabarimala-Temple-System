@@ -132,35 +132,13 @@ function numberToWords(num) {
 }
 
 function generateReceiptNo() {
-    let inwardCount = 0;
-    let maxRow = 1;
-    receiptsData.forEach(r => {
-        if (r.type !== "OUTWARD" && r.id) {
-            const countNum = parseInt(r.id, 10);
-            if (!isNaN(countNum) && countNum > maxRow) {
-                maxRow = countNum;
-            }
-            inwardCount++;
-        }
-    });
-    const nextRow = Math.max(maxRow + 1, inwardCount + 2);
-    return String(nextRow);
+    const inwardCount = receiptsData.filter(r => r.type !== "OUTWARD").length;
+    return String(inwardCount + 2);
 }
 
 function generateVoucherNo() {
-    let outwardCount = 0;
-    let maxRow = 1;
-    receiptsData.forEach(r => {
-        if (r.type === "OUTWARD" && r.id) {
-            const countNum = parseInt(r.id, 10);
-            if (!isNaN(countNum) && countNum > maxRow) {
-                maxRow = countNum;
-            }
-            outwardCount++;
-        }
-    });
-    const nextRow = Math.max(maxRow + 1, outwardCount + 2);
-    return String(nextRow);
+    const outwardCount = receiptsData.filter(r => r.type === "OUTWARD").length;
+    return String(outwardCount + 2);
 }
 
 // AUTHENTICATION SECURITY LOCK
