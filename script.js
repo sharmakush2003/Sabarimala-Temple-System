@@ -132,39 +132,35 @@ function numberToWords(num) {
 }
 
 function generateReceiptNo() {
-    let maxCount = 0;
+    let inwardCount = 0;
+    let maxRow = 1;
     receiptsData.forEach(r => {
         if (r.type !== "OUTWARD" && r.id) {
-            const match = String(r.id).match(/\d+$/);
-            if (match) {
-                const countNum = parseInt(match[0], 10);
-                if (!isNaN(countNum) && countNum > maxCount) {
-                    maxCount = countNum;
-                }
+            const countNum = parseInt(r.id, 10);
+            if (!isNaN(countNum) && countNum > maxRow) {
+                maxRow = countNum;
             }
+            inwardCount++;
         }
     });
-    
-    const nextCount = maxCount + 1;
-    return String(nextCount).padStart(3, '0');
+    const nextRow = Math.max(maxRow + 1, inwardCount + 2);
+    return String(nextRow);
 }
 
 function generateVoucherNo() {
-    let maxCount = 0;
+    let outwardCount = 0;
+    let maxRow = 1;
     receiptsData.forEach(r => {
         if (r.type === "OUTWARD" && r.id) {
-            const match = String(r.id).match(/\d+$/);
-            if (match) {
-                const countNum = parseInt(match[0], 10);
-                if (!isNaN(countNum) && countNum > maxCount) {
-                    maxCount = countNum;
-                }
+            const countNum = parseInt(r.id, 10);
+            if (!isNaN(countNum) && countNum > maxRow) {
+                maxRow = countNum;
             }
+            outwardCount++;
         }
     });
-    
-    const nextCount = maxCount + 1;
-    return String(nextCount).padStart(3, '0');
+    const nextRow = Math.max(maxRow + 1, outwardCount + 2);
+    return String(nextRow);
 }
 
 // AUTHENTICATION SECURITY LOCK

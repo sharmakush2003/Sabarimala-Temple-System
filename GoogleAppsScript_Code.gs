@@ -100,9 +100,12 @@ function doPost(e) {
     }
   }
 
+  // The ID is ALWAYS the exact row number in the spreadsheet!
+  var rowId = targetSheet.getLastRow() + 1;
+
   if (type === "OUTWARD") {
     targetSheet.appendRow([
-      params.id || "",
+      rowId,
       params.date || "",
       params.time || "",
       params.receiverName || params.devoteeName || "",
@@ -114,7 +117,7 @@ function doPost(e) {
     ]);
   } else {
     targetSheet.appendRow([
-      params.id || "",
+      rowId,
       params.date || "",
       params.time || "",
       params.devoteeName || "",
@@ -126,6 +129,6 @@ function doPost(e) {
     ]);
   }
 
-  return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+  return ContentService.createTextOutput(JSON.stringify({ status: "success", id: rowId }))
     .setMimeType(ContentService.MimeType.JSON);
 }
