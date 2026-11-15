@@ -88,8 +88,8 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* ---- LAYOUT ---- */
-#protectedContent { display: flex; min-height: 100vh; }
+/* ---- LAYOUT (Default Hidden until Authenticated) ---- */
+#protectedContent { display: none; min-height: 100vh; }
 
 /* ============================================
    SIDEBAR (OBSIDIAN GLASS)

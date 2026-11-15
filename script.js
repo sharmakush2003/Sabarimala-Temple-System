@@ -3,8 +3,9 @@
 // ========================================================
 
 // --- GOOGLE SPREADSHEET CONFIGURATION ---
-// Set your Google Apps Script Web App URL here after deploying the script.
+// Set your Google Apps Script Web App URL and Security Authorization Key here.
 const API_URL = "https://script.google.com/macros/s/AKfycby19lftWIUb4RLw2MGwxtd6--z2znAIi6eH6rJiKOvqsBwAk-4piSXcyREzNuDxN7WUyQ/exec";
+const API_SECRET_KEY = "SABARI_TEMPLE_SECURE_2026_AUTH_KEY";
 
 // Official 25 Seva List (From Reference Image 1000053592.jpg)
 const PREDEFINED_SEVAS = [
@@ -54,45 +55,8 @@ const EXPENSE_NAMES = {
     "15": "Internet Charges"
 };
 
-// Initial Sample Receipts
-const INITIAL_RECEIPTS = [
-    {
-        id: "001",
-        date: "2026-08-01",
-        time: "10:15 AM",
-        devoteeName: "Priyanshu Sharma",
-        mobile: "7014311772",
-        sevaName: "Daily Pooja & Bhajan",
-        amount: 251,
-        paymentMode: "Cash",
-        status: "COMPLETED",
-        createdAt: new Date("2026-08-01T10:15:00").getTime()
-    },
-    {
-        id: "002",
-        date: "2026-08-01",
-        time: "09:30 AM",
-        devoteeName: "Manoj Kumar Sharma",
-        mobile: "8561805504",
-        sevaName: "Special Pooja & Bhajan",
-        amount: 501,
-        paymentMode: "UPI",
-        status: "COMPLETED",
-        createdAt: new Date("2026-08-01T09:30:00").getTime()
-    },
-    {
-        id: "003",
-        date: "2026-08-01",
-        time: "08:45 AM",
-        devoteeName: "Suresh Patel",
-        mobile: "9845012345",
-        sevaName: "Maha Annadanam",
-        amount: 5001,
-        paymentMode: "Cash",
-        status: "COMPLETED",
-        createdAt: new Date("2026-08-01T08:45:00").getTime()
-    }
-];
+// Initial Receipts (Empty default; live data loads securely from Google Sheets)
+const INITIAL_RECEIPTS = [];
 
 // LocalStorage State
 let receiptsData = JSON.parse(localStorage.getItem("sabari_receipts")) || INITIAL_RECEIPTS;
@@ -131,19 +95,49 @@ function numberToWords(num) {
     return "Rupees " + inWords(Math.floor(num)) + " Only";
 }
 
+function formatSerialId(num) {
+    if (!num && num !== 0) return "001";
+    const clean = String(num).replace(/^'/, '').trim();
+    const n = parseInt(clean, 10);
+    if (isNaN(n) || n <= 0) return "001";
+    return String(n).padStart(3, '0');
+}
+
+function getISTDate() {
+    const now = new Date();
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Kolkata',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+    return formatter.format(now);
+}
+
+function getISTTime() {
+    const now = new Date();
+    return now.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    });
+}
+
 function generateReceiptNo() {
     let maxId = 0;
     let count = 0;
     receiptsData.forEach(r => {
         if (r.type !== "OUTWARD" && r.id) {
-            const num = parseInt(r.id, 10);
+            const num = parseInt(String(r.id).replace(/^'/, ''), 10);
             if (!isNaN(num) && num > maxId) {
                 maxId = num;
             }
             count++;
         }
     });
-    return String(Math.max(maxId + 1, count + 1));
+    const nextId = Math.max(maxId + 1, count + 1, 1);
+    return formatSerialId(nextId);
 }
 
 function generateVoucherNo() {
@@ -151,66 +145,101 @@ function generateVoucherNo() {
     let count = 0;
     receiptsData.forEach(r => {
         if (r.type === "OUTWARD" && r.id) {
-            const num = parseInt(r.id, 10);
+            const num = parseInt(String(r.id).replace(/^'/, ''), 10);
             if (!isNaN(num) && num > maxId) {
                 maxId = num;
             }
             count++;
         }
     });
-    return String(Math.max(maxId + 1, count + 1));
+    const nextId = Math.max(maxId + 1, count + 1, 1);
+    return formatSerialId(nextId);
 }
 
-// AUTHENTICATION SECURITY LOCK
-function checkAuth() {
-    const isLoggedIn = localStorage.getItem("sabari_logged_in") === "true";
+// ========================================================
+// AUTHENTICATION SECURITY (FIREBASE AUTHENTICATION)
+// ========================================================
+function setUIAuthState(isAuthenticated, user = null) {
     const loginScreen = document.getElementById("loginScreen");
     const protectedContent = document.getElementById("protectedContent");
 
-    if (isLoggedIn) {
+    if (isAuthenticated) {
         if (loginScreen) loginScreen.style.display = "none";
         if (protectedContent) protectedContent.style.display = "flex";
+        renderAllViews();
+        syncWithGoogleSheets();
     } else {
         if (loginScreen) loginScreen.style.display = "flex";
         if (protectedContent) protectedContent.style.display = "none";
     }
 }
 
+// Session Lock / Sign Out
 window.lockSession = function() {
+    if (typeof firebase !== "undefined" && firebase.auth) {
+        firebase.auth().signOut().catch(err => console.error("[AUTH] Logout error:", err));
+    }
     localStorage.removeItem("sabari_logged_in");
-    checkAuth();
+    setUIAuthState(false);
 };
 
 // INITIALIZE DOM
 document.addEventListener("DOMContentLoaded", () => {
-    // Check authentication status first
-    checkAuth();
-    
+    // Setup Firebase Auth State Listener (Prevents client-side bypass)
+    if (typeof firebase !== "undefined" && firebase.auth) {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log("[AUTH] Authenticated as:", user.email);
+                setUIAuthState(true, user);
+            } else {
+                console.log("[AUTH] No active authenticated session.");
+                setUIAuthState(false);
+            }
+        });
+    } else {
+        console.warn("[AUTH] Firebase Auth SDK not loaded or not initialized.");
+        setUIAuthState(false);
+    }
+
     const authForm = document.getElementById("authForm");
     if (authForm) {
-        authForm.addEventListener("submit", (e) => {
+        authForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             const email = document.getElementById("authEmail").value.trim();
             const password = document.getElementById("authPassword").value.trim();
             const errMsg = document.getElementById("authErrorMessage");
+            const submitBtn = document.getElementById("authSubmitBtn") || authForm.querySelector("button[type='submit']");
 
-            // Credentials check
-            const validUsers = [
-                { email: "kushsharma.cor@gmail.com", password: "123456" },
-                { email: "venkatavasuswr@gmail.com", password: "Vasu@123" }
-            ];
-            const isValid = validUsers.some(u => u.email === email && u.password === password);
+            if (errMsg) errMsg.style.display = "none";
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = "Verifying...";
+            }
 
-            if (isValid) {
-                localStorage.setItem("sabari_logged_in", "true");
-                if (errMsg) errMsg.style.display = "none";
-                checkAuth();
-                
-                // Refresh views and fetch from sheets when unlocking
-                renderAllViews();
-                syncWithGoogleSheets();
-            } else {
-                if (errMsg) errMsg.style.display = "block";
+            try {
+                if (typeof firebase === "undefined" || !firebase.auth) {
+                    throw new Error("Firebase Auth SDK is not initialized. Please ensure firebase-config.js is configured.");
+                }
+
+                await firebase.auth().signInWithEmailAndPassword(email, password);
+                // onAuthStateChanged automatically activates dashboard
+            } catch (error) {
+                console.error("[AUTH ERROR]", error);
+                if (errMsg) {
+                    errMsg.style.display = "block";
+                    if (error.code === "auth/invalid-credential" || error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
+                        errMsg.innerText = "Incorrect email address or password key.";
+                    } else if (error.code === "auth/invalid-api-key" || (error.message && error.message.includes("API key"))) {
+                        errMsg.innerText = "Firebase API Key is missing or invalid in firebase-config.js.";
+                    } else {
+                        errMsg.innerText = error.message || "Authentication failed. Please check credentials.";
+                    }
+                }
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "Unlock Dashboard";
+                }
             }
         });
     }
@@ -219,17 +248,13 @@ document.addEventListener("DOMContentLoaded", () => {
     initSevaSelectOptions();
     initFormHandling();
     initFiltersAndSearch();
-    renderAllViews();
-    
-    // Sync with Google Sheets on load
-    syncWithGoogleSheets();
 
     if (window.lucide) {
         lucide.createIcons();
     }
 
     const sevaDateInput = document.getElementById("sevaDate");
-    if (sevaDateInput) sevaDateInput.value = new Date().toISOString().split('T')[0];
+    if (sevaDateInput) sevaDateInput.value = getISTDate();
 });
 
 // SYSTEM INFO MODAL (EXACT DHAM ADMIN IMPLEMENTATION)
@@ -489,10 +514,11 @@ function initFormHandling() {
                 modeVal = `Cheque (${refVal})`;
             }
 
+            const rawId = (receiptNoInput ? receiptNoInput.value.trim() : "") || generateReceiptNo();
             const newRec = {
-                id: (receiptNoInput ? receiptNoInput.value.trim() : "") || generateReceiptNo(),
-                date: sevaDateInput.value || new Date().toISOString().split('T')[0],
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                id: formatSerialId(rawId),
+                date: sevaDateInput.value || getISTDate(),
+                time: getISTTime(),
                 devoteeName: nameVal,
                 mobile: mobVal || "N/A",
                 sevaName: sevaText,
@@ -538,7 +564,7 @@ function initFormHandling() {
     const amountInWordsOutward = document.getElementById("amountInWordsOutward");
 
     if (voucherNo) voucherNo.value = generateVoucherNo();
-    if (expenseDate) expenseDate.value = new Date().toISOString().split('T')[0];
+    if (expenseDate) expenseDate.value = getISTDate();
 
     // Custom select initialization
     const customContainer = document.getElementById("customExpenseContainer");
@@ -712,10 +738,11 @@ function initFormHandling() {
                 modeVal = `${modeVal} (${refVal})`;
             }
 
+            const rawId = (voucherNo ? voucherNo.value.trim() : "") || generateVoucherNo();
             const newRec = {
-                id: (voucherNo ? voucherNo.value.trim() : "") || generateVoucherNo(),
-                date: expenseDate.value || new Date().toISOString().split('T')[0],
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                id: formatSerialId(rawId),
+                date: expenseDate.value || getISTDate(),
+                time: getISTTime(),
                 devoteeName: pNameVal,
                 mobile: pMobVal || "N/A",
                 sevaName: expenseText,
@@ -1370,42 +1397,148 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         `;
 }
 
-// FILTERS & SEARCH
-function initFiltersAndSearch() {
-    const searchInput = document.getElementById("registrySearch");
-    if (searchInput) {
-        searchInput.addEventListener("input", renderRegistryTable);
+function renderRegistryTable() {
+    const tbody = document.getElementById("registryTableBody");
+    if (!tbody) return;
+
+    const todayStr = getISTDate();
+    const searchTerm = (document.getElementById("registrySearch") ? document.getElementById("registrySearch").value : "").toLowerCase().trim();
+    const dateFilterVal = document.getElementById("registryDateFilter") ? document.getElementById("registryDateFilter").value : "all";
+
+    const filtered = receiptsData.filter(r => {
+        const isInward = !r.type || r.type === "INWARD";
+        if (!isInward) return false;
+
+        if (dateFilterVal === "today" && !searchTerm) {
+            if (r.date !== todayStr) return false;
+        }
+
+        if (searchTerm) {
+            return (r.devoteeName || "").toLowerCase().includes(searchTerm) ||
+                   (r.id || "").toLowerCase().includes(searchTerm) ||
+                   (r.mobile || "").includes(searchTerm) ||
+                   (r.sevaName || "").toLowerCase().includes(searchTerm);
+        }
+        return true;
+    });
+
+    const showingCount = document.getElementById("showingCountText");
+    if (showingCount) {
+        showingCount.innerText = dateFilterVal === "today" && !searchTerm
+            ? `Showing ${filtered.length} Today's Donations`
+            : `Showing ${filtered.length} Total Donations`;
     }
 
-    const paymentSearchInput = document.getElementById("paymentRegistrySearch");
-    if (paymentSearchInput) {
-        paymentSearchInput.addEventListener("input", renderPaymentRegistryTable);
-    }
+    tbody.innerHTML = filtered.map(r => {
+        return `
+        <tr>
+            <td>
+                <div style="font-weight: 800; color: #0f172a;">${r.devoteeName}</div>
+                <div style="font-size: 0.72rem; color: #64748b;">Ref: ${r.id}</div>
+            </td>
+            <td>
+                <div style="font-weight: 700;">${r.sevaName}</div>
+            </td>
+            <td>
+                <div style="font-size: 0.85rem; font-weight: 600;">${r.mobile}</div>
+                <div style="font-size: 0.72rem; color: #64748b;">${formatDateToDDMMYYYY(r.date)} ${r.time}</div>
+            </td>
+            <td>
+                <div style="font-weight: 900; color: #10b981;">₹${r.amount.toLocaleString('en-IN')}</div>
+                <span class="status-tag ${r.paymentMode.startsWith('Cash') ? 'tag-booked' : 'tag-pending'}">${r.paymentMode}</span>
+            </td>
+            <td>
+                <span class="status-tag tag-booked" style="background: #dcfce7; color: #15803d;">
+                    ${r.status}
+                </span>
+            </td>
+            <td>
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" onclick="printReceiptById('${r.id}')" class="btn-action-view"
+                        style="padding: 6px 12px; font-size: 0.75rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 5px; cursor: pointer; border: 1px solid #cbd5e1; background: #ffffff; font-weight: 700; color: #334155;">
+                        <i data-lucide="printer" style="width: 14px; height: 14px;"></i> Print
+                    </button>
+                </div>
+            </td>
+        </tr>
+        `;
+    }).join("");
 
-    const exportCsvBtn = document.getElementById("exportCsvBtn");
-    if (exportCsvBtn) {
-        exportCsvBtn.addEventListener("click", () => {
-            let csv = "Receipt No,Date,Devotee Name,Mobile,Seva Purpose,Amount,Payment Mode\n";
-            receiptsData.forEach(r => {
-                csv += `"${r.id}","${r.date}","${r.devoteeName}","${r.mobile}","${r.sevaName}",${r.amount},"${r.paymentMode}"\n`;
-            });
-            const blob = new Blob([csv], { type: "text/csv" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = `Sabarimala_Temple_Donations_${new Date().toISOString().split('T')[0]}.csv`;
-            a.click();
-        });
+    if (window.lucide) {
+        lucide.createIcons();
     }
 }
 
-// RENDER ALL VIEWS
-function renderAllViews() {
-    renderRegistryTable();
-    renderPaymentRegistryTable();
-    renderTotalDonationsTable();
-    renderStats();
-    if (window.lucide) lucide.createIcons();
+function renderPaymentRegistryTable() {
+    const tbody = document.getElementById("paymentRegistryTableBody");
+    if (!tbody) return;
+
+    const todayStr = getISTDate();
+    const searchTerm = (document.getElementById("paymentRegistrySearch") ? document.getElementById("paymentRegistrySearch").value : "").toLowerCase().trim();
+    const dateFilterVal = document.getElementById("paymentRegistryDateFilter") ? document.getElementById("paymentRegistryDateFilter").value : "all";
+
+    const filtered = receiptsData.filter(r => {
+        const isOutward = r.type === "OUTWARD";
+        if (!isOutward) return false;
+
+        if (dateFilterVal === "today" && !searchTerm) {
+            if (r.date !== todayStr) return false;
+        }
+
+        if (searchTerm) {
+            return (r.devoteeName || "").toLowerCase().includes(searchTerm) ||
+                   (r.id || "").toLowerCase().includes(searchTerm) ||
+                   (r.mobile || "").includes(searchTerm) ||
+                   (r.sevaName || "").toLowerCase().includes(searchTerm);
+        }
+        return true;
+    });
+
+    const showingCount = document.getElementById("paymentShowingCountText");
+    if (showingCount) {
+        showingCount.innerText = dateFilterVal === "today" && !searchTerm
+            ? `Showing ${filtered.length} Today's Payments`
+            : `Showing ${filtered.length} Total Payments`;
+    }
+
+    tbody.innerHTML = filtered.map(r => {
+        return `
+        <tr>
+            <td>
+                <div style="font-weight: 800; color: #0f172a;">${r.devoteeName}</div>
+                <div style="font-size: 0.72rem; color: #64748b;">Ref: ${r.id}</div>
+            </td>
+            <td>
+                <div style="font-weight: 700;">${r.sevaName}</div>
+            </td>
+            <td>
+                <div style="font-size: 0.85rem; font-weight: 600;">${r.mobile}</div>
+                <div style="font-size: 0.72rem; color: #64748b;">${formatDateToDDMMYYYY(r.date)} ${r.time}</div>
+            </td>
+            <td>
+                <div style="font-weight: 900; color: #ef4444;">₹${r.amount.toLocaleString('en-IN')}</div>
+                <span class="status-tag ${r.paymentMode.startsWith('Cash') ? 'tag-booked' : 'tag-pending'}">${r.paymentMode}</span>
+            </td>
+            <td>
+                <span class="status-tag tag-booked" style="background: #dcfce7; color: #15803d;">
+                    ${r.status}
+                </span>
+            </td>
+            <td>
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" onclick="printReceiptById('${r.id}')" class="btn-action-view"
+                        style="padding: 6px 12px; font-size: 0.75rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 5px; cursor: pointer; border: 1px solid #cbd5e1; background: #ffffff; font-weight: 700; color: #334155;">
+                        <i data-lucide="printer" style="width: 14px; height: 14px;"></i> Print
+                    </button>
+                </div>
+            </td>
+        </tr>
+        `;
+    }).join("");
+
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 }
 
 function renderRegistryTable() {
@@ -1741,27 +1874,42 @@ function parseAndFormatDate(dateVal) {
 
 function parseAndFormatTime(timeVal) {
     if (!timeVal) return "";
-    
-    // If it's already in hh:mm AM/PM format, return it as is
-    if (typeof timeVal === 'string' && /^(0?[1-9]|1[0-2]):[0-5]\d\s*(AM|PM|am|pm)$/i.test(timeVal.trim())) {
-        return timeVal.trim().toUpperCase();
+    timeVal = String(timeVal).trim();
+
+    // 12-hour AM/PM format (e.g. 01:20 PM or 1:20 PM)
+    const ampmMatch = timeVal.match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)$/i);
+    if (ampmMatch) {
+        let h = parseInt(ampmMatch[1], 10);
+        const m = ampmMatch[2];
+        const ampm = ampmMatch[3].toUpperCase();
+        return `${String(h).padStart(2, '0')}:${m} ${ampm}`;
     }
-    
+
+    // 24-hour format from Google Sheets (e.g. 13:20 or 13:20:00)
+    const hour24Match = timeVal.match(/^(\d{1,2}):(\d{2})(?::\d{2})?$/);
+    if (hour24Match) {
+        let h = parseInt(hour24Match[1], 10);
+        const m = hour24Match[2];
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12;
+        if (h === 0) h = 12;
+        return `${String(h).padStart(2, '0')}:${m} ${ampm}`;
+    }
+
     try {
         const d = new Date(timeVal);
-        if (isNaN(d.getTime())) return timeVal;
-        
-        // Format to hh:mm AM/PM in Asia/Kolkata timezone
-        return d.toLocaleTimeString('en-US', {
-            timeZone: 'Asia/Kolkata',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true
-        });
+        if (!isNaN(d.getTime())) {
+            return d.toLocaleTimeString('en-US', {
+                timeZone: 'Asia/Kolkata',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
     } catch (e) {
-        console.error("Error parsing time:", e);
-        return timeVal;
+        console.error('Error parsing time:', e);
     }
+    return timeVal;
 }
 
 // --- GOOGLE SHEETS SYNC IMPLEMENTATION ---
@@ -1782,14 +1930,22 @@ async function syncWithGoogleSheets() {
 
     try {
         console.log("[SYNC DEBUG] Fetching spreadsheet data from URL:", API_URL);
-        const res = await fetch(`${API_URL}?t=${Date.now()}`);
+        const queryParams = new URLSearchParams({
+            key: API_SECRET_KEY,
+            t: Date.now()
+        });
+        const res = await fetch(`${API_URL}?${queryParams.toString()}`);
         if (!res.ok) throw new Error(`HTTP network error! status: ${res.status}`);
         const data = await res.json();
+
+        if (data && data.status === "error") {
+            throw new Error(data.message || "Unauthorized access from Google Apps Script");
+        }
         
         if (Array.isArray(data)) {
             const formattedData = data.map((row, idx) => {
                 const rawId = row.id !== undefined && row.id !== null ? row.id : (row.Id !== undefined ? row.Id : (row.ID !== undefined ? row.ID : ""));
-                const idStr = String(rawId).trim();
+                const idStr = formatSerialId(rawId);
                 const sevaOrExpense = row.sevaName || row["Seva Name"] || row.reasonForPayment || row["Reason for Payment"] || "";
                 const isExpenseItem = Object.values(EXPENSE_NAMES).includes(sevaOrExpense) || !!row.reasonForPayment || !!row["Reason for Payment"] || !!row.receiverName || !!row["Receiver Name"] || idStr.endsWith("-OUT");
                 const recType = row.type || row.Type || (isExpenseItem ? "OUTWARD" : "INWARD");
@@ -1864,6 +2020,7 @@ async function postReceiptToGoogleSheets(rec) {
 
     try {
         const payload = {
+            key: API_SECRET_KEY,
             action: "addReceipt",
             id: rec.id,
             date: rec.date,

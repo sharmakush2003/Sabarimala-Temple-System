@@ -1,2 +1,20 @@
+# Local Data & Cache
 data.txt
 .firebase/
+node_modules/
+
+# Logs & Debug Traces
+*.log
+firebase-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment & Credentials
+.env
+.env.local
+.env.*.local
+
+# OS Generated Files
+.DS_Store
+Thumbs.db

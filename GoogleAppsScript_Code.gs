@@ -9,6 +9,18 @@
 // Target Spreadsheet ID (handles standalone scripts gracefully)
 var SPREADSHEET_ID = "1vAZ5zr2M3mbd8pgs-MKs4muulTwUE56dVqnezIlP4QY";
 
+// ========================================================
+// SECURITY CONFIGURATION
+// ========================================================
+// Secret key required to access or modify data.
+// Protects Google Sheets from open unauthenticated access.
+var API_SECRET_KEY = "SABARI_TEMPLE_SECURE_2026_AUTH_KEY";
+
+function isAuthorized(e) {
+  var key = (e && e.parameter && (e.parameter.key || e.parameter.apiKey)) || "";
+  return key === API_SECRET_KEY;
+}
+
 function getSpreadsheet() {
   try {
     return SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -18,6 +30,13 @@ function getSpreadsheet() {
 }
 
 function doGet(e) {
+  if (!isAuthorized(e)) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: "Unauthorized access: Missing or invalid API security key."
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+
   var ss = getSpreadsheet();
   var result = [];
 
@@ -43,8 +62,13 @@ function doGet(e) {
       var row = data[i];
       var rawId = idIdx !== -1 ? row[idIdx] : "";
       if (rawId !== "" && rawId !== undefined && rawId !== null) {
+        var idStr = String(rawId).replace(/^'/, '').trim();
+        var num = parseInt(idStr, 10);
+        if (!isNaN(num)) {
+          idStr = Utilities.formatString("%03d", num);
+        }
         result.push({
-          id: String(rawId),
+          id: idStr,
           date: dateIdx !== -1 ? row[dateIdx] : "",
           time: timeIdx !== -1 ? row[timeIdx] : "",
           devoteeName: nameIdx !== -1 ? String(row[nameIdx]) : "",
@@ -74,6 +98,13 @@ function doGet(e) {
 }
 
 function doPost(e) {
+  if (!isAuthorized(e)) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: "Unauthorized access: Missing or invalid API security key."
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+
   var ss = getSpreadsheet();
   var params = e.parameter || {};
   var type = String(params.type || "INWARD").toUpperCase();
@@ -107,7 +138,7 @@ function doPost(e) {
     var idValues = targetSheet.getRange(2, 1, lastRow - 1, 1).getValues();
     var maxVal = 0;
     for (var k = 0; k < idValues.length; k++) {
-      var numVal = parseInt(idValues[k][0], 10);
+      var numVal = parseInt(String(idValues[k][0]).replace(/^'/, ''), 10);
       if (!isNaN(numVal) && numVal > maxVal) {
         maxVal = numVal;
       }
@@ -115,11 +146,22 @@ function doPost(e) {
     rowId = Math.max(maxVal + 1, lastRow);
   }
 
+  // Format ID with 3 digits padding (e.g. 001, 002)
+  var formattedId = (params.id && String(params.id).trim() !== "") ? String(params.id).trim() : Utilities.formatString("%03d", rowId);
+  var numParsed = parseInt(formattedId.replace(/^'/, ''), 10);
+  if (!isNaN(numParsed)) {
+    formattedId = Utilities.formatString("%03d", numParsed);
+  }
+
+  // Ensure Indian Standard Time (IST)
+  var istDate = (params.date && String(params.date).trim() !== "") ? String(params.date).trim() : Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd");
+  var istTime = (params.time && String(params.time).trim() !== "") ? String(params.time).trim() : Utilities.formatDate(new Date(), "Asia/Kolkata", "hh:mm a");
+
   if (type === "OUTWARD") {
     targetSheet.appendRow([
-      rowId,
-      params.date || "",
-      params.time || "",
+      "'" + formattedId,
+      istDate,
+      istTime,
       params.receiverName || params.devoteeName || "",
       params.mobile || "",
       params.reasonForPayment || params.sevaName || "",
@@ -129,9 +171,9 @@ function doPost(e) {
     ]);
   } else {
     targetSheet.appendRow([
-      rowId,
-      params.date || "",
-      params.time || "",
+      "'" + formattedId,
+      istDate,
+      istTime,
       params.devoteeName || "",
       params.mobile || "",
       params.sevaName || "",
@@ -141,6 +183,6 @@ function doPost(e) {
     ]);
   }
 
-  return ContentService.createTextOutput(JSON.stringify({ status: "success", id: rowId }))
+  return ContentService.createTextOutput(JSON.stringify({ status: "success", id: formattedId }))
     .setMimeType(ContentService.MimeType.JSON);
 }

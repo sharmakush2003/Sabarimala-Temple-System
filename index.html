@@ -62,7 +62,7 @@
 
     <!-- ChittorTech TMS Auth Lock Screen -->
     <div id="loginScreen"
-        style="position: fixed; inset: 0; background: #0f172a; display: none; align-items: center; justify-content: center; z-index: 9999; font-family: 'Inter', sans-serif;">
+        style="position: fixed; inset: 0; background: #0f172a; display: flex; align-items: center; justify-content: center; z-index: 9999; font-family: 'Inter', sans-serif;">
         <div
             style="background: #ffffff; width: 100%; max-width: 420px; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); text-align: center;">
             <!-- Brand Logo Header -->
@@ -84,7 +84,7 @@
                         Address</label>
                     <input type="email" id="authEmail" required
                         style="width: 100%; padding: 12px 16px; font-size: 0.92rem; border-radius: 10px; border: 1px solid #cbd5e1; color: #1e293b; background: #f8fafc; outline: none; transition: border-color 0.2s;"
-                        placeholder="e.g. kushsharma.cor@gmail.com">
+                        placeholder="e.g. admin@temple.org">
                 </div>
 
                 <div style="margin-bottom: 24px;">
@@ -101,7 +101,7 @@
                     Incorrect email address or password key.
                 </div>
 
-                <button type="submit"
+                <button type="submit" id="authSubmitBtn"
                     style="width: 100%; padding: 13px; font-size: 0.95rem; font-weight: 900; color: #ffffff; background: #111827; border: none; border-radius: 12px; cursor: pointer; transition: background 0.2s; box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);"
                     onmouseover="this.style.background='#1f2937'" onmouseout="this.style.background='#111827'">
                     Unlock Dashboard
@@ -110,7 +110,7 @@
         </div>
     </div>
 
-    <div id="protectedContent">
+    <div id="protectedContent" style="display: none;">
         <!-- SIDEBAR (OBSIDIAN GLASS - EXACT DHAM ADMIN PORTAL) -->
         <aside class="sidebar">
             <div class="sidebar-brand">
@@ -228,6 +228,11 @@
                             <input type="text" id="registrySearch" placeholder="Search name, receipt #, mobile..."
                                 style="padding: 8px 12px 8px 36px; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.8rem; width: 100%; font-weight: 600; background: white; outline: none;">
                         </div>
+                        <select id="registryDateFilter"
+                            style="padding: 8px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.82rem; font-weight: 700; background: white; color: #1e293b; outline: none; cursor: pointer;">
+                            <option value="all" selected>All Donations (Inward Data)</option>
+                            <option value="today">Today's Donations Only</option>
+                        </select>
                     </div>
 
                     <div
@@ -280,6 +285,11 @@
                             <input type="text" id="paymentRegistrySearch" placeholder="Search name, voucher #, mobile..."
                                 style="padding: 8px 12px 8px 36px; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.8rem; width: 100%; font-weight: 600; background: white; outline: none;">
                         </div>
+                        <select id="paymentRegistryDateFilter"
+                            style="padding: 8px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.82rem; font-weight: 700; background: white; color: #1e293b; outline: none; cursor: pointer;">
+                            <option value="all" selected>All Payments (Outward Data)</option>
+                            <option value="today">Today's Payments Only</option>
+                        </select>
                     </div>
 
                     <div
@@ -323,7 +333,7 @@
                                 <label
                                     style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">DEVOTEE
                                     NAME (SRI / SMT) *</label>
-                                <input type="text" id="devoteeName" placeholder="e.g. Priyanshu Sharma" required
+                                <input type="text" id="devoteeName" placeholder="e.g. Ramesh Kumar" required
                                     style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                             </div>
 
@@ -331,7 +341,7 @@
                                 <label
                                     style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">MOBILE
                                     NUMBER</label>
-                                <input type="tel" id="devoteeMobile" placeholder="e.g. 7014311772"
+                                <input type="tel" id="devoteeMobile" placeholder="e.g. 9876543210"
                                     style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                             </div>
 
@@ -462,7 +472,7 @@
                                 <label
                                     style="display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 6px; letter-spacing: 0.5px;">MOBILE
                                     NUMBER</label>
-                                <input type="tel" id="payeeMobile" placeholder="e.g. 9845012345"
+                                <input type="tel" id="payeeMobile" placeholder="e.g. 9876543210"
                                     style="width: 100%; padding: 10px 14px; font-size: 0.92rem; border-radius: 10px;">
                             </div>
 
@@ -1120,7 +1130,12 @@
         </div>
     </div>
 
-    <script src="script.js?v=dham_v4_manual"></script>
+    <!-- Firebase App & Auth SDK (v10 compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <!-- Firebase Configuration -->
+    <script src="firebase-config.js?v=prod_3"></script>
+    <script src="script.js?v=prod_3"></script>
     <script>
         if (window.lucide) {
             lucide.createIcons();
