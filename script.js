@@ -166,8 +166,10 @@ function setUIAuthState(isAuthenticated, user = null) {
     if (isAuthenticated) {
         if (loginScreen) loginScreen.style.display = "none";
         if (protectedContent) protectedContent.style.display = "flex";
+        initSevaSelectOptions();
         renderAllViews();
         syncWithGoogleSheets();
+        if (window.lucide) lucide.createIcons();
     } else {
         if (loginScreen) loginScreen.style.display = "flex";
         if (protectedContent) protectedContent.style.display = "none";
@@ -1397,6 +1399,16 @@ function renderVoucherHTML(recNo, dateStr, devoteeName, amountVal, amountWords, 
         `;
 }
 
+function renderAllViews() {
+    if (typeof renderRegistryTable === 'function') renderRegistryTable();
+    if (typeof renderPaymentRegistryTable === 'function') renderPaymentRegistryTable();
+    if (typeof renderTotalDonationsTable === 'function') renderTotalDonationsTable();
+    if (typeof renderStats === 'function') renderStats();
+    if (typeof updateVoucherPreview === 'function') updateVoucherPreview();
+    if (typeof updateVoucherPreviewOutward === 'function') updateVoucherPreviewOutward();
+    if (window.lucide) lucide.createIcons();
+}
+
 function renderRegistryTable() {
     const tbody = document.getElementById("registryTableBody");
     if (!tbody) return;
@@ -1541,115 +1553,6 @@ function renderPaymentRegistryTable() {
     }
 }
 
-function renderRegistryTable() {
-    const tbody = document.getElementById("registryTableBody");
-    if (!tbody) return;
-
-    const todayStr = new Date().toISOString().split('T')[0];
-    const searchTerm = (document.getElementById("registrySearch") ? document.getElementById("registrySearch").value : "").toLowerCase();
-
-    const filtered = receiptsData.filter(r => {
-        const isInward = !r.type || r.type === "INWARD";
-        const isToday = r.date === todayStr;
-        if (!isInward || !isToday) return false;
-        return r.devoteeName.toLowerCase().includes(searchTerm) ||
-               r.id.toLowerCase().includes(searchTerm) ||
-               r.mobile.includes(searchTerm) ||
-               r.sevaName.toLowerCase().includes(searchTerm);
-    });
-
-    tbody.innerHTML = filtered.map(r => {
-        return `
-        <tr>
-            <td>
-                <div style="font-weight: 800; color: #0f172a;">${r.devoteeName}</div>
-                <div style="font-size: 0.72rem; color: #64748b;">Ref: ${r.id}</div>
-            </td>
-            <td>
-                <div style="font-weight: 700;">${r.sevaName}</div>
-            </td>
-            <td>
-                <div style="font-size: 0.85rem; font-weight: 600;">${r.mobile}</div>
-                <div style="font-size: 0.72rem; color: #64748b;">${formatDateToDDMMYYYY(r.date)} ${r.time}</div>
-            </td>
-            <td>
-                <div style="font-weight: 900; color: #10b981;">₹${r.amount.toLocaleString('en-IN')}</div>
-                <span class="status-tag ${r.paymentMode.startsWith('Cash') ? 'tag-booked' : 'tag-pending'}">${r.paymentMode}</span>
-            </td>
-            <td>
-                <span class="status-tag tag-booked" style="background: #dcfce7; color: #15803d;">
-                    ${r.status}
-                </span>
-            </td>
-            <td>
-                <button class="btn-allot" style="padding: 6px 12px; font-size: 0.72rem;" onclick="printVoucherById('${r.id}')">
-                    <i data-lucide="printer" style="width: 14px; height: 14px; margin-right: 4px;"></i> Print
-                </button>
-            </td>
-        </tr>
-        `;
-    }).join('');
-
-    const showingText = document.getElementById("showingCountText");
-    if (showingText) showingText.textContent = `SHOWING ${filtered.length} TODAY'S DONATIONS`;
-
-    if (window.lucide) lucide.createIcons();
-}
-
-function renderPaymentRegistryTable() {
-    const tbody = document.getElementById("paymentRegistryTableBody");
-    if (!tbody) return;
-
-    const todayStr = new Date().toISOString().split('T')[0];
-    const searchTerm = (document.getElementById("paymentRegistrySearch") ? document.getElementById("paymentRegistrySearch").value : "").toLowerCase();
-
-    const filtered = receiptsData.filter(r => {
-        const isOutward = r.type === "OUTWARD";
-        const isToday = r.date === todayStr;
-        if (!isOutward || !isToday) return false;
-        return r.devoteeName.toLowerCase().includes(searchTerm) ||
-               r.id.toLowerCase().includes(searchTerm) ||
-               r.mobile.includes(searchTerm) ||
-               r.sevaName.toLowerCase().includes(searchTerm);
-    });
-
-    tbody.innerHTML = filtered.map(r => {
-        return `
-        <tr>
-            <td>
-                <div style="font-weight: 800; color: #0f172a;">${r.devoteeName}</div>
-                <div style="font-size: 0.72rem; color: #64748b;">Ref: ${r.id}</div>
-            </td>
-            <td>
-                <div style="font-weight: 700;">${r.sevaName}</div>
-            </td>
-            <td>
-                <div style="font-size: 0.85rem; font-weight: 600;">${r.mobile}</div>
-                <div style="font-size: 0.72rem; color: #64748b;">${formatDateToDDMMYYYY(r.date)} ${r.time}</div>
-            </td>
-            <td>
-                <div style="font-weight: 900; color: #ef4444;">₹${r.amount.toLocaleString('en-IN')}</div>
-                <span class="status-tag ${r.paymentMode.startsWith('Cash') ? 'tag-booked' : 'tag-pending'}">${r.paymentMode}</span>
-            </td>
-            <td>
-                <span class="status-tag tag-booked" style="background: #dcfce7; color: #15803d;">
-                    ${r.status}
-                </span>
-            </td>
-            <td>
-                <button class="btn-allot" style="padding: 6px 12px; font-size: 0.72rem;" onclick="printVoucherById('${r.id}')">
-                    <i data-lucide="printer" style="width: 14px; height: 14px; margin-right: 4px;"></i> Print
-                </button>
-            </td>
-        </tr>
-        `;
-    }).join('');
-
-    const showingText = document.getElementById("paymentShowingCountText");
-    if (showingText) showingText.textContent = `SHOWING ${filtered.length} TODAY'S PAYMENTS`;
-
-    if (window.lucide) lucide.createIcons();
-}
 
 function renderTotalDonationsTable() {
     const tbody = document.getElementById("totalDonationBody");
